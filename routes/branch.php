@@ -32,6 +32,9 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('details/{user_id}','UserController@userDetails')->name('branch.userDetails');
             Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('branch.userStatus');
         });
+        Route::group(['prefix'=>'docate'],function(){
+            Route::get('add/form','DocateController@addForm')->name('admin.docate_add_form');
+        });
 
     });
 });

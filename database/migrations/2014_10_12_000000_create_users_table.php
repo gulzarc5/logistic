@@ -19,10 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('mobile')->unique();
             $table->string('role')->nullable();
-            $table->nigInteger('parent_id')->nullable();
+            $table->bigInteger('parent_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('parent_id')->nullable();
             $table->char('status',1)->default('1')->comment('1 = Enable, 2 = Disabled');
             $table->rememberToken();
             $table->timestamps();
