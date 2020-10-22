@@ -114,7 +114,9 @@
                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Out Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       @permission(['create-docate-entry'])
-                        <li class="sub_menu"><a href="{{route('admin.docate_add_form')}}">Docate Entry</a></li>          
+                        <li class="sub_menu"><a href="{{route('branch.docate_add_form')}}">Docate Entry</a></li>          
+                        <li class="sub_menu"><a href="{{ route('branch.manifest_list') }}">Manifest</a></li>
+                        <li class="sub_menu"><a href="#">Baging</a></li>
                       @endpermission
                       @permission(['docate-entry-list'])
                         <li class="sub_menu"><a href="#">Product List</a></li>          

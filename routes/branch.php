@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Branch'],function(){
     Route::get('/branch','LoginController@index')->name('branch.login_form');    
@@ -33,8 +34,16 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('branch.userStatus');
         });
         Route::group(['prefix'=>'docate'],function(){
-            Route::get('add/form','DocateController@addForm')->name('admin.docate_add_form');
+            Route::get('add/form','DocateController@addForm')->name('branch.docate_add_form');
+            Route::post('add','DocateController@addDocate')->name('branch.add_docate');
+            Route::get('city/list/{state_id}','DocateController@cityList')->name('branch.city_list');
         });
-
+        Route::group(['prefix'=>'manifest'],function(){
+            Route::get('list/','ManifestController@manifestList')->name('branch.manifest_list');
+            Route::get('docate/{origin}/{destination}','ManifestController@fetchDocate')->name('branch.fetch_docate');
+            Route::get('fetch/docate/details/{docate_no}','ManifestController@fetchDocateDetails')->name('branch.fetch_docate_details');
+            Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
+            
+        });
     });
 });
