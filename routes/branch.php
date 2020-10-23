@@ -45,5 +45,9 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
             
         });
+        Route::group(['prefix'=>'baging'],function(){
+            Route::get('list/','BagingController@bagingList')->name('branch.baging_list');
+            
+        });
     });
 });

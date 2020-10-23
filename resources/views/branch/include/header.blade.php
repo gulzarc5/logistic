@@ -116,7 +116,7 @@
                       @permission(['create-docate-entry'])
                         <li class="sub_menu"><a href="{{route('branch.docate_add_form')}}">Docate Entry</a></li>          
                         <li class="sub_menu"><a href="{{ route('branch.manifest_list') }}">Manifest</a></li>
-                        <li class="sub_menu"><a href="#">Baging</a></li>
+                        <li class="sub_menu"><a href="{{ route('branch.baging_list') }}">Baging</a></li>
                       @endpermission
                       @permission(['docate-entry-list'])
                         <li class="sub_menu"><a href="#">Product List</a></li>          

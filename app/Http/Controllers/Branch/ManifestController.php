@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\City;
 use Carbon\Carbon;
 use App\Branch\Models\Docate;
+use App\Branch\Models\Manifest;
+use Auth;
 use App\Branch\Models\DocateDetails;
 
 class ManifestController extends Controller
@@ -68,11 +70,14 @@ class ManifestController extends Controller
         
         for ($i=0; $i < $length ; $i++) { 
             $id.="0";
-        }        
-        $docate->manifest_no=$id.$docate->id;
+        }
+        $manifest = new Manifest(); 
+        $manifest->branch_id = Auth::user()->id; 
+        $manifest->docate_id = $docate->id;      
+        $manifest->manifest_no=$id.$docate->id;
         $docate->status = 2;
-        $docate->manifest_date = Carbon::now('Asia/Kolkata');
         $docate->save();
+        $manifest->save();
         return true;
     }
 }

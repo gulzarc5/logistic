@@ -26,7 +26,7 @@
                        <div class="alert alert-danger">{{ Session::get('error') }}</div>
                     @endif
 
-               </div
+                </div>
     	        <div>
                    <div class="x_content">
     	                <div class="well" style="overflow: auto">

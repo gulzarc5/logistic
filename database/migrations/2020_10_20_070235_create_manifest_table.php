@@ -16,7 +16,9 @@ class CreateManifestTable extends Migration
         Schema::create('manifest', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('branch_id');
+            $table->bigInteger('docate_id')->nullable();
             $table->double('manifest_no')->comment('Auto generate 5 digit');
+           
             $table->timestamps();
         });
     }
