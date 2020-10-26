@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManifestTable extends Migration
+class AddColumnToDocateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateManifestTable extends Migration
      */
     public function up()
     {
-        Schema::create('manifest', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('branch_id');
-            $table->double('manifest_no')->comment('Auto generate 5 digit');
-            $table->timestamps();
+        Schema::table('docate', function (Blueprint $table) {
+        //    $table->bigInteger('manifest_id')->nullable()->after('receiver_id');
+           $table->bigInteger('baging_id')->nullable()->after('manifest_id');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateManifestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manifest');
+        Schema::table('docate', function (Blueprint $table) {
+            //
+        });
     }
 }

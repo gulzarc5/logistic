@@ -11,51 +11,52 @@
 <div class="right_col" role="main">
     <div class="row">
     	{{-- <div class="col-md-2"></div> --}}
-    	<div class="col-md-12" style="margin-top:50px;">
-    	    <div class="x_panel">
-                
-    	        <div class="x_title">
-    	            <h2>Manifest List</h2>
-    	            <div class="clearfix"></div>
-                </div>
-                <div>
-                    @if (Session::has('message'))
-                       <div class="alert alert-success" >{{ Session::get('message') }}</div>
-                    @endif
-                    @if (Session::has('error'))
-                       <div class="alert alert-danger">{{ Session::get('error') }}</div>
-                    @endif
-
-                </div>
-    	        <div>
-                   <div class="x_content">
-    	                <div class="well" style="overflow: auto">
-                            <div class="form-row mb-10">
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                    <label for="origin">Origin</label>
-                                    <select class="form-control" name="origin" id="origin">
-                                        <option value="" > Select Origin</option>
-                                        @foreach($city as $value)
-                                            <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
-                                        @endforeach
-                                    </select>                                    
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                <label for="destination">Destination</label>
-                                <select class="form-control" name="destination" id="destination" id="destination" >
-                                    <option value="" >Select Destination</option>
-                                    @foreach($city as $value)
-                                        <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>  
-                        </div>
-                    </div>
-                </div >
-            </div>
+        <div class="col-md-12" style="margin-top:50px;">
             <form method="POST" action="{{ route('branch.add_manifest_no') }}">
-                @csrf
+            @csrf
+                <div class="x_panel">
+                    
+                    <div class="x_title">
+                        <h2>Manifest List</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div>
+                        @if (Session::has('message'))
+                        <div class="alert alert-success" >{{ Session::get('message') }}</div>
+                        @endif
+                        @if (Session::has('error'))
+                        <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                        @endif
+
+                    </div>
+                    <div>
+                    <div class="x_content">
+                            <div class="well" style="overflow: auto">
+                                <div class="form-row mb-10">
+                                    <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                        <label for="origin">Origin</label>
+                                        <select class="form-control" name="origin" id="origin">
+                                            <option value="" > Select Origin</option>
+                                            @foreach($city as $value)
+                                                <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
+                                            @endforeach
+                                        </select>                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                    <label for="destination">Destination</label>
+                                    <select class="form-control" name="destination"  id="destination" >
+                                        <option value="" >Select Destination</option>
+                                        @foreach($city as $value)
+                                            <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>  
+                            </div>
+                        </div>
+                    </div >
+                </div>
+            
                 <div id="docket"></div>
                 <div class="form-group" style="display:none" id="btn">
                     <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>
@@ -134,7 +135,7 @@
                        
                         <tr id="table_row${table_sl_count}">
                             <th id="ids">${table_sl_count}</th>
-                            <th><input type="text" name="docket_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
+                            <th><input type="text" name="docate_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
                             <th id="origin_city${table_sl_count}"></th>
                             <th id="destination_name${table_sl_count}"></th>
                             <th id="weight${table_sl_count}"></th>
@@ -154,9 +155,11 @@
         });
     });
 
-
+    
     function fetchDocate(docate_id,table_id){
-        var docate_data = $("input[name='docket_no[]']")
+        var destination = $('#destination').val();
+        var origin = $('#origin').val();
+        var docate_data = $("input[name='docate_no[]']")
             .map(function(){return $(this).val();}).get();
         var check_docate_duplicate = getOccurrence(docate_data, docate_id);  
         if ((check_docate_duplicate == 0) || (check_docate_duplicate == 1)) {            
@@ -167,7 +170,7 @@
             });
             $.ajax({
                 type:"GET",
-                url:"{{ url('/branch/manifest/fetch/docate/details')}}"+"/"+docate_id,
+                url:"{{ url('/branch/manifest/fetch/docate/details')}}"+"/"+docate_id+"/"+origin+"/"+destination,
                 success:function(response){                    
                     
                     if(response ==1){           
@@ -177,6 +180,7 @@
                         $('#weight'+table_id).html('No Data Found');
                         $('#packet'+table_id).html('No Data Found');
                         $('#Cust_name'+table_id).html('No Data Found');
+                        $('#docate'+table_id).val('');
                     }else{ 
                         $('#origin_city'+table_id).html(response['origin_city_name']);
                         $('#destination_name'+table_id).html(response['destination_city_name']);
@@ -185,7 +189,7 @@
                         $('#Cust_name'+table_id).html(response['receiver_name']);
                         var table_row=`<tr id="table_row${table_sl_count}">
                             <th>${table_sl_count}</th>
-                            <th><input type="text" name="docket_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
+                            <th><input type="text" name="docate_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
                             <th id="origin_city${table_sl_count}"></th>
                             <th id="destination_name${table_sl_count}"></th>
                             <th id="weight${table_sl_count}"></th>

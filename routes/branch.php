@@ -41,12 +41,16 @@ Route::group(['namespace' => 'Branch'],function(){
         Route::group(['prefix'=>'manifest'],function(){
             Route::get('list/','ManifestController@manifestList')->name('branch.manifest_list');
             Route::get('docate/{origin}/{destination}','ManifestController@fetchDocate')->name('branch.fetch_docate');
-            Route::get('fetch/docate/details/{docate_no}','ManifestController@fetchDocateDetails')->name('branch.fetch_docate_details');
+            Route::get('fetch/docate/details/{docate_no}/{origin}/{destination}','ManifestController@fetchDocateDetails')->name('branch.fetch_docate_details');
             Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
             
         });
         Route::group(['prefix'=>'baging'],function(){
             Route::get('list/','BagingController@bagingList')->name('branch.baging_list');
+            Route::get('add/form/{manifest_no}','BagingController@fetchAddForm')->name('branch.fetch_baging_add_form');
+            
+            Route::post('add/no','BagingController@addBagingNo')->name('branch.add_baging_no');
+            // Route::get('details/{manifest_no}','BagingController@fetchBagingDetails')->name('branch.fetch_baging_details');
             
         });
     });

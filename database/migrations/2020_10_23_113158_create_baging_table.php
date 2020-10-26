@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManifestTable extends Migration
+class CreateBagingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateManifestTable extends Migration
      */
     public function up()
     {
-        Schema::create('manifest', function (Blueprint $table) {
+        Schema::create('baging', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('branch_id');
-            $table->double('manifest_no')->comment('Auto generate 5 digit');
+            $table->bigInteger('manifest_id')->nullable();
+            $table->bigInteger('docate_id');
+            $table->string('lock_no');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateManifestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manifest');
+        Schema::dropIfExists('baging');
     }
 }
