@@ -117,6 +117,7 @@
                         <li class="sub_menu"><a href="{{route('branch.docate_add_form')}}">Docate Entry</a></li>          
                         <li class="sub_menu"><a href="{{ route('branch.manifest_list') }}">Manifest</a></li>
                         <li class="sub_menu"><a href="{{ route('branch.baging_list') }}">Baging</a></li>
+                        <li class="sub_menu"><a href="{{ route('branch.sector_booking_list') }}">Sector Booking</a></li>
                       @endpermission
                       @permission(['docate-entry-list'])
                         <li class="sub_menu"><a href="#">Product List</a></li>          
@@ -124,13 +125,17 @@
                     </ul>
                   </li>                  
                   @endpermission
-
-                 
-
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> In Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       {{-- <li class="sub_menu"><a href="{{route('admin.main_category_list')}}">Main Category List</a></li>
                       <li class="sub_menu"><a href="{{route('admin.sub_category_list')}}">Sub Category List</a></li> --}}
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-archive" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a href="#">Inbound</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.report_form') }}">Outbound</a></li>
+                      <li class="sub_menu"><a href="#">Inquiry</a></li>
                     </ul>
                   </li>
 

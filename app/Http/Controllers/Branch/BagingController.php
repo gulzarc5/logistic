@@ -40,19 +40,18 @@ class BagingController extends Controller
 
 
     public function addBagingNo(Request $request){
-        
         $this->validate($request, [
             'lock_no'=> 'required',
             'manifest_number'=>'required',
             'docate_id'=>'required'
         ]);
-        
-        
         $docate_ids = $request->input('docate_id');
-        $manifest = Manifest::where('manifest_no', $request->input('manifest_number'))->first();
+        $lock_no = $request->input('lock_no');
+        $manifest_no = $request->input('manifest_number');
+        $manifest = Manifest::where('manifest_no', $manifest_no)->first();
         $baging = new Baging();
         $baging->manifest_id = $manifest->id;
-        $baging->lock_no = $request->input('lock_no');
+        $baging->lock_no = $lock_no ;
         $baging->save();
         if(count($docate_ids)>=0){
             foreach($docate_ids as $docate_id){
@@ -62,24 +61,10 @@ class BagingController extends Controller
                     $docate->baging_id = $baging->id;
                     $docate->save();
                 }
-                
             }
         }
         return redirect()->back()->with('message',"baging done successfully");
-
     }
 
-    // public function fetchBagingDetails($manifest_no){   
-    //     $docate_data = Docate::select('docate.docate_id as docate_no')
-    //         ->where('manifest.manifest_no',$manifest_no)
-    //         ->where('manifest.branch_id','=',Auth::user()->id)
-    //         ->where('docate.status','=',2)
-    //         ->join('manifest','docate.id','=','manifest.docate_id')
-    //         ->first();
-    //     if(!(array)$docate_data){
-    //         return 1;
-    //     }else{
-    //         return $docate_data;
-    //     }
-    // }
+    
 }

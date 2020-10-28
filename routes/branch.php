@@ -38,6 +38,8 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::post('add','DocateController@addDocate')->name('branch.add_docate');
             Route::get('city/list/{state_id}','DocateController@cityList')->name('branch.city_list');
         });
+
+
         Route::group(['prefix'=>'manifest'],function(){
             Route::get('list/','ManifestController@manifestList')->name('branch.manifest_list');
             Route::get('docate/{origin}/{destination}','ManifestController@fetchDocate')->name('branch.fetch_docate');
@@ -45,13 +47,25 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
             
         });
+
+
         Route::group(['prefix'=>'baging'],function(){
             Route::get('list/','BagingController@bagingList')->name('branch.baging_list');
             Route::get('add/form/{manifest_no}','BagingController@fetchAddForm')->name('branch.fetch_baging_add_form');
-            
             Route::post('add/no','BagingController@addBagingNo')->name('branch.add_baging_no');
-            // Route::get('details/{manifest_no}','BagingController@fetchBagingDetails')->name('branch.fetch_baging_details');
-            
+        });
+
+        Route::group(['prefix'=>'sectorbooking'],function(){
+            Route::get('list/','SectorBookingController@sectorBookingList')->name('branch.sector_booking_list');
+            Route::get('add/form/{manifest_no}','SectorBookingController@fetchAddForm')->name('branch.fetch_baging_add_form');
+            Route::post('add/no','SectorBookingController@sectorBook')->name('branch.sector_book');
+
+        });
+
+        Route::group(['prefix'=>'report'],function(){
+            Route::get('form','ReportController@reportForm')->name('branch.report_form');
+            Route::post('fetch/all/entries','ReportController@fetchAllEntries')->name('branch.fetch_all_entries');
+           
         });
     });
 });

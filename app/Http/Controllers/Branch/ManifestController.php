@@ -84,9 +84,7 @@ class ManifestController extends Controller
         
         $id = strtoupper($city_name);
         
-        for ($i=0; $i < $length ; $i++) { 
-            $id.="0";
-        }
+        $id .= str_pad($id, $length, '0');
 
         $manifest->branch_id =Auth::user()->id; 
         $manifest->manifest_no=$id.$manifest->id;

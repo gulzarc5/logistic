@@ -14,8 +14,9 @@ class AddColumnToDocateTable extends Migration
     public function up()
     {
         Schema::table('docate', function (Blueprint $table) {
-        //    $table->bigInteger('manifest_id')->nullable()->after('receiver_id');
+           $table->bigInteger('manifest_id')->nullable()->after('receiver_id');
            $table->bigInteger('baging_id')->nullable()->after('manifest_id');
+           $table->bigInteger('sector_id')->nullable()->after('baging_id');
         });
     }
 
