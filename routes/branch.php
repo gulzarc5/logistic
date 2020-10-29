@@ -67,5 +67,14 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::post('fetch/all/entries','ReportController@fetchAllEntries')->name('branch.fetch_all_entries');
            
         });
+
+        Route::group(['prefix'=>'inquiry'],function(){
+            Route::get('form','InquiryController@showInquiryForm')->name('branch.inquiry_form');
+            Route::get('fetch/docate/{docate_id}','InquiryController@fetchDocate')->name('branch.fetch_docate');
+            Route::get('details/form','InquiryController@detailsForm')->name('branch.details_form');
+            Route::get('get/details','InquiryController@getDetails')->name('branch.get_details');
+            // Route::get('get/baging/details/{docate_id}','InquiryController@retriveBagingDetails')->name('branch.retrive_baging_details');
+            // Route::get('sector/booking/details/{docate_id}','InquiryController@sectorDetails')->name('branch.retrive_sector_details');
+        });
     });
 });

@@ -135,7 +135,7 @@
                     <ul class="nav child_menu">
                       <li class="sub_menu"><a href="#">Inbound</a></li>
                       <li class="sub_menu"><a href="{{ route('branch.report_form') }}">Outbound</a></li>
-                      <li class="sub_menu"><a href="#">Inquiry</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.details_form') }}" target="_blank">Inquiry</a></li>
                     </ul>
                   </li>
 

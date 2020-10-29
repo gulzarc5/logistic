@@ -243,7 +243,9 @@ printWindow.document.write(`
                         @elseif(isset($baged_data))
                             <h4>Baged Data</h4>
                         @else
+                        @if(isset($sector_data))
                             <h4>Sector Booked Data</h4>
+                        @endif
                         @endif
                         <tr class="headings">
                             @if(isset($manifest_data)or isset($baged_data))
