@@ -115,6 +115,8 @@
                       @permission(['create-docate-entry'])
                         <li class="sub_menu"><a href="{{route('admin.cannote_add_form')}}">New Entry</a></li>          
                       @endpermission
+                      <li class="sub_menu"><a href="{{ route('admin.docate_list') }}">Docate List</a></li>  
+                      <li class="sub_menu"><a href="{{ route('admin.manifest_list') }}">Manifest List</a></li>  
                       @permission(['docate-entry-list'])
                         <li class="sub_menu"><a href="#">Product List</a></li>          
                       @endpermission

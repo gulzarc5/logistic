@@ -82,5 +82,16 @@ Route::group(['namespace' => 'Admin'],function(){
             
             // Route::put('update/{id}','CannoteController@stateUpdate')->name('admin.state_update');
         });
+
+        Route::group(['prefix'=>'docate'],function(){
+            Route::get('list','DocateController@docateList')->name('admin.docate_list');
+            Route::get('fetch/docates/{start_date}/{end_date}/{branch_id}','DocateController@docateListAjax')->name('admin.fetch_docates');
+            Route::get('view/{id}','DocateController@viewDocate')->name('admin.view_docate');
+        });
+        Route::group(['prefix'=>'manifest'],function(){
+            Route::get('list','ManifestController@manifestList')->name('admin.manifest_list');
+            Route::get('fetch/manifest/{start_date}/{end_date}/{branch_id}','ManifestController@manifestListAjax')->name('admin.fetch_manifests');
+            Route::get('view/{id}','ManifestController@viewManifest')->name('admin.view_manifest');
+        });
     });
 });
