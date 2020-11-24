@@ -65,10 +65,12 @@
                         @elseif(isset($baged_data))
                             <h4>Baged Data</h4>
                         @else
-                            <h4>Sector Booked Data</h4>
+                            @if(isset($sector_data))
+                                <h4>Sector Booked Data</h4>
+                            @endif
                         @endif
                         <tr class="headings">
-                            @if(isset($manifest_data)or isset($baged_data))
+                            @if(isset($manifest_data)or isset($baged_data) or isset($docate_data))
                                 <th class="column-title" id="docate_no">Docate No</th>
                             @endif
                             @if(isset($manifest_data)or isset($baged_data) or isset($sector_data))
@@ -248,7 +250,7 @@ printWindow.document.write(`
                         @endif
                         @endif
                         <tr class="headings">
-                            @if(isset($manifest_data)or isset($baged_data))
+                            @if(isset($manifest_data)or isset($baged_data) or isset($docate_data))
                                 <th class="column-title" style="padding:10px;background:#f9d776" id="docate_no">Docate No</th>
                             @endif
                             @if(isset($manifest_data)or isset($baged_data) or isset($sector_data))

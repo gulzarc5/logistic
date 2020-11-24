@@ -57,7 +57,9 @@
                     </div >
                 </div>
             
-                <div id="docket"></div>
+                <div id="docket">
+                    
+                </div>
                 <div class="form-group" style="display:none" id="btn">
                     <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>
                 </div>

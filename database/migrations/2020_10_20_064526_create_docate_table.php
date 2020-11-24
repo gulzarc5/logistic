@@ -16,6 +16,10 @@ class CreateDocateTable extends Migration
         Schema::create('docate', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('docate_id');
+            $table->bigInteger('manifest_id')->nullable();
+            $table->bigInteger('baging_id')->nullable();
+            $table->bigInteger('sector_id')->nullable();
+            $table->date('pickup_date')->nullable();
             $table->string('paymen_option')->comment('c = credit, cod= Topay, cash = cash');
             $table->double('collecting_amount')->nullable();
             $table->bigInteger('origin')->comment('city_id');

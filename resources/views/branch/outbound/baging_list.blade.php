@@ -33,7 +33,7 @@
                     <div class="x_content">
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
-                                    <div class="col-md-4 col-sm-12 col-xs-12 mb-3" style="display: none;">
+                                    <div class="col-md-4 col-sm-12 col-xs-12 mb-3" >
                                         <label for="origin">Origin</label>
                                         <select class="form-control" name="origin" id="origin">
                                             <option value="" > Select Origin</option>
@@ -44,7 +44,7 @@
                                                                             
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3" style="display: none;">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3" >
                                     <label for="destination">Destination</label>
                                     <select class="form-control" name="destination" id="destination" id="destination" >
                                         <option value="" >Select Destination</option>
@@ -53,7 +53,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="manifest_no">Manifest Number</label>
                                     <input type="text" class="form-control" id="manifest_no" name="manifest_number">
                                 </div>
@@ -82,10 +82,10 @@
                             <th class="column-title"></th>
                             <th class="column-title">Docate No</th>
                             <th class="column-title">Sender Name</th>
-                            <th class="column-title"> Origin</th>
-                            <th class="column-title">Destination</th>
                             <th class="column-title">Receiver Name</th>
-                            </th>
+                            <th class="column-title">Packet</th>
+                            <th class="column-title">Actual Weight</th>
+                            
                         </tr>
                       </thead>
                       <tbody id="data_row">

@@ -8,7 +8,7 @@ Route::group(['namespace' => 'Admin'],function(){
     Route::post('login', 'LoginController@adminLogin');
     Route::get('city/list/{state_id}' ,'ConfigurationController@cityListWithState')->name('admin.city_list_with_state');
  
-    Route::group(['middleware'=>['auth','AdminUser'],'prefix'=>'admin'],function(){
+    Route::group(['middleware'=>['role:Admin'],'prefix'=>'admin'],function(){
         Route::get('/dashboard', 'DashboardController@dashboardView')->name('admin.deshboard');        
         Route::post('logout', 'LoginController@logout')->name('admin.logout');
         Route::get('/change/password/form', 'DashboardController@changePasswordForm')->name('admin.change_password_form');

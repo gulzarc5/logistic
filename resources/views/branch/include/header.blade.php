@@ -84,7 +84,7 @@
                 <ul class="nav side-menu">
                   <li><a href="{{ route('branch.deshboard')}}"><i class="fa fa-home"></i> Home </span></a></li>
 
-                  @permission(['create-roles','view-role-list','edit-role'])
+                  {{-- @permission(['create-roles','view-role-list','edit-role'])
                   <li><a><i class="fa fa-users" aria-hidden="true"></i> Users Roles<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">  
                       @permission(['create-roles'])                    
@@ -108,7 +108,7 @@
                       @endpermission
                     </ul>
                   </li>
-                  @endpermission
+                  @endpermission --}}
                   
                   @permission(['create-docate-entry','docate-entry-list'])
                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Out Bound <span class="fa fa-chevron-down"></span></a>
@@ -127,8 +127,10 @@
                   @endpermission
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> In Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      {{-- <li class="sub_menu"><a href="{{route('admin.main_category_list')}}">Main Category List</a></li>
-                      <li class="sub_menu"><a href="{{route('admin.sub_category_list')}}">Sub Category List</a></li> --}}
+                      <li class="sub_menu"><a href="{{ route('branch.sector_pickup_form') }}">Sector Pickup</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.drs_prepared_form') }}">DRS Prepared </a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.drs_closed_form') }}">DRS Closed</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.negative_status_form') }}">Negative Status</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-archive" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>

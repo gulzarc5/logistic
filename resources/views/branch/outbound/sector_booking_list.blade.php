@@ -33,55 +33,74 @@
                     <div>
                         <div class="x_content">
                             <div class="well" style="overflow: auto">
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="manifest_no">Manifest Number</label>
                                     <input type="text" class="form-control" id="manifest_no" name="manifest_number">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="coloader_name">Co-Loader Name</label>
-                                    <input type="text" class="form-control" id="coloader_name" name="coloader_name">
-                                </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="date">Date</label>
-                                    <input type="date" class="form-control" id="date" name="date">
-                                </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="time">Time</label>
-                                    <input type="time" class="form-control" id="time" name="time">
-                                </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="booked_by">Booked By</label>
-                                    <input type="text" class="form-control" id="booked_by" name="booked_by">
-                                </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="mode">Mode</label>
-                                    <select class="form-control" name="mode" id="mode">
-                                        @foreach($modes as $mode)
-                                            <option value="{{ $mode->send_mode }}" name="mode">{{ $mode->send_mode }}</option>
+                               
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="origin">Origin</label>
+                                    <select class="form-control" name="origin" id="origin">
+                                        <option value="" > Select Origin</option>
+                                        @foreach($city as $value)
+                                            <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="destination">Destination</label>
+                                    <select class="form-control" name="destination"  id="destination" >
+                                        <option value="" >Select Destination</option>
+                                        @foreach($city as $value)
+                                            <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="coloader_name">Co-Loader Name</label>
+                                    <input type="text" class="form-control" id="coloader_name" name="coloader_name">
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="date">Book Date</label>
+                                    <input type="date" class="form-control" id="date" name="date">
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="time">Book Time</label>
+                                    <input type="time" class="form-control" id="time" name="time">
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="booked_by">Booked By</label>
+                                    <input type="text" class="form-control" id="booked_by" name="booked_by">
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="mode">Mode</label>
+                                    <select class="form-control" name="mode" id="mode">
+                                        <option value="Air" name="mode">By Air</option>
+                                        <option value="Train" name="mode">By Train</option>
+                                        <option value="Road" name="mode">By Road</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="vehicle_no">Ft No/Train No/Vehicle No</label>
                                     <input type="text" class="form-control" id="vehicle_no" name="vehicle_no">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="cd_no">CD No</label>
                                     <input type="text" class="form-control" id="cd_no" name="cd_no">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="dep_date">Departure Date</label>
                                     <input type="date" class="form-control" id="dep_date" name="dep_date">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="dep_time">Departure Time</label>
                                     <input type="time" class="form-control" id="dep_time" name="dep_time">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="arr_date">Arrival Date</label>
                                     <input type="date" class="form-control" id="arr_date" name="arr_date">
                                 </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="arr_time">Arrival Time</label>
                                     <input type="time" class="form-control" id="arr_time" name="arr_time">
                                 </div>
@@ -98,6 +117,9 @@
                             <th class="column-title">Docate No</th>
                             <th class="column-title">Weight</th>
                             <th class="column-title">Packet</th>
+                            <th class="column-title">Lock No</th>
+                            <th class="column-title">Sender Name </th>
+                            <th class="column-title">Receiver Name</th>
                         </tr>
                       </thead>
                       <tbody id="data_row">
@@ -119,6 +141,8 @@
 <script src="{{ asset('admin/select2-4.1.0-beta.1/dist/js/select2.min.js')}}"></script>
 <script>
     var table_sl_count=0;
+    $('#origin').select2();
+    $('#destination').select2();
 $("#manifest_no").change(function(){
       
         var manifest_no = $(this).val();
@@ -133,15 +157,16 @@ $("#manifest_no").change(function(){
             url:"{{ url('/branch/sectorbooking/add/form')}}"+"/"+manifest_no,
             success:function(response){
                 if(response == 2){
-                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Manifest Found </th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Bagged Found </th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
                     $('#sector_list').show();
                 }else{
                     
                     $('#row'+table_sl_count).remove();
                     $.each( response, function( key, value ) {
-                                $("#data_row").append("<tr id="+'row'+table_sl_count+"><th>"+value.docate_id+"<input type='hidden' name='docate_id[]' id="+'docate_id'+table_sl_count+"><input type='hidden' name='origin_city' id="+'origin_city'+table_sl_count+"></th><th>"+value.actual_weight+"</th><th>"+value.no_of_box+"</th>[]'></th></tr>");
+                       
+                                $("#data_row").append("<tr id="+'row'+table_sl_count+"><th>"+value.docate_id+"<input type='hidden' name='docate_id[]' id="+'docate_id'+table_sl_count+"></th><th>"+value.actual_weight+"</th><th>"+value.no_of_box+"</th><th>"+value.lock_no+"</th><th>"+value.sender_name+"</th><th>"+value.receiver_name+"</th></tr>");
                                 $("#docate_id"+table_sl_count).val(value.id);
-                                $("#origin_city"+table_sl_count).val(value.origin_city);
+                              
                     table_sl_count++;
                 });                         
                 $('#sector_list').show();

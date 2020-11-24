@@ -6,6 +6,8 @@
         color:red;
     }
 </style>
+<link href="{{ asset('admin/select2-4.1.0-beta.1/dist/css/select2.min.css') }}" rel="stylesheet" />
+
 <div class="right_col" role="main">
     <div class="row">
     	{{-- <div class="col-md-2"></div> --}}
@@ -31,36 +33,35 @@
     	            <div class="x_content">
     	                <div class="well" style="overflow: auto">
                             <div class="form-row mb-10">
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                    <label for="origin">Origin<span><b style="color: red"> * </b></span></label>
-                                    <select class="form-control" name="origin">
-                                        <option value="" > Select Origin</option>
-                                    @foreach($city as $value)
-                                        <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
-                                    @endforeach
-                                    </select>
-                                    @if($errors->has('origin'))
-                                        <span class="invalid-feedback" role="alert" style="color:red">
-                                            <strong>{{ $errors->first('origin') }}</strong>
-                                        </span>
-                                    @enderror
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3" id="doc_div">
+                                    <label for="cn_no">CN No<span><b style="color: red"> * </b></span><span class="invalid-feedback" role="alert" style="color:red;" id="error_doc">
+                                        
+                                    </span></label>
+                                    <input type="text" class="form-control" id="cn_no" name="cn_no">
+                                    
+                                @if($errors->has('cn_no'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('cn_no') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
+                                
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                    <label for="destination">Select Mode<span><b style="color: red"> * </b></span></label>
-                                    <select class="form-control" name="destination"  id="destination" >
-                                        <option value="Air" name="destination">By Air</option>
-                                        <option value="Train" name="destination">By Train</option>
-                                        <option value="Road" name="destination">By Road</option>
+                                    <label for="mode">Select Mode<span><b style="color: red"> * </b></span></label>
+                                    <select class="form-control" name="mode"  id="mode" >
+                                        <option value="Air" name="mode">By Air</option>
+                                        <option value="Train" name="mode">By Train</option>
+                                        <option value="Road" name="mode">By Road</option>
                                     </select>
-                                    @if($errors->has('destination'))
+                                    @if($errors->has('mode'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
-                                            <strong>{{ $errors->first('destination') }}</strong>
+                                            <strong>{{ $errors->first('mode') }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="payment_type">Select Payment Type<span><b style="color: red"> * </b></span></label>
-                                    <select class="form-control" name="payment_type" id="payment_type" >
+                                    <select class="form-control" id="payment_div" name="payment_type" id="payment_type" >
                                         <option value="c" name="payment_type">Credit</option>
                                         <option value="cod" name="payment_type">Topay</option>
                                         <option value="cash" name="payment_type">Cash</option>
@@ -71,15 +72,34 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3" id="amount_div" style="display: none">
                                     <label for="amount">Collecting Amount</label>
-                                    <input type="number" class="form-control" name="amount" value="{{ old('amount') }}" >
+                                    <input type="number"  class="form-control" name="amount" value="{{ old('amount') }}" >
                                     @if($errors->has('amount'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('amount') }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3" >
+                                <label for="pickup_date">Pickup Date</label>
+                                <input type="date"  class="form-control" name="pickup_date" value="{{ old('pickup_date') }}" >
+                                @if($errors->has('pickup_date'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('pickup_date') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3" >
+                                <label for="pickup_time">Pickup Time</label>
+                                <input type="time"  class="form-control" name="pickup_time" value="{{ old('pickup_time') }}" >
+                                @if($errors->has('pickup_time'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('pickup_time') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                                 
                             </div>
                         </div>
@@ -100,7 +120,6 @@
                                     @foreach($state as $value)
                                         <option value="{{ $value->id }}"  name="sender_state">{{ $value->name }}</option>
                                     @endforeach
-                                   
                                 </select>
                                 @if($errors->has('sender_state'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
@@ -123,7 +142,7 @@
 
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                 <label for="sender_pin">Pin<span><b style="color: red"> * </b></span></label>
-                                <input type="text" class="form-control" name="sender_pin"  placeholder="Enter  Pin"  value="{{ old('sender_pin') }}" >
+                                <input type="number" class="form-control" name="sender_pin"  placeholder="Enter  Pin"  value="{{ old('sender_pin') }}" >
                                 @if($errors->has('sender_pin'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
                                         <strong>{{ $errors->first('sender_pin') }}</strong>
@@ -132,9 +151,14 @@
                             </div> 
 
                             <div class="form-row mb-10">
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
                                     <label for="sender_address" >Address <span><b style="color: red"> * </b></span></label>
                                     <textarea class="form-control" rows="4" name="sender_address" placeholder="Type Address">{{ old('sender_address') }}</textarea>
+                                    @if($errors->has('sender_address'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('sender_address') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                             </div>
                         </div>
@@ -178,7 +202,7 @@
 
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                 <label for="receiver_pin">Pin<span><b style="color: red"> * </b></span></label>
-                                <input type="text" class="form-control" name="receiver_pin"  placeholder="Enter  Pin"  value="{{ old('receiver_pin') }}" >
+                                <input type="number" class="form-control" name="receiver_pin"  placeholder="Enter  Pin"  value="{{ old('receiver_pin') }}" >
                                 @if($errors->has('receiver_pin'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
                                         <strong>{{ $errors->first('receiver_pin') }}</strong>
@@ -187,9 +211,14 @@
                             </div> 
 
                             <div class="form-row mb-10">
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
                                     <label for="receiver_address" >Address <span><b style="color: red"> * </b></span></label>
                                     <textarea class="form-control" rows="4" name="receiver_address" placeholder="Type Address">{{ old('receiver_address') }}</textarea>
+                                    @if($errors->has('receiver_address'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('receiver_address') }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -197,7 +226,7 @@
                             <div class="form-row mb-10">
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="box">No of Box<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="box"  value="{{ old('box') }}" placeholder="Enter  No of boxs"  value="{{ old('box') }}" >
+                                    <input type="text" class="form-control" name="box"  id="box" value="{{ old('box') }}" placeholder="Enter  No of boxs"  value="{{ old('box') }}" >
                                     @if($errors->has('box'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('box') }}</strong>
@@ -231,46 +260,19 @@
                                         </span>
                                     @enderror
                                 </div> 
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                    <label for="invoice_no">Invoice No<span><b style="color: red"> * </b></span></label>
+                                    <input type="text" class="form-control" name="invoice_no"  value="{{ old('invoice_no') }}" >
+                                    @if($errors->has('invoice_no'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('invoice_no') }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> 
                             </div>
                        </div>
-                       <div class="well" style="overflow: auto" id="content_div">
-                            <div class="row" style="margin: 20px">
-                                <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
-                                    <label for="content">Content<span><b style="color: red"> * </b></span></label>
-                                    <textarea class="form-control" name="content[]"  value="{{ old('content') }}" required></textarea>
-                                </div> 
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                                    <label for="length">L<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="length[]"  value="{{ old('length') }}" required>                                    
-                                </div> 
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3" style="width: 3%;">
-                                    <br/>
-                                    <h4 style="margin-top: 15px;">X</h4>
-                                </div>
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                                    <label for="breadth">B<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="breadth[]" value="{{ old('breadth') }}" required>
-                                </div> 
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3" style="width: 3%;">
-                                    <br/>
-                                    <h4  style="margin-top: 15px;">X</h4>
-                                </div>
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                                    <label for="height">H<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="height[]" value="{{ old('height') }}" required>
-                                </div>
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                                    <br>
-                                    <h4 style="margin-top: 15px;">/ 5000 </h4>
-                                </div>
-                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                                    <label for="total">Test<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="total[]"  value="{{ old('total') }}" required>
-                                </div> 
-                                <div class="col-md-1 col-sm-12 col-xs-12 mb-3" style="margin-top: 25px;">
-                                        <button type="button" class="btn btn-sm btn-info" onclick="add_more_div()">Add More</button>
-                                </div>
-                            </div>
+                       <div class="well" style="overflow: auto;display:none;" id="content_div" >
+                           
                             
                         </div>
 
@@ -292,7 +294,7 @@
  @endsection
 
 @section('script')
-
+<script src="{{ asset('admin/select2-4.1.0-beta.1/dist/js/select2.min.js')}}"></script>
 @include('branch.outbound.docate_script');
 
 @endsection
