@@ -12,5 +12,10 @@ class DocateDetails extends Model
         'docate_id','name','state','city','pin','address'
     ];
 
+    public function cityName()
+    {
+        return $this->belongsTo('App\City','city','id');
+    }
+
    
 }

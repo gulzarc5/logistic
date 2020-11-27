@@ -56,7 +56,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{route('admin.deshboard')}}" class="site_title">
+              <a href="{{route('branch.deshboard')}}" class="site_title">
                 <img src="{{ asset('logo/logo.png')}}" height="50" style=" width: 90%;">
               </a>
             </div>
@@ -133,13 +133,10 @@
                       <li class="sub_menu"><a href="{{ route('branch.negative_status_form') }}">Negative Status</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-archive" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li class="sub_menu"><a href="#">Inbound</a></li>
-                      <li class="sub_menu"><a href="{{ route('branch.report_form') }}">Outbound</a></li>
-                      <li class="sub_menu"><a href="{{ route('branch.details_form') }}" target="_blank">Inquiry</a></li>
-                    </ul>
-                  </li>
+                  <li><a href="{{ route('branch.report_form') }}"><i class="fa fa-archive" aria-hidden="true"></i> Report </a></li>
+                 
+                  <li class="sub_menu"><a href="{{ route('branch.details_form') }}" target="_blank"><i class="fa fa-asterisk"></i>Inquiry</a></li>
+                
 
                   {{-- <li> <a href="{{route('admin.change_password_form')}}"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a></li> --}}
 

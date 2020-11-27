@@ -85,7 +85,7 @@
                 url:"{{ url('/branch/inbound/sector_pickup/fetch/add/form')}}"+"/"+cd_no,
                 success:function(response){
                     if(response == 2){
-                        $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Docates Found</th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                        $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='6'>No Docates Found </td></tr>`);
                         $('#sector_list').show();
                     }else{
                         

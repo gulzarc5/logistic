@@ -106,7 +106,7 @@
                 url:"{{ url('/branch/inbound/drs_prepared/get/form')}}"+"/"+cd_no,
                 success:function(response){
                     if(response == 2){
-                        $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Pick Up Docates Found</th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                        $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='9'>No Docates Found </td></tr>`);
                         $('#sector_list').show();
                     }else{
                         

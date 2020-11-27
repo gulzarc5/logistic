@@ -271,7 +271,7 @@ class InboundController extends Controller
                         ->select('docate.*','inbound.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
                         ->get();
 
-        if($data){
+        if(count($data)>0){
             return $data;
         }else{
             return 2;
