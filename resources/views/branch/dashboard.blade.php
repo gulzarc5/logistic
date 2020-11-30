@@ -64,7 +64,7 @@
             @else
             <td></td>
             <td></td>
-            <td>No Docates Packed today</td>
+            <td>No Docates Delivered today</td>
             <td></td>
             @endif
           </tbody>

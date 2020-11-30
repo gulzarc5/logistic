@@ -68,7 +68,9 @@ Route::group(['namespace' => 'Branch'],function(){
 
         Route::group(['prefix'=>'report'],function(){
             Route::get('form','ReportController@reportForm')->name('branch.report_form');
-            Route::post('fetch/all/entries','ReportController@fetchAllEntries')->name('branch.fetch_all_entries');
+            Route::get('fetch/all/entries/','ReportController@fetchAllEntries')->name('branch.fetch_all_entries');
+            Route::get('view/details/{id}','ReportController@viewDetails')->name('branch.view_details');
+            Route::post('docate/report/download','ReportController@DocateListExcelExport')->name('branch.docate_report_downloads_xls');
            
         });
 
@@ -91,7 +93,7 @@ Route::group(['namespace' => 'Branch'],function(){
 
             Route::group(['prefix'=>'drs_prepared'],function(){
                 Route::get('form','InboundController@drsPreparedForm')->name('branch.drs_prepared_form');
-                Route::get('get/form/{cd_no}','InboundController@fetchDrsPreparedForm')->name('branch.fetch_drs_prepared_form');
+                Route::get('get/form/{docate_id}','InboundController@fetchDrsPreparedForm')->name('branch.fetch_drs_prepared_form');
                 Route::post('done','InboundController@drsPreparedDone')->name('branch.drs_prepared_done');
     
             });

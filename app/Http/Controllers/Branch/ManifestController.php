@@ -65,7 +65,7 @@ class ManifestController extends Controller
                         $docate = Docate::where('docate_id',$docate_no)->where('branch_id',Auth::user()->id)->first();
                         
                         $docate_history = new DocateHistory();
-                        if($docate->status=1){
+                        if($docate->courier_status==1){
                             $docate->status = 2;
                             $docate->courier_status = 2;
                             $docate->manifest_id = $manifest_id;
@@ -78,7 +78,7 @@ class ManifestController extends Controller
                             $docate_history->comments = "Docate Manifested";
                             $docate_history->save();
                         }else{
-                            if($docate->status=5){
+                            if($docate->courier_status==5){
                                 $docate->courier_status = 6;
                                 $docate->manifest_id = $manifest_id;
                                 $docate->save();

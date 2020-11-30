@@ -65,7 +65,7 @@ class BagingController extends Controller
         $manifest_no = $request->input('manifest_number');
         $manifest = Manifest::where('manifest_no', $manifest_no)->where('branch_id',Auth::user()->id)->first();
         $manifest_details = ManifestDetails::where('manifest_id',$manifest->id)->first();
-        if($manifest_details->status =1){
+        if($manifest_details->status ==1){
             $manifest_detail =  new ManifestDetails();
             $manifest_detail->status=2;
             $manifest_detail->manifest_id = $manifest->id;
@@ -91,7 +91,7 @@ class BagingController extends Controller
                 $baging_details->status = 1;
                 $baging_details->save();
                
-                if($docate->courier_status=2){
+                if($docate->courier_status==2){
                     $docate->status = 3;
                     $docate->courier_status = 3;
                     $docate->baging_id = $baging->id;
@@ -102,7 +102,7 @@ class BagingController extends Controller
                     $docate_history->comments = "Docates Bagged";
                     $docate_history->save();
                 }else{
-                    if($docate->status = 6){
+                    if($docate->status == 6){
                         $docate->status = 3;
                         $docate->courier_status = 3;
                         $docate->baging_id = $baging->id;

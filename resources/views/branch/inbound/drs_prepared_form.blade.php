@@ -31,16 +31,13 @@
 
                     </div>
                     <div>
-                        <div class="x_content">
-                            <div class="well" style="overflow: auto">
-                                <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
-                                    <label for="cd_no">CD Number<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" id="cd_no" required name="cd_no">
-                                </div>
-                                <div id="check_cd" style="display:none">
+                        <form method="POST" action="{{ route('branch.drs_prepared_done')}}">
+                            @csrf
+                            <div class="x_content">
+                                <div class="well" style="overflow: auto">
                                     <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
                                         <label for="de_name">Delivery Employee Name<span><b style="color: red"> * </b></span></label>
-                                        <input type="text" class="form-control" id="de_name" required name="de_name">
+                                        <input type="text" class="form-control" id="de" name="de_name" required>
                                     </div>
                                     <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
                                         <label for="vehicle_no">Vehicle No<span><b style="color: red"> * </b></span></label>
@@ -54,33 +51,15 @@
                                         <label for="de_time">Delivery Time<span><b style="color: red"> * </b></span></label>
                                         <input type="time" class="form-control" id="de_time" required name="de_time">
                                     </div>
+                                    
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div >
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action" id ="sector_list" style="display: none;" >
-                      <thead>
-                        <tr class="headings">
-                            <th></th>
-                           
-                            <th class="column-title">CN No</th>
-                            <th class="column-title">Sender Name</th>
-                            <th class="column-title">Receiver Name</th>
-                            <th class="column-title">Packet</th>
-                            <th class="column-title">Weight</th>
-                            <th class="column-title">Address</th>
-                            <th class="column-title">Payment Mode</th>
-                            <th class="column-title" id="amount">Collecting Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody id="data_row">
-                        
-                      </tbody>
-                    </table>
+               
+                <div id="docket">
                     
-                   
                 </div>
                 <div class="form-group" style="display:none" id="btn" style="align:center;">
                     <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>
@@ -93,75 +72,113 @@
 @section('script')
 <script src="{{ asset('admin/select2-4.1.0-beta.1/dist/js/select2.min.js')}}"></script>
 <script>
-    var table_sl_count = 1;
-    $("#cd_no").change(function(){
-        var cd_no = $(this).val();
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type:"GET",
-                url:"{{ url('/branch/inbound/drs_prepared/get/form')}}"+"/"+cd_no,
-                success:function(response){
-                    if(response == 2){
-                        $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Pick Up Docates Found</th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
-                        $('#sector_list').show();
-                    }else{
-                        
-                        $('#row'+table_sl_count).remove();
-                        $.each( response, function( key, value ) {
-                            var table_data  = `<tr id="+'row'+table_sl_count+">
-                                <td class='a-center '>
-                                    <input type='checkbox' onclick='check_btn()' id="check_bag${table_sl_count}" name='docate_id[]'>
-                                </td>
-                               
-                                <td>${value.docate_id}</td>
-                                <td>${value.sender_name}</td>
-                                <td>${value.receiver_name}</td>
-                                <td>${value.no_of_box}</td>
-                                <td>${value.actual_weight}</td>
-                                <td>${value.receiver_address}</td><td>`;
-                                if(value.payment_option == 'c'){
-                                    table_data+=`Credit`;
-                                }else if(value.payment_option == 'cod'){
-                                    table_data+=`ToPay`;
-                                }else{
-                                    table_data+=`Cash`;
-                                }
-                                table_data+=`</td>`;
-                            
-                                if(value.payment_option!='c'){
-                                    table_data+=`<td>${value.collecting_amount}</td>`;
-                                }else{
-                                    $('#amount').hide();
-                                }
-                                table_data+=`</tr>`; 
-                            $("#data_row").append(table_data);
-                            $("#check_bag"+table_sl_count).val(value.id);    
-                        table_sl_count++;
-                    });                         
-                    $('#sector_list').show();
-                    $('#check_cd').show();
-                   
-                }
-                                    
-                }
-            });
-        });
-    
-
-        function check_btn(){
+     var table_sl_count = 1;
+    $("#de").one('change',function(){
         
-        if($('input[name="docate_id[]"]').is(':checked')){
-            $('#btn').show();
-        }else{
-            $('#btn').hide();
-        }
-         
-    }
+            $('#docket').html(` <table id="product_list" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th class="column-title">CN No</th>
+                        <th class="column-title">Sender Name</th>
+                        <th class="column-title">Receiver Name</th>
+                        <th class="column-title">Packet</th>
+                        <th class="column-title">Weight</th>
+                        <th class="column-title">Address</th>
+                        <th class="column-title">Payment Mode</th>
+                        <th class="column-title" id="amount">Collecting Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="data_row">
+                   
+                    <tr id="table_row${table_sl_count}">
+                        <th id="ids">${table_sl_count}</th>
+                        <th><input type="text" name="docate_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
+                        <th id="sender_name${table_sl_count}"></th>
+                        <th id="receiver_name${table_sl_count}"></th>
+                        <th id="packet${table_sl_count}"></th>
+                        <th id="weight${table_sl_count}"></th>
+                        <th id="address${table_sl_count}"></th>
+                        <th id="mode${table_sl_count}"></th>
+                        <th id="amount${table_sl_count}"></th>
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+            `);
+            table_sl_count++;
+        
+                            
+        });
+   
+   
     
+    function fetchDocate(docate_id,table_id){
+    console.log(docate_id);
+    var docate_data = $("input[name='docate_no[]']")
+        .map(function(){return $(this).val();}).get();
+    var check_docate_duplicate = getOccurrence(docate_data, docate_id);  
+    if ((check_docate_duplicate == 0) || (check_docate_duplicate == 1)) {            
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type:"GET",
+            url:"{{ url('branch/inbound/drs_prepared/get/form')}}"+"/"+docate_id,
+            success:function(response){                    
+                
+                if(response ==2){           
+                    alert('No Data Found');            
+                    $('#sender_name'+table_id).html('No Data Found');
+                    $('#receiver_name'+table_id).html('No Data Found');
+                    $('#packet'+table_id).html('No Data Found');
+                    $('#weight'+table_id).html('No Data Found');
+                    $('#address'+table_id).html('No Data Found');
+                  
+                    $('#mode'+table_id).html('No Data Found')
+                    $('#amount'+table_id).html('No Data Found');
+                    $('#docate'+table_id).val('');
+                    
+                }else{ 
+                    $('#sender_name'+table_id).html(response['sender_name']);
+                    $('#receiver_name'+table_id).html(response['receiver_name']);
+                    $('#packet'+table_id).html(response['no_of_box']);
+                    $('#weight'+table_id).html(response['actual_weight']);
+                    $('#address'+table_id).html(response['receiver_address']);
+                    $('#mode'+table_id).html(response['payment_option']);
+                    $('#amount'+table_id).html(response['collecting_amount']);
+                    
+                    var table_row=`<tr id="table_row${table_sl_count}">
+                        <th>${table_sl_count}</th>
+                        <th><input type="text" name="docate_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
+                        <th id="sender_name${table_sl_count}"></th>
+                        <th id="receiver_name${table_sl_count}"></th>
+                        <th id="packet${table_sl_count}"></th>
+                        <th id="weight${table_sl_count}"></th>
+                        <th id="address${table_sl_count}"></th>
+                        <th id="mode${table_sl_count}"></th>
+                        <th id="amount${table_sl_count}"></th>
+                    </tr>`;
+                    $('#data_row').append(table_row);
+                    $('#btn').show();
+                    table_sl_count++;
+                }
+            }
+        });
+
+    }else{
+        alert('Already shown');
+        $("#docate").val('');
+    }
+}
+
+function getOccurrence(array, value) {
+    return array.filter((v) => (v === value)).length;
+}
 </script>
 
 @endsection

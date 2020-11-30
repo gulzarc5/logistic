@@ -98,7 +98,7 @@ class SectorBookingController extends Controller
                   
                     $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
                     
-                    if($docate->courier_status = 3){
+                    if($docate->courier_status == 3){
                         $docate_history = new DocateHistory();
                         $baging_details =  new BagingDetails();
                         $docate->status =4;

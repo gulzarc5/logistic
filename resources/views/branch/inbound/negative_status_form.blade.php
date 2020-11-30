@@ -37,7 +37,6 @@
                                     <label for="drs_no">DRS NO<span><b style="color: red"> * </b></span></label>
                                     <input type="text" class="form-control" id="drs_no" required name="drs_no">
                                 </div>
-                               
                             </div>
                         </div>
                     </div >
@@ -47,7 +46,6 @@
                       <thead>
                         <tr class="headings">
                             <th></th>
-                            
                             <th class="column-title">CN No</th>
                             <th class="column-title">Actual Weight</th>
                             <th class="column-title">Packet</th>
@@ -61,8 +59,6 @@
                         
                       </tbody>
                     </table>
-                    
-                   
                 </div>
                 <div class="form-group" style="display:none" id="btn" style="align:center;">
                     <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>
@@ -87,8 +83,8 @@
                 type:"GET",
                 url:"{{ url('/branch/inbound/negative_status/fetch/details')}}"+"/"+drs_no,
                 success:function(response){
-                    if(response == 2){
-                        $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Docates Found</th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                    if(response = 2){
+                        $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='8'>No Docates Found </td></tr>`);
                         $('#sector_list').show();
                     }else{
                         console.log(response);
@@ -98,14 +94,13 @@
                                 <td class='a-center '>
                                     <input type='checkbox' onclick='check_btn()' id="check_bag${table_sl_count}" name='docate_id[]'>
                                 </td>
-                              
                                 <td>${value.docate_id}</td>
                                 <td>${value.actual_weight}</td>
                                 <td>${value.no_of_box}</td>
                                 <td>${value.sender_name}</td>
                                 <td>${value.receiver_name}</td>
                                 <td>${value.receiver_address}</td>
-                                <td><textarea name="neg_status"></textarea></td>
+                                <td><textarea name="neg_status" required></textarea></td>
                             </tr>`);
                             $("#check_bag"+table_sl_count).val(value.id);    
                         table_sl_count++;
