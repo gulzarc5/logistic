@@ -135,7 +135,7 @@ class DocateController extends Controller
         $docate_history->docate_id = $docate->docate_id;
         $docate_history->data_id = $docate->id;
         $docate_history->type=1;
-        $docate_history->comments = "New Docate Created";
+        $docate_history->comments = "Docate Booked";
         $docate_history->save();
         return true;
     }

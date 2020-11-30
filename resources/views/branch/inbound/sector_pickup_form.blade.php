@@ -62,7 +62,7 @@
                    
                 </div>
                 <div class="form-group" style="display:none" id="btn" style="align:center;">
-                    <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>
+                    <button id="docate_submit "class="btn btn-sm btn-primary text-white">Sector Pickup Done</button>
                 </div>
         </form>
     </div>

@@ -50,7 +50,7 @@ class SectorPickUpController extends Controller
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                   
 
-                    if($docate->courier_status = 4){
+                    if($docate->courier_status == 4){
                         $inbound = new Inbound();
                         $inbound->cd_no = $request->input('cd_no');
                         $inbound->docate_no = $docate->docate_id;

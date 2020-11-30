@@ -93,7 +93,7 @@ Route::group(['namespace' => 'Branch'],function(){
 
             Route::group(['prefix'=>'drs_prepared'],function(){
                 Route::get('form','InboundController@drsPreparedForm')->name('branch.drs_prepared_form');
-                Route::get('get/form/{cd_no}','InboundController@fetchDrsPreparedForm')->name('branch.fetch_drs_prepared_form');
+                Route::get('get/form/{docate_id}','InboundController@fetchDrsPreparedForm')->name('branch.fetch_drs_prepared_form');
                 Route::post('done','InboundController@drsPreparedDone')->name('branch.drs_prepared_done');
     
             });
