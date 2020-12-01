@@ -20,5 +20,9 @@ class Docate extends Model
         return $this->belongsTo('App\DocateDetails','receiver_id','id');
     }
 
+    public function inbound(){
+        return $this->belongsTo('App\Inbound','docate_id','docate_no');
+    }
+
     
 }

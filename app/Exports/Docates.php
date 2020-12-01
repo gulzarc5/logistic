@@ -26,7 +26,7 @@ class Docates implements FromArray,ShouldAutoSize,WithEvents
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A2:H2'; // All headers
+                $cellRange = 'A1:M1'; // All headers
                 $style_head = array(
                     'font'  => array(
                         'bold'  => true,
@@ -39,12 +39,12 @@ class Docates implements FromArray,ShouldAutoSize,WithEvents
                 $styleArray = array(
                     'font'  => array(
                         'bold'  => true,
-                        'size'  => 15,
+                        'size'  => 12,
                         'name'  => 'Verdana'
                     ),
                     'alignment' => array('horizontal' => 'center') ,
                 );
-                $event->sheet->getDelegate()->getStyle('A1:H1')->applyFromArray($styleArray);
+                $event->sheet->getDelegate()->getStyle('A1:M1')->applyFromArray($styleArray);
             },
         ];
     }
@@ -64,13 +64,13 @@ class Docates implements FromArray,ShouldAutoSize,WithEvents
 
         }
 
-        $data[] = ['CN No','Origin City','Destination City','No Of Packets','Actual Weight','Pickup Date','Pickup Time'];
+        $data[] = ['CN No','pickup_date','pickup_time','sender_name','receiver_name','No Of Packets','Actual Weight','Invoice no','Invoice value','Delivery Date','Remarks','Origin City','Destination City'];
         $count = 1; 
         foreach ($query as $key => $value) {
            if($this->types =="Y"){
-                $data[] = [ $value->docate_id,$value->sender->cityName->name?$value->sender->cityName->name:null, $value->receiver->cityName->name?$value->receiver->cityName->name:null,$value->no_of_box,$value->actual_weight,$value->pickup_date,$value->pickup_time];
+                $data[] = [ $value->docate_id,$value->pickup_date,$value->pickup_time,$value->sender->name?$value->sender->name:null,$value->receiver->name?$value->receiver->name:null,$value->no_of_box,$value->actual_weight,$value->invoice_no,$value->invoice_value,$value->inbound->delivery_date?$value->inbound->delivery_date:null,$value->inbound->negative_status?$value->inbound->negative_status:null,$value->sender->cityName->name?$value->sender->cityName->name:null, $value->receiver->cityName->name?$value->receiver->cityName->name:null];
            }else{
-                $data[] = [ $value->docate_no,$value->docate->sender->cityName->name?$value->docate->sender->cityName->name:null, $value->docate->receiver->cityName->name?$value->docate->receiver->cityName->name:null,$value->docate->no_of_box?$value->docate->no_of_box:null,$value->docate->actual_weight?$value->docate->actual_weight:null,$value->docate->pickup_date?$value->docate->pickup_date:null,$value->docate->pickup_time?$value->docate->pickup_time:null];
+            $data[] = [ $value->docate_no,$value->docate->pickup_date?$value->docate->pickup_date:null,$value->docate->pickup_time?$value->docate->pickup_time:null,$value->docate->sender->name?$value->docate->sender->name:null,$value->docate->receiver->name?$value->docate->receiver->name:null,$value->docate->no_of_box?$value->docate->no_of_box:null,$value->docate->actual_weight?$value->docate->actual_weight:null,$value->docate->invoice_no?$value->docate->invoice_no:null,$value->docate->invoice_value?$value->docate->invoice_value:null,$value->delivery_date,$value->negative_status,$value->docate->sender->cityName->name?$value->docate->sender->cityName->name:null, $value->docate->receiver->cityName->name?$value->docate->receiver->cityName->name:null];
            }
            $count++;
         }

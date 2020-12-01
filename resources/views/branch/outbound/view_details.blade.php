@@ -263,7 +263,80 @@
                     
                 </div>       
                 @endif 
-                @if(!empty($docate_data))
+                @if(!empty($inbound) && isset($inbound))
+                <div class="col-md-12" >
+                    <hr>
+                    <h3>Pickup Details</h3>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><b>CN No</b></th>
+                                <th><b> Origin</b></th>
+                                <th><b> Destination</b></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                                <td><b>{{ $inbound->docate_no}}</b></td>
+                                <td><b>{{ $inbound->docate->sender->cityName->name }}</b></td>
+                                <td><b>{{$inbound->docate->receiver->cityName->name}}</b></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                @if($inbound->status ==2 || $inbound->status == 3 || $inbound->status == 4)
+                <div class="col-md-12" >
+                    <hr>
+                    <h3>DRS Details</h3>
+                    <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><b>CN No</b></th>
+                            <th><b>DRS Prepared Date</b></th>
+                            <th><b> DRS Prepared Time</b></th>
+                            <th><b>Delivery Employee Name</b></th>
+                            <th><b>Vehicle No</b></th>
+                            @if($inbound->status == 3)
+                                <th><b>Received by</b></th>
+                                <th><b>Delivery Date</b></th>
+                                <th><b>Delivery Time</b></th>
+                            @endif
+                            @if($inbound->status == 4)
+                                <th><b>Negative Status</b></th>
+                                <th><b>Negative Status Date-Time</b></th>
+                                
+                            @endif
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td><b>{{ $inbound->docate_no }}</b></td>
+                        <td><b>{{ $inbound->drs_date}}</b></td>
+                        <td><b>{{ $inbound->drs_time }}</b></td>
+                        <td><b>{{ $inbound->de_name }}</b></td>
+                        <td><b>{{ $inbound->vehicle_no }}</b></td>
+                        @if($inbound->status == 3)
+                            <td><b>{{ $inbound->received_by }}</b></td>
+                            <td><b>{{ $inbound->delivery_date }}</b></td>
+                            <td><b>{{ $inbound->delivery_time }}</b></td>
+                        @endif
+                        @if($inbound->status == 4)
+                            <th><b>{{ $inbound->negative_status }}</b></th>
+                            <th><b>{{ $inbound->negative_status_data_time }}</b></th>
+                        @endif
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+                @else
+                    <div class="col-md-12" style="display: none">
+                        
+                    </div> 
+                @endif
+                @endif
+            @if(!empty($docate_data))
                        
                     <div class="col-md-12">
                         <button class="btn btn-danger" onclick="window.close();">Close Window</button>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Branch;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Docate;
+use App\Inbound;
+use App\DocateHistory;
 use Auth;
 class InquiryController extends Controller
 {
@@ -58,8 +60,10 @@ class InquiryController extends Controller
                         ->join('city as destination_city','destination_city.id','=','sector_baging.destination')
                         ->select('manifest.manifest_no as manifest_no','sector_baging.book_date as date','sector_baging.*','docate.*','destination_city.name as destination','origin_city.name as origin')
                         ->first();
+        $inbound = Inbound::where('docate_no',$docate_id)->first();
         
-        return view('branch.outbound.inquiry_form',compact('docate_data','manifest_data','baging_data','sector_data'));
+        $tracking_details = DocateHistory::where('docate_id',$docate_id)->get();
+        return view('branch.outbound.inquiry_form',compact('docate_data','manifest_data','baging_data','sector_data','inbound','tracking_details'));
       
         
     }

@@ -42,12 +42,19 @@
                             <tr>
                               <th>Sl</th>
                               <th>CN No</th>
-                              <th>Origin City</th>
-                              <th>Destination City</th>
-                              <th>No Of Packets</th>
-                              <th>Actual Weight</th>
                               <th>Pickup Date</th>
                               <th>Pickup Time</th>
+                              <th>Sender Name</th>
+                              <th>Receiver Name</th>
+                              <th>No Of Packets</th>
+                              <th>Actual Weight</th>
+                              <th>Invoice No</th>
+                              <th>Invoice value</th>
+                              <th>Delivery Date</th>
+                              <th>Remarks</th>
+                              <th>Origin City</th>
+                              <th>Destination City</th>
+                              
                               <th>Action</th>
                             </tr>
                           </thead>
@@ -87,12 +94,19 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'docate_id', name: 'docate_id',searchable: true},
-                {data: 'origin_city', name: 'origin_city' ,searchable: true},  
-                {data: 'destination_city', name: 'destination_city' ,searchable: true},  
-                {data: 'no_of_box', name: 'no_of_box' ,searchable: true},  
-                {data: 'actual_weight', name: 'actual_weight' ,searchable: true},  
                 {data: 'pickup_date', name: 'pickup_date' ,searchable: true},  
                 {data: 'pickup_time', name: 'pickup_time' ,searchable: true},  
+                {data: 'sender_name', name: 'sender_name' ,searchable: true}, 
+                {data: 'receiver_name', name: 'receiver_name' ,searchable: true},   
+                {data: 'no_of_box', name: 'no_of_box' ,searchable: true},  
+                {data: 'actual_weight', name: 'actual_weight' ,searchable: true},  
+                {data: 'invoice_no', name: 'invoice_no' ,searchable: true},  
+                {data: 'invoice_value', name: 'invoice_value' ,searchable: true}, 
+                {data: 'delivery_date', name: 'delivery_date' ,searchable: true},
+                {data: 'remarks', name: 'remarks' ,searchable: true},  
+                {data: 'origin_city', name: 'origin_city' ,searchable: true},  
+                {data: 'destination_city', name: 'destination_city' ,searchable: true},  
+               
                 {data: 'action', name: 'action' ,searchable: false}                 
                 
             ]

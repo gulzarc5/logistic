@@ -161,9 +161,9 @@ class InboundController extends Controller
                                 if($docate->courier_status == 5){
                                 $docate_history->comments = "Drs Prepared";
                                 }else{
-                                    if($docate->courier_status == 9){
+                                  
                                     $docate_history->comments = "Drs Reprepared";
-                                    }
+                                   
                                 }
                                 $docate_history->save();
                          

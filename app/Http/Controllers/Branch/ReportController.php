@@ -42,9 +42,45 @@ class ReportController extends Controller
                 } else {
                     return null;
                 }
+           })->addColumn('sender_name', function ($row) {
+                if (isset($row->sender->name)) {
+                    return $row->sender->name;
+                } else {
+                    return null;
+                }
+            })->addColumn('receiver_name', function ($row) {
+                if (isset($row->receiver->name)) {
+                    return $row->receiver->name;
+                } else {
+                    return null;
+                }
+            })->addColumn('invoice_no', function ($row) {
+                if (isset($row->invoice_no)) {
+                    return $row->invoice_no;
+                } else {
+                    return null;
+                }
+            })->addColumn('invoice_value', function ($row) {
+                if (isset($row->invoice_value)) {
+                    return $row->invoice_value;
+                } else {
+                    return null;
+                }
+            })->addColumn('delivery_date', function ($row) {
+                if (isset($row->inbound->delivery_date)) {
+                    return $row->inbound->delivery_date;
+                } else {
+                    return null;
+                }
+            })->addColumn('remarks', function ($row) {
+                if (isset($row->inbound->negative_status)) {
+                    return $row->inbound->negative_status;
+                } else {
+                    return null;
+                }
             })->addColumn('action', function ($row) {
                 return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id]) . '" class="btn btn-primary">View</a>';
-            })->rawColumns(['origin_city', 'destination_city','action'])
+            })->rawColumns(['origin_city', 'remarks','destination_city','sender_name','receiver_name','action','invoice_no','invoice_value','delivery_date'])
             ->make(true);
                                 
         }else{
@@ -99,9 +135,45 @@ class ReportController extends Controller
                     } else {
                         return null;
                     }
+                })->addColumn('sender_name', function ($row) {
+                    if (isset($row->docate->sender->name)) {
+                        return $row->docate->sender->name;
+                    } else {
+                        return null;
+                    }
+                })->addColumn('receiver_name', function ($row) {
+                    if (isset($row->docate->receiver->name)) {
+                        return $row->docate->receiver->name;
+                    } else {
+                        return null;
+                    }
+                })->addColumn('invoice_no', function ($row) {
+                    if (isset($row->docate->invoice_no)) {
+                        return $row->docate->invoice_no;
+                    } else {
+                        return null;
+                    }
+                })->addColumn('invoice_value', function ($row) {
+                    if (isset($row->docate->invoice_value)) {
+                        return $row->docate->invoice_value;
+                    } else {
+                        return null;
+                    }
+                })->addColumn('delivery_date', function ($row) {
+                    if (isset($row->delivery_date)) {
+                        return $row->delivery_date;
+                    } else {
+                        return null;
+                    }
+                })->addColumn('remarks', function ($row) {
+                    if (isset($row->negative_status)) {
+                        return $row->negative_status;
+                    } else {
+                        return null;
+                    }
                 })->addColumn('action', function ($row) {
                     return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id]) . '" class="btn btn-primary">View</a>';
-                 })->rawColumns(['origin_city','action','actual_weight','no_of_box','docate_id','destination_city','pickup_date','pickup_time'])
+                 })->rawColumns(['origin_city','sender_name','receiver_name','action','actual_weight','no_of_box','docate_id','destination_city','pickup_date','pickup_time','remarks','delivery_date','invoice_value','invoice_no'])
                 ->make(true);
         }
            
@@ -151,7 +223,10 @@ class ReportController extends Controller
                         ->select('manifest.manifest_no as manifest_no','sector_baging.book_date as date','sector_baging.*','docate.*','destination_city.name as destination','origin_city.name as origin')
                         ->first();
         $tracking_details = DocateHistory::where('data_id',$id)->get();
-        return view('branch.outbound.view_details',compact('docate_data','manifest_data','baging_data','sector_data','tracking_details'));
+        $docate_id = Docate::where('id',$id)->first();
+        $docate_no = $docate_id->docate_id;
+        $inbound = Inbound::where('docate_no',$docate_no)->first();
+        return view('branch.outbound.view_details',compact('docate_data','manifest_data','baging_data','inbound','sector_data','tracking_details'));
     }
 
     public function DocateListExcelExport(Request $request){
