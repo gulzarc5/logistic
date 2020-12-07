@@ -15,4 +15,5 @@ class Inbound extends Model
     public function docate(){
         return $this->belongsTo('App\Docate','docate_no','docate_id');
     }
+
 }

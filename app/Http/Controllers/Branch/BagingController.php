@@ -66,10 +66,10 @@ class BagingController extends Controller
         $manifest = Manifest::where('manifest_no', $manifest_no)->where('branch_id',Auth::user()->id)->first();
         $manifest_details = ManifestDetails::where('manifest_id',$manifest->id)->first();
         if($manifest_details->status ==1){
-            $manifest_detail =  new ManifestDetails();
-            $manifest_detail->status=2;
-            $manifest_detail->manifest_id = $manifest->id;
-             $manifest_detail->save();
+            
+            $manifest_details->status=2;
+            $manifest_details->manifest_id = $manifest->id;
+             $manifest_details->save();
          }
        
         $baging = new Baging();

@@ -85,13 +85,48 @@ Route::group(['namespace' => 'Admin'],function(){
 
         Route::group(['prefix'=>'docate'],function(){
             Route::get('list','DocateController@docateList')->name('admin.docate_list');
-            Route::get('fetch/docates/{start_date}/{end_date}/{branch_id}','DocateController@docateListAjax')->name('admin.fetch_docates');
-            Route::get('view/{id}','DocateController@viewDocate')->name('admin.view_docate');
+            Route::get('fetch/docates','DocateController@docateListAjax')->name('admin.fetch_docates');
+            Route::get('view/{id}','DocateController@viewDetails')->name('admin.view_details');
+            Route::get('delete/{id}','DocateController@deleteDocate')->name('admin.delete_docate');
+            Route::get('edit/form/{id}','DocateController@editForm')->name('admin.edit_form');
+            Route::get('check/{cn_no}','DocateController@checkDocate')->name('admin.check_docate');
+            Route::get('city/list/{state_id}','DocateController@cityList')->name('admin.list');
+            Route::get('remove/content/{content_id}','DocateController@removeContent')->name('admin.remove_content');
+            Route::post('update/{id}','DocateController@updateDocate')->name('admin.update_docate_details');
         });
         Route::group(['prefix'=>'manifest'],function(){
             Route::get('list','ManifestController@manifestList')->name('admin.manifest_list');
-            Route::get('fetch/manifest/{start_date}/{end_date}/{branch_id}','ManifestController@manifestListAjax')->name('admin.fetch_manifests');
+            Route::get('fetch/manifest/','ManifestController@manifestListAjax')->name('admin.fetch_manifests');
+            Route::get('delete/{id}','ManifestController@deleteManifest')->name('admin.delete_manifest');
             Route::get('view/{id}','ManifestController@viewManifest')->name('admin.view_manifest');
+            Route::get('edit/form/{id}','ManifestController@editForm')->name('admin.manifest_edit_form');
+            Route::get('docate/delete/{id}','ManifestController@deleteDocateFromManifest')->name('admin.delete_docate_from_manifest');
+            Route::get('fetch/details/{docate_no}','ManifestController@fetchDocateDetails')->name('admin.fetch_docate_details');
+            Route::put('update/{manifest_id}','ManifestController@updateManifest')->name('admin.update_manifest');
+        });
+
+        Route::group(['prefix'=>'baging'],function(){
+            Route::get('list','BagingController@bagingList')->name('admin.baging_list');
+            Route::get('fetch/list/','BagingController@bagingListAjax')->name('admin.fetch_baging');
+            Route::get('delete/{id}','BagingController@deleteBaging')->name('admin.delete_baging');
+            Route::get('view/{id}','BagingController@viewBaging')->name('admin.view_baging');
+            Route::get('edit/form/{id}','BagingController@editBagingForm')->name('admin.baging_edit_form');
+            Route::get('docate/operation/{docate_id}/{baging_id}/{status}','BagingController@docateOperation')->name('admin.docate_operation');
+            Route::put('update/{baging_id}','BagingController@updateBaging')->name('admin.update_baging');
+        });
+
+        Route::group(['prefix'=>'sectorbooking'],function(){
+            Route::get('list','SectorBookingController@sectorList')->name('admin.sector_list');
+            Route::get('fetch/sector/','SectorBookingController@sectorListAjax')->name('admin.fetch_sector');
+            Route::get('delete/{id}','SectorBookingController@deleteSector')->name('admin.delete_sector');
+            Route::get('edit/form/{id}','SectorBookingController@editSectorForm')->name('admin.sector_edit_form');
+            Route::put('update/{sector_id}','SectorBookingController@updateSector')->name('admin.update_sector');
+            Route::get('view/{id}','SectorBookingController@viewSector')->name('admin.view_sector');
+        });
+
+        Route::group(['prefix'=>'sectorpickup'],function(){
+            Route::get('list','InboundController@sectorPickupList')->name('admin.sector_pickup_list');
+            Route::get('fetch/pickup/','InboundController@sectorPickupListAjax')->name('admin.fetch_sector_pickup_list');
         });
     });
 });

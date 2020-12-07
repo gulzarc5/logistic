@@ -17,7 +17,7 @@
                 <div class="x_panel">
                     
                     <div class="x_title">
-                        <h2>Manifest List</h2>
+                        <h2>Sector Pickup List</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div>
@@ -68,12 +68,8 @@
                       <thead>
                         <tr class="headings">
                             <th class="column-title">ID</th>
-                            <th class="column-title">Manifest ID</th>
-                            <th class="column-title"> Origin</th>
-                            <th class="column-title">Destination</th>
-                            <th class="column-title">Total No Of Docates</th>
-                            <th class="column-title">Branch ID</th>
-                            <th class="column-title">Date</th>
+                            
+                            <th>CD No</th>
                             <th class="column-title">Action</th>
                         </tr>
                       </thead>
@@ -81,8 +77,12 @@
                         
                       </tbody>
                     </table>
+                    
+                   
                 </div>
+                
             </form>
+
         </div>
     </div>
 </div>
@@ -98,6 +98,8 @@
         var start_date =$('#start_date').val();
         var end_date = $('#end_date').val();
         var branch_id = $('#branch_id').val();
+
+        // code is for validating input fields only
         if(start_date=="" && end_date!=""){
             $('#start').show();
             setTimeout(function(){
@@ -110,36 +112,29 @@
             $('#end').hide();
             }, 2000);
             return 0;
-        }else if(end_date =="" && start_date=="" && branch_id==""){
-                 
-                $('#branch').show();
-                setTimeout(function(){
-                $('#branch').hide();
-                }, 2000);
-                return 0;
+        }else if(end_date =="" && start_date=="" && branch_id==""){                 
+            $('#branch').show();
+            setTimeout(function(){
+            $('#branch').hide();
+            }, 2000);
+            return 0;
         }
+        // end of validation
         var table = $('#docate_list').DataTable({
-                processing: true,
-                serverSide: true,
-                "bDestroy": true,
-                ajax: {url:"{{  url('admin/manifest/fetch/manifest')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
-                method:'GET'},
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'manifest_no', name: 'manifest_no',searchable: true},
-                    {data: 'origin', name: 'origin' ,searchable: true},
-                    {data: 'destination', name: 'destination' ,searchable: true},  
-                    {data: 'total_no_docates', name: 'total_no_docates' ,searchable: true},  
-                    {data: 'branch', name: 'branch' ,searchable: true},
-                    {data: 'date', name: 'date' ,searchable: true},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
-            });
-    
-        
-    
-}
-  </script>
+            processing: true,
+            serverSide: true,
+            "bDestroy": true,
+            ajax: {url:"{{  url('admin/sectorpickup/fetch/pickup')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
+            method:'GET'},
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+               
+                {data: 'cd_no', name: 'cd_no',searchable: true},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+    }
+</script>
 
 
    

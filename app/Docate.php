@@ -24,5 +24,13 @@ class Docate extends Model
         return $this->belongsTo('App\Inbound','docate_id','docate_no');
     }
 
+    public function content(){
+        return $this->hasMany('App\Content','docate_id','id');
+    }
+
+    public function manifest(){
+        return $this->belongsTo('App\Manifest','manifest_id','id');
+    }
+
     
 }

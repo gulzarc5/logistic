@@ -61,12 +61,15 @@ class SectorBookingController extends Controller
             'cd_no'=>'required',
             'manifest_number'=>'required',
         ]);
+       
         
     try {
         $sector_id =null;
         DB::transaction(function () use ($request, & $sector_id) {
             $manifest_id = Manifest::where('manifest_no',$request->input('manifest_number'))->where('branch_id',Auth::user()->id)->first();
             $baging_id = Baging::where('manifest_id',$manifest_id->id)->where('branch_id',Auth::user()->id)->first();
+            $origin_city = $request->input('origin_city');
+            $docate_ids = $request->input('docate_id');
             $sector = new SectorBooking();
             $sector->manifest_id = $manifest_id->id;
             $sector->booked_by = $request->input('booked_by');
@@ -84,23 +87,27 @@ class SectorBookingController extends Controller
             $sector->vehicle_no = $request->input('vehicle_no');
             $sector->cd_no = $request->input('cd_no');
             $sector->branch_id = Auth::user()->id;
-            $origin_city = $request->input('origin_city');
-            $docate_ids = $request->input('docate_id');
-            $sector_details =  new SectorDetails();
-        
-            $sector_details->baging_id = $baging_id->id;
-            $sector_details->status = 1;
-        
+           
+         
+            
             if($sector->save()){
-                $sector_details->sector_id=$sector->id;
-                $sector_details->save();
-                foreach($docate_ids as $docates){
+                
+               
+                foreach($docate_ids as $docates){                  
                   
+                    $sector_details =  new SectorDetails();
+        
+                    $sector_details->baging_id = $baging_id->id;
+                    $sector_details->status = 1;
                     $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
-                    
+                    $sector_details->sector_id=$sector->id;
+                    $sector_details->docate_id = $docates;
+                    $sector_details->save();
+                 
                     if($docate->courier_status == 3){
+                       
                         $docate_history = new DocateHistory();
-                        $baging_details =  new BagingDetails();
+                        
                         $docate->status =4;
                         $docate->courier_status = 4;
                         $docate->sector_id=$sector->id;
@@ -110,11 +117,16 @@ class SectorBookingController extends Controller
                         $docate_history->docate_id = $docate->docate_id;
                         $docate_history->comments = "Docate Sector Booked";
                         $docate_history->save();
-                        $baging_details->docate_id = $docate->id;
+                       
+                        $baging_details = BagingDetails::where('baging_id',$baging_id->id)->where('docate_id', $docates)->first();
+                      
+                        $baging_details->docate_id = $docates;
                         $baging_details->status =2;
-                        
+                     
                         $baging_details->baging_id =  $baging_id->id;
                         $baging_details->save();
+
+                      
                         
                     }
                 }
@@ -127,6 +139,7 @@ class SectorBookingController extends Controller
         });
         return redirect()->route('branch.sector_info',$sector_id);
     } catch (\Exception $e) {
+        
         return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
     }
 

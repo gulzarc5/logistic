@@ -55,6 +55,7 @@ class InboundController extends Controller
                         $inbound->cd_no = $request->input('cd_no');
                         $inbound->docate_no = $docate->docate_id;
                         $inbound->status = 1;
+                        $inbound->branch_id = Auth::user()->id;
                         $inbound->save();
                         $docate->courier_status =5;
                         $docate->status = 5;
@@ -66,8 +67,9 @@ class InboundController extends Controller
                             $docate_history->data_id = $docate->id;
                             $docate_history->comments = "Sector Pick Up Done";
                             $docate_history->save();
-                            $sector_details = new SectorDetails();
+                            $sector_details = SectorDetails::where('sector_id',$sector->id)->where('docate_id',$docates)->first();
                             $sector_details->status=2;
+                            $sector_details->docate_id = $docates;
                             $sector_details->sector_id=$sector->id;
                             $sector_details->baging_id=$sector->bagging_id;
                             $sector_details->save();
@@ -81,6 +83,7 @@ class InboundController extends Controller
             return redirect()->back()->with('message','Sector Pickup Done Successfully');
            
             } catch (\Exception $e) {
+                
                 return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
             }
     }

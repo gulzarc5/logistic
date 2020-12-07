@@ -55,6 +55,7 @@ class SectorPickUpController extends Controller
                         $inbound->cd_no = $request->input('cd_no');
                         $inbound->docate_no = $docate->docate_id;
                         $inbound->status = 1;
+                        $inbound->branch_id = Auth::user()->id;
                         $inbound->save();
                         $docate->courier_status =5;
                         $docate->status = 5;

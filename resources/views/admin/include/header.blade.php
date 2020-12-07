@@ -31,7 +31,7 @@
     <!-- JQVMap -->
     <link href="{{asset('admin/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
-    <link href="{{asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('admin/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet"> --}}
 
     {{-- Datatables --}}
      <link href="{{asset('admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
@@ -117,8 +117,10 @@
                       @endpermission
                       <li class="sub_menu"><a href="{{ route('admin.docate_list') }}">Docate List</a></li>  
                       <li class="sub_menu"><a href="{{ route('admin.manifest_list') }}">Manifest List</a></li>  
+                        <li class="sub_menu"><a href="{{ route('admin.baging_list') }}">Bagging List</a></li>  
+                      <li class="sub_menu"><a href="{{ route('admin.sector_list') }}">Sector Booking List</a></li>  
                       @permission(['docate-entry-list'])
-                        <li class="sub_menu"><a href="#">Product List</a></li>          
+                        {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
                       @endpermission
                     </ul>
                   </li>                  
@@ -128,8 +130,8 @@
 
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> In Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      {{-- <li class="sub_menu"><a href="{{route('admin.main_category_list')}}">Main Category List</a></li>
-                      <li class="sub_menu"><a href="{{route('admin.sub_category_list')}}">Sub Category List</a></li> --}}
+                      <li class="sub_menu"><a href="{{route('admin.sector_pickup_list')}}">Sector Pickup List</a></li>
+                      <li class="sub_menu"><a href="#">DRS Prepared list</a></li>
                     </ul>
                   </li>
 

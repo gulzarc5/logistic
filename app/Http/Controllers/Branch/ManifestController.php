@@ -63,6 +63,7 @@ class ManifestController extends Controller
                 foreach($docate_nos as $docate_no){
                     if(!empty($docate_no)){
                         $docate = Docate::where('docate_id',$docate_no)->where('branch_id',Auth::user()->id)->first();
+                      
                         
                         $docate_history = new DocateHistory();
                         if($docate->courier_status==1){
@@ -90,6 +91,12 @@ class ManifestController extends Controller
 
                             }
                         }
+
+                        $manifest_details = new ManifestDetails();
+                        $manifest_details->status = 1;
+                        $manifest_details->docate_id = $docate->id;
+                        $manifest_details->manifest_id = $manifest_id;
+                        $manifest_details->save();
                         
                     }
                 }
@@ -108,20 +115,10 @@ class ManifestController extends Controller
         $manifest = new Manifest(); 
         $manifest->branch_id =Auth::user()->id; 
         $manifest->save();
-        $manifest_details = new ManifestDetails();
-        $manifest_details->status = 1;
-        $manifest_details->manifest_id = $manifest->id;
-        $manifest_details->save();
-
         $city = City::where('id',$origin)->first();
-       
         $city_name = substr($city->name,0,3);
-        
         $city_name = strtoupper($city_name);
-        
         $id = str_pad($manifest->id, 5, '0',STR_PAD_LEFT);
-
-        
         $manifest->origin = $origin;
         $manifest->destination = $destination;
         $manifest->manifest_no=$city_name.$id;

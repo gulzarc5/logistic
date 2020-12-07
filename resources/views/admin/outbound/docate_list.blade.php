@@ -101,6 +101,8 @@
         var start_date =$('#start_date').val();
         var end_date = $('#end_date').val();
         var branch_id = $('#branch_id').val();
+
+        // code is for validating input fields only
         if(start_date=="" && end_date!=""){
             $('#start').show();
             setTimeout(function(){
@@ -113,43 +115,32 @@
             $('#end').hide();
             }, 2000);
             return 0;
-        }else if(end_date =="" && start_date=="" && branch_id==""){
-                 
-                $('#branch').show();
-                setTimeout(function(){
-                $('#branch').hide();
-                }, 2000);
-                return 0;
-        }else if(end_date =="" && start_date=="" && branch_id!=""){
-                end_date = 1;
-                start_date=1;
-        }else{
-            if(end_date !="" && start_date!="" && branch_id==""){
-                branch_id =0 ;;
-            }
-
+        }else if(end_date =="" && start_date=="" && branch_id==""){                 
+            $('#branch').show();
+            setTimeout(function(){
+            $('#branch').hide();
+            }, 2000);
+            return 0;
         }
+        // end of validation
         var table = $('#docate_list').DataTable({
-                processing: true,
-                serverSide: true,
-                "bDestroy": true,
-                ajax: {url:"{{  url('admin/docate/fetch/docates')}}"+"/"+start_date+"/"+end_date+"/"+branch_id,
-                method:'GET'},
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'docate_id', name: 'docate_id',searchable: true},
-                    {data: 'origin', name: 'origin' ,searchable: true},
-                    {data: 'destination', name: 'destination' ,searchable: true},  
-                    {data: 'payment_type', name: 'payment_type' ,searchable: true},  
-                    {data: 'branch_id', name: 'branch_id' ,searchable: true},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
-            });
-    
-        
-    
-}
-  </script>
+            processing: true,
+            serverSide: true,
+            "bDestroy": true,
+            ajax: {url:"{{  url('admin/docate/fetch/docates')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
+            method:'GET'},
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'docate_id', name: 'docate_id',searchable: true},
+                {data: 'origin', name: 'origin' ,searchable: true},
+                {data: 'destination', name: 'destination' ,searchable: true},  
+                {data: 'payment_type_btn', name: 'payment_type_btn' ,searchable: true},  
+                {data: 'branch_id', name: 'branch_id' ,searchable: true},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+    }
+</script>
 
 
    

@@ -83,6 +83,7 @@ class DocateController extends Controller
             $total = $request->input('total');
             for ($i=0; $i < count($content); $i++) { 
                 $contents= new Content();
+                $contents->docate_id = $docate->id;
                 $contents->content = $content[$i];
                 $contents->length = $length[$i];
                 $contents->breadth = $breadth[$i];

@@ -11,4 +11,12 @@ class BagingDetails extends Model
     protected $fillable = [
         'docate_id','baging_id','status'
     ];
+
+    public function docate(){
+        return $this->belongsTo('App\Docate','docate_id','id');
+    }
+
+    public function baging(){
+        return $this->belongsTo('App\Baging','baging_id','id');
+    }
 }

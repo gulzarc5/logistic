@@ -9,6 +9,6 @@ class Content extends Model
     protected $table = 'contents';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'length','breadth','height','content'
+        'length','breadth','height','content','docate_id'
     ];
 }

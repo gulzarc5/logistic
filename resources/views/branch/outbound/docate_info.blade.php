@@ -97,10 +97,10 @@
                             <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>City:</strong>
                                 {{ $docate_data->receiver_city }} 
                             </h5>
-                            <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>Sender PIN:</strong>
+                            <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>Receiver PIN:</strong>
                                 {{ $docate_data->receiver_pin }} 
                             </h5>
-                            <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>Sender Address:</strong>
+                            <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>Receiver Address:</strong>
                                 {{ $docate_data->receiver_address}} 
                             </h5>
                         </div>

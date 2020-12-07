@@ -11,4 +11,12 @@ class ManifestDetails extends Model
     protected $fillable = [
         'manifest_id','status'
     ];
+
+    public function docate(){
+        return $this->belongsTo('App\Docate','docate_id','id');
+    }
+
+    public function manifest(){
+        return $this->belongsTo('App\Manifest','manifest_id','id');
+    }
 }
