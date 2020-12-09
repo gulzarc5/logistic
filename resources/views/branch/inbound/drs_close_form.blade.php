@@ -18,7 +18,7 @@
                 <div class="x_panel">
                     
                     <div class="x_title">
-                        <h2>DRS Prepared Form</h2>
+                        <h2>DRS Closed Form</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div>

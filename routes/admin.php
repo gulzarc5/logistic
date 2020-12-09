@@ -124,9 +124,19 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('view/{id}','SectorBookingController@viewSector')->name('admin.view_sector');
         });
 
-        Route::group(['prefix'=>'sectorpickup'],function(){
+        Route::group(['prefix'=>'inbound'],function(){
             Route::get('list','InboundController@sectorPickupList')->name('admin.sector_pickup_list');
-            Route::get('fetch/pickup/','InboundController@sectorPickupListAjax')->name('admin.fetch_sector_pickup_list');
+            Route::get('fetch/details/','InboundController@sectorPickupListAjax')->name('admin.sector_pickup_list_ajax');
+            Route::get('remove/{id}','InboundController@removeFromPickup')->name('admin.remove_from_pickup');
+            Route::get('edit/form/','InboundController@editPickupForm')->name('admin.pickup_edit_form');
+            Route::get('fetch/pickup/form/{cd_no}','InboundController@fetchPickupForm')->name('admin.fetch_pickup_form');
+            Route::get('/pickup/operation/{docate_id}/{status}','InboundController@pickupOperation')->name('admin.pickup_operation');
+
+            Route::get('drsprepared/list','InboundController@drsPreparedList')->name('admin.drs_prepared_list');
+            Route::get('drsprepared/fetch/details/','InboundController@drsPreparedListAjax')->name('admin.drs_prepared_list_ajax');
+            Route::get('drsprepared/remove/{id}','InboundController@removeFromDrsPrepared')->name('admin.remove_from_drs_prepared');
+            Route::get('drsprepared/edit/form/','InboundController@editDrsPreparedForm')->name('admin.drs_prepared_edit_form');
+           
         });
     });
 });

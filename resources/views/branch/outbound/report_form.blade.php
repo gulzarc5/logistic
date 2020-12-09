@@ -23,8 +23,8 @@
                             <label for="report_type"> Type</label>
                             <select class="form-control" name="report_type"  id="type" >
                                 <option value="" >Select Report Type</option>
-                                <option value="Y" > Inbound</option>
-                                <option value="N" > Outbound</option>
+                                <option value="Y" > Outbound</option>
+                                <option value="N" > Inbound</option>
                             </select>
                         </div> 
                         <div class="col-md-6 col-sm-4 col-xs-12 mb-3">

@@ -131,6 +131,9 @@
         $.ajax({
             type:"GET",
             url:"{{ url('/admin/baging/docate/operation')}}"+"/"+docate_id+"/"+baging_id+"/"+status,
+            beforeSend: function(){
+                    $('#doc_div').append('<i class="fa fa-spinner fa-spin" style="font-size:28px;position: absolute;top: 28px;right: 17px;" id="loader_id"></i>');
+                },
             success:function(response){
                 console.log(response);
 

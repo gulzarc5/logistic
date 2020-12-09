@@ -79,7 +79,7 @@ class ReportController extends Controller
                     return null;
                 }
             })->addColumn('action', function ($row) {
-                return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id]) . '" class="btn btn-primary">View</a>';
+                return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id,'status'=>1]) . '" class="btn btn-primary">View</a>';
             })->rawColumns(['origin_city', 'remarks','destination_city','sender_name','receiver_name','action','invoice_no','invoice_value','delivery_date'])
             ->make(true);
                                 
@@ -172,7 +172,7 @@ class ReportController extends Controller
                         return null;
                     }
                 })->addColumn('action', function ($row) {
-                    return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id]) . '" class="btn btn-primary">View</a>';
+                    return $btn = '<a target="_blank" href="' . route('branch.view_details', ['id' => $row->id,'status'=>2]) . '" class="btn btn-primary">View</a>';
                  })->rawColumns(['origin_city','sender_name','receiver_name','action','actual_weight','no_of_box','docate_id','destination_city','pickup_date','pickup_time','remarks','delivery_date','invoice_value','invoice_no'])
                 ->make(true);
         }
@@ -180,8 +180,12 @@ class ReportController extends Controller
        
     }
 
-    public function viewDetails($id){
-       
+    public function viewDetails($id,$status){
+       if($status == 2){
+           $inbound = Inbound::where('id',$id)->first();
+           $docate = Docate::where('docate_id',$inbound->docate_no)->first();
+           $id = $docate->id;
+       }
         $docate_data = Docate::where('docate.id',$id)
                         ->where('docate.branch_id',Auth::user()->id)
                         ->join('docate_details','docate.id','=','docate_details.docate_id')

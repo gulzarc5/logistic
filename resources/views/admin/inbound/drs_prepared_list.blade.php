@@ -17,7 +17,7 @@
                 <div class="x_panel">
                     
                     <div class="x_title">
-                        <h2>Pickup List</h2>
+                        <h2>DRS Prepared List</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div>
@@ -65,13 +65,17 @@
                 </div>
                 <div class="table-responsive">
                     <div style="text-align: right">
-                        <a class="btn btn-success" href="{{ route('admin.pickup_edit_form') }}">Edit</a>
+                        <a class="btn btn-success" target="_blank" href="{{ route('admin.drs_prepared_edit_form') }}">Edit</a>
                     </div>
                     <table class="table table-striped jambo_table bulk_action" id ="docate_list">
                       <thead>
                         <tr class="headings">
                             <th class="column-title">ID</th>
                             <th class="column-title">CN No</th>
+                            <th>Delivery Employee Name</th>
+                            <th>Vehicle No</th>
+                            <th>DRS Date</th>
+                            <th>DRS Time</th>
                             <th>CD No</th>
                             <th>Action</th>
                         </tr>
@@ -121,11 +125,16 @@
             processing: true,
             serverSide: true,
             "bDestroy": true,
-            ajax: {url:"{{  url('admin/inbound/fetch/details')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
+            ajax: {url:"{{  url('admin/inbound/drsprepared/fetch/details')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
             method:'GET'},
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'docate_no', name: 'docate_no',searchable: true},
+                
+                {data: 'de_name', name: 'de_name',searchable: true},
+                {data: 'vehicle_no', name: 'vehicle_no',searchable: true},
+                {data: 'drs_date', name: 'drs_date',searchable: true},
+                {data: 'drs_time', name: 'drs_time',searchable: true},
                 {data: 'cd_no', name: 'cd_no',searchable: true},
                 {data: 'action', name: 'action',searchable: true},
 
