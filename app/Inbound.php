@@ -16,4 +16,8 @@ class Inbound extends Model
         return $this->belongsTo('App\Docate','docate_no','docate_id');
     }
 
+    public function drs(){
+        return $this->belongsTo('App\Drs','drs_id','id');
+    }
+
 }

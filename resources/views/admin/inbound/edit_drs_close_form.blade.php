@@ -1,4 +1,4 @@
-@extends('branch.template.admin_master')
+@extends('admin.template.admin_master')
 
 @section('content')
 
@@ -18,7 +18,7 @@
                 <div class="x_panel">
                     
                     <div class="x_title">
-                        <h2>DRS Closed Form</h2>
+                        <h2>Update DRS Close</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div>
@@ -86,7 +86,7 @@
             });
             $.ajax({
                 type:"GET",
-                url:"{{ url('/branch/inbound/drs_close/get/form')}}"+"/"+drs_no,
+                url:"{{ url('/admin/inbound/drsclose/get/details')}}"+"/"+drs_no,
                 success:function(response){
                     if(response == 2){
                         $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='10'>No Docates Found </td></tr>`);
@@ -95,10 +95,16 @@
                         
                         $('#row'+table_sl_count).remove();
                         $.each( response, function( key, value ) {
-                            $("#data_row").append(`<tr id="+'row'+table_sl_count+">
-                                <td class='a-center '>
-                                    <input type='checkbox' onclick='check_btn()' id="check_bag${table_sl_count}" name='docate_id[]'>
-                                </td>
+                            console.log(value);
+                            $('#btn').show();
+                            var html = `<tr id="+'row'+table_sl_count+">
+                                <td class='a-center '>`;
+                                    if(value.status == 7){
+                                    html+=`<input type='checkbox' checked disabled onclick='drs_close_operation()' id="check_bag${table_sl_count}" name='docate_id[]'>`;
+                                    }else{
+                                        html+=`<input type='checkbox' onclick='check_btn()' id="check_bag${table_sl_count}" name='docate_id[]'>`;
+                                    }
+                                html +=`</td>
                                 
                                 <td>${value.docate_id}</td>
                                 <td>${value.actual_weight}</td>
@@ -106,10 +112,11 @@
                                 <td>${value.sender_name}</td>
                                 <td>${value.receiver_name}</td>
                                 <td>${value.receiver_address}</td>
-                                <td><input type='text' name='received_by[]' ></td>
-                                <td><input type='date' name='del_date[]' ></td>
-                                <td><input type='time' name='del_time[]' ></td>
-                            </tr>`);
+                                <td><input type='text' value="${value.received_by?value.received_by:''}" name='received_by' ></td>
+                                <td><input type='date'  value="${value.delivery_date}" name='del_date' ></td>
+                                <td><input type='time'  value="${value.delivery_time}" name='del_time' ></td>
+                            </tr>`;
+                            $("#data_row").append(html);
                             $("#check_bag"+table_sl_count).val(value.id);    
                         table_sl_count++;
                     });                         
@@ -121,17 +128,21 @@
                 }
             });
         });
-    
+    function drs_close_operation(){
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type:"GET",
+                url:"{{ url('/admin/inbound/drsclose/operation')}}"+"/"+drs_no,
+                success:function(response){
+                }
+            });
 
-        function check_btn(){
-        
-        if($('input[name="docate_id[]"]').is(':checked')){
-            $('#btn').show();
-        }else{
-            $('#btn').hide();
-        }
-         
     }
+
     
 </script>
 

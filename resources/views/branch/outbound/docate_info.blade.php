@@ -112,8 +112,7 @@
         </div>
         <div class="form-group" id="btn">
             <button class="btn btn-sm btn-primary text-white" id="print" >Print</button>
-            <a href="{{ route('branch.manifest_list') }}" class="btn btn-sm btn-success text-white">Proceed To Manifest</a>
-            <a href="{{ route('branch.docate_add_form') }}" class="btn btn-sm btn-warning text-white">Back</a>
+            <a href="{{ route('branch.docate_add_form') }}" class="btn btn-sm btn-warning text-white">Add More Docates</a>
         </div>
       </div>
     </div>

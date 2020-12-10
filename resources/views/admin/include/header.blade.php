@@ -134,9 +134,9 @@
                         {{-- <li class="sub_menu"><a href="{{route('admin.cannote_add_form')}}">New Entry</a></li>           --}}
                       @endpermission
                       <li class="sub_menu"><a href="{{ route('admin.sector_pickup_list') }}">Sector Pickup List</a></li>  
-                      <li class="sub_menu"><a href="{{ route('admin.drs_prepared_list') }}">DRS Prepared List</a></li>  
-                        <li class="sub_menu"><a href="#">DRS Closed List</a></li>  
-                      <li class="sub_menu"><a href="#">Negative Status List</a></li>  
+                      <li class="sub_menu"><a href="{{ route('admin.drs_prepared_list') }}">DRS  List</a></li>  
+                        {{-- <li class="sub_menu"><a href="{{ route('admin.drs_close_list') }}">DRS Closed List</a></li>  
+                      <li class="sub_menu"><a href="#">Negative Status List</a></li>   --}}
                       @permission(['docate-entry-list'])
                         {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
                       @endpermission

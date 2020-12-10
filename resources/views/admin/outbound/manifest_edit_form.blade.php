@@ -61,7 +61,7 @@
                     <table id="product_list" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <
+                                
                                 <th>Docket No</th>
                                 <th>Origin</th>
                                 <th>Destination</th>

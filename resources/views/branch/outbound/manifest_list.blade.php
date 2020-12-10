@@ -10,7 +10,6 @@
 </style>
 <div class="right_col" role="main">
     <div class="row">
-    	{{-- <div class="col-md-2"></div> --}}
         <div class="col-md-12" style="margin-top:50px;">
             <form method="POST" action="{{ route('branch.add_manifest_no') }}">
             @csrf
@@ -35,20 +34,20 @@
                                 <div class="form-row mb-10">
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                         <label for="origin">Origin</label>
-                                        <select class="form-control" name="origin" id="origin">
+                                        <select class="form-control" name="origin" id="origin" required>
                                             <option value="" > Select Origin</option>
                                             @foreach($city as $value)
-                                                <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
+                                                <option value="{{ $value->id }}"> {{ $value->name }}</option>
                                             @endforeach
                                         </select>                                    
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="destination">Destination</label>
-                                    <select class="form-control" name="destination"  id="destination" >
+                                    <select class="form-control" name="destination"  id="destination" required>
                                         <option value="" >Select Destination</option>
                                         @foreach($city as $value)
-                                            <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
+                                            <option value="{{ $value->id }}"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>  

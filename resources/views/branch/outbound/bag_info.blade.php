@@ -86,8 +86,7 @@
                 @if(count($baged_data )>0)
                     <div class="form-group" id="btn">
                         <button class="btn btn-sm btn-primary text-white" id="print" >Print</button>
-                        <a href="{{ route('branch.sector_booking_list') }}" class="btn btn-sm btn-success text-white">Proceed To Sector Booking</a>
-                        <a href="{{ route('branch.baging_list') }}" class="btn btn-sm btn-warning text-white">Back</a>
+                        <a href="{{ route('branch.baging_list') }}" class="btn btn-sm btn-warning text-white">Bag More </a>
                     </div>
                 @endif
             @endif

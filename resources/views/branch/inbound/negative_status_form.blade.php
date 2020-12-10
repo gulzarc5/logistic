@@ -100,7 +100,7 @@
                                 <td>${value.sender_name}</td>
                                 <td>${value.receiver_name}</td>
                                 <td>${value.receiver_address}</td>
-                                <td><textarea name="neg_status" required></textarea></td>
+                                <td><textarea name="neg_status[]" required></textarea></td>
                             </tr>`);
                             $("#check_bag"+table_sl_count).val(value.id);    
                         table_sl_count++;

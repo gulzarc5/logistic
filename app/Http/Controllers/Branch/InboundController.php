@@ -105,10 +105,6 @@ class InboundController extends Controller
                             $q->where('docate.courier_status',5)
                             ->orWhere('docate.courier_status',9);
                         })
-                        ->where(function($q){
-                            $q->where('inbound.status',1)
-                            ->orWhere('inbound.status',4);
-                        })
                         ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
                         ->first();
         
@@ -134,38 +130,28 @@ class InboundController extends Controller
             DB::transaction(function () use ($request) {
              
                 $docate_ids = $request->input('docate_no');
+                $drs = new Drs();
+              
+                $drs->de_name = $request->input('de_name');
+                $drs->de_name = $request->input('de_name');
+                $drs->branch_id = Auth::user()->id;
+                $drs->vehicle_no = $request->input('vehicle_no');
+                $drs->drs_date = $request->input('de_date');
+                $drs->status =1;
+                $drs->drs_time = $request->input('de_time');
+                if($drs->save()){
+                    $branch = substr(Auth::user()->name,0,2);
+                    $id = str_pad($branch, 5, '0',STR_PAD_RIGHT);
+                    $drs->drs_no = $id.$drs->id;
+                    $drs->save();
+                }
+               
                 foreach($docate_ids as $docatess){
                     if(!empty($docatess)){
                         $docate = Docate::where('docate_id',$docatess)->where('branch_id',Auth::user()->id)->first();
                         
                         if($docate->courier_status == 5 || $docate->courier_status == 9){
                             $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
-                            if($inbound->status == 2){
-                                $drs = new Drs();
-                                $drs->de_name = $request->input('de_name');
-                                $drs->de_name = $request->input('de_name');
-                                $drs->vehicle_no = $request->input('vehicle_no');
-                                $drs->drs_date = $request->input('de_date');
-                                $drs->status =1;
-                                $drs->drs_time = $request->input('de_time');
-                                
-                                
-                            }else{
-                                
-                                $drs = Drs::where('id',$inbound->drs_id)->first();
-                                $drs->de_name = $request->input('de_name');
-                                $drs->de_name = $request->input('de_name');
-                                $drs->vehicle_no = $request->input('vehicle_no');
-                                $drs->drs_date = $request->input('de_date');
-                                $drs->status =1;
-                                $drs->drs_time = $request->input('de_time');
-                            }
-                            if($drs->save()){
-                                $branch = substr(Auth::user()->name,0,2);
-                                $id = str_pad($branch, 5, '0',STR_PAD_RIGHT);
-                                $drs->drs_no = $id.$drs->id;
-                                $drs->save();
-                            }
                             $inbound->status = 2;
                             $inbound->drs_id = $drs->id;
                             $inbound->save();
@@ -179,12 +165,8 @@ class InboundController extends Controller
                                 $docate_history->docate_id = $docate->docate_id;
                                 $docate_history->type=7;
                                 $docate_history->data_id = $docate->id;
-                                if($docate->courier_status == 5){
-                                $docate_history->comments = "Drs Prepared";
-                                }else{
-                                  
-                                    $docate_history->comments = "Drs Reprepared";
-                                   
+                                if($docate->courier_status == 5 ){
+                                    $docate_history->comments = "Out for delivery";
                                 }
                                 $docate_history->save();
                          
@@ -232,51 +214,60 @@ class InboundController extends Controller
     }
 
     public function drsCloseDone(Request $request){
-        
+      
         $this->validate($request, [
             'received_by'   => 'required',
             'del_date'   => 'required',
             'del_time'   => 'required',
             
         ]);
-       
+      
         try {
             DB::transaction(function () use ($request) {
                
                 $docate_ids = $request->input('docate_id');
-                foreach($docate_ids as $docates){
-                    
-                    $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
-                    $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
-                    if($docate->courier_status == 7){
+                for($i=0;$i<count($docate_ids);$i++){
+                    if(!empty($docate_ids[$i])){
                        
-                        $docate->courier_status =8;
-                        $docate->status = 7;
-                        $docate->save();
-                        if($docate){
-                            $docate_history = new DocateHistory();
-                            $docate_history->docate_id = $docate->docate_id;
-                            $docate_history->type=8;
-                            $docate_history->data_id = $docate->id;
-                            $docate_history->comments = "Drs Closed";
-                            $docate_history->save();
-                            $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
-                            if($inbound->status == 2){
-                                $inbound->status = 3;
-                                $inbound->received_by = $request->input('received_by');
-                              
-                                $inbound->delivery_date = $request->input('del_date');
-                                $inbound->delivery_time = $request->input('del_time');
-                                $inbound->save();
-                                $drs = Drs::where('id',$inbound->drs_id)->first();
-                                $drs->status =2;
-                                $drs->drs_close_date_time = Carbon::now();
-                                $drs->save();
-                            }
-                         
+                        $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',Auth::user()->id)->first();
+                        $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
+                       
+                        if($docate->courier_status == 7){
+                        
+                            $docate->courier_status =8;
+                            $docate->status = 7;
+                            $docate->save();
+                            if($docate){
+                                
+                                $docate_history = new DocateHistory();
+                                $docate_history->docate_id = $docate->docate_id;
+                                $docate_history->type=8;
+                                $docate_history->data_id = $docate->id;
+                                $docate_history->comments = "Drs Closed";
+                                $docate_history->save();
+                                $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
+                                if($inbound->status == 2){
+                                    $inbound->status = 3;
+                                    $inbound->received_by = $request->input('received_by')[$i];
+                                    $inbound->delivery_date = $request->input('del_date')[$i];
+                                    $inbound->delivery_time = $request->input('del_time')[$i];
+                                    $inbound->save();
+                                    $drs = Drs::where('id',$inbound->drs_id)->first();
+                                    $inbound_cnt = Inbound::where('status',3)->where('drs_id',$drs->id)->count();
+                                    $docates_cnt =  Inbound::where('drs_id',$drs->id)->count();
+                                    if($inbound_cnt == $docates_cnt ){
+                                            $drs->status =2;
+                                            $drs->drs_close_date_time = Carbon::now();
+                                            $drs->save();
+                                    }
+                                }
+                            
+                                
+                            
 
+                            }
                         }
-                    }
+                }
             }
             
             
@@ -284,7 +275,7 @@ class InboundController extends Controller
             return redirect()->back()->with('message','Drs Closed Successfully');
            
             } catch (\Exception $e) {
-              
+                dd($e);
                 return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
             }
     }
@@ -328,8 +319,8 @@ class InboundController extends Controller
             DB::transaction(function () use ($request) {
                
                 $docate_ids = $request->input('docate_id');
-                foreach($docate_ids as $docates){
-                    $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
+                for($i =0;$i<count($docate_ids);$i++){
+                    $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',Auth::user()->id)->first();
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                     if($docate->courier_status == 7){
                        
@@ -347,10 +338,12 @@ class InboundController extends Controller
                             if($inbound->status == 2){
                                 $inbound->status = 4;
                                 $inbound->negative_status_data_time =Carbon::now();
-                                $inbound->negative_status = $request->input('neg_status');
+                                $inbound->negative_status = $request->input('neg_status')[$i];
+                                $inbound->drs_id = null;
                                 $inbound->save();
                               
                             }
+                            $drs = Drs::where('id',$inbound->drs_id)->delete();
                          
 
                         }
@@ -362,7 +355,7 @@ class InboundController extends Controller
             return redirect()->back()->with('message','Drs Cancelled Successfully');
            
             } catch (\Exception $e) {
-                dd($e);
+               
                 return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
             }
     }

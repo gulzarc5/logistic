@@ -35,7 +35,7 @@
                             <div class="well" style="overflow: auto">
                                 <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
                                     <label for="cd_no">CD Number<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" readonly="readonly" class="form-control" id="cd_no" required name="cd_no">
+                                    <input type="text"  class="form-control" id="cd_no" required name="cd_no">
                                 </div>
                             </div>
                            

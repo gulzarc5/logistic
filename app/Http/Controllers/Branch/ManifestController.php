@@ -22,10 +22,7 @@ class ManifestController extends Controller
         return view('branch.outbound.manifest_list',compact('city'));
     }
 
-    
-
-    public function fetchDocateDetails($docate_no){      
-        
+    public function fetchDocateDetails($docate_no){
         $docate_data = Docate::select('docate.id as id','docate.no_of_box as packet','docate.actual_weight as actual_weight','receiver.name as receiver_name','origin_city.name as origin_city_name','destination_city.name as destination_city_name')
             ->where('docate.docate_id',$docate_no)
             ->where('docate.branch_id',Auth::user()->id)
@@ -48,73 +45,75 @@ class ManifestController extends Controller
 
     public function addManifestNo(Request $request){
         $this->validate($request, [
-            'docate_no'   => 'required',
+            'docate_no'   => 'required|array|min:1',
             'destination'   => 'required',
             'origin'   => 'required',
         ]);
-    try {
-        $manifest_id ='';
-        DB::transaction(function () use ($request ,& $manifest_id) {
-            $origin = $request->input('origin');
-            $docate_nos = $request->input('docate_no');
-            $destination = $request->input('destination');
-            if(count($docate_nos)>0){
-                $manifest_id = $this->generateManifestNo($origin,$destination);
-                foreach($docate_nos as $docate_no){
-                    if(!empty($docate_no)){
-                        $docate = Docate::where('docate_id',$docate_no)->where('branch_id',Auth::user()->id)->first();
-                      
-                        
-                        $docate_history = new DocateHistory();
-                        if($docate->courier_status==1){
-                            $docate->status = 2;
-                            $docate->courier_status = 2;
-                            $docate->manifest_id = $manifest_id;
-                            $docate->save();
-                            
-                            $docate_history->data_id = $docate->id;
-                            $docate_history->type =2;
-                            $docate_history->docate_id = $docate->docate_id;
-                            $docate_history->data_id = $docate->id;
-                            $docate_history->comments = "Docate Manifested";
-                            $docate_history->save();
-                        }else{
-                            if($docate->courier_status==5){
-                                $docate->courier_status = 6;
+        try {
+            $manifest_id =null;
+            DB::transaction(function () use ($request ,& $manifest_id) {
+                $origin = $request->input('origin');
+                $docate_nos = $request->input('docate_no'); //array of docate nos
+                $destination = $request->input('destination');
+                if(count($docate_nos)>0){
+                    $manifest_id = $this->generateManifestNo($origin,$destination);
+                    foreach($docate_nos as $docate_no){
+                        if(!empty($docate_no)){
+                            $docate = Docate::where('docate_id',$docate_no)->where('branch_id',Auth::user()->id)->first();  
+                            $docate_history = new DocateHistory();
+                            if($docate->courier_status==1){
+                                //update docate statuses
+                                $docate->status = 2;
+                                $docate->courier_status = 2;
                                 $docate->manifest_id = $manifest_id;
                                 $docate->save();
-                                $docate_history->type=6;
-                                $docate_history->docate_id = $docate->docate_id;
+                                
+                                // insert docate detail in docate history
                                 $docate_history->data_id = $docate->id;
-                                $docate_history->comments = "Docate Remanifested";
+                                $docate_history->type =2;
+                                $docate_history->docate_id = $docate->docate_id;
+                                $docate_history->comments = "Docate Manifested";
                                 $docate_history->save();
+                            }else{
+                                if($docate->courier_status==5){
+                                    //update docate statuses
+                                    $docate->courier_status = 6;
+                                    $docate->manifest_id = $manifest_id;
+                                    $docate->save();
 
+                                    // insert docate detail in docate history
+                                    $docate_history->type=6;
+                                    $docate_history->docate_id = $docate->docate_id;
+                                    $docate_history->data_id = $docate->id;
+                                    $docate_history->comments = "Docate Remanifested";
+                                    $docate_history->save();
+                                }
                             }
+
+                            $manifest_details = new ManifestDetails();
+                            $manifest_details->status = 1;
+                            $manifest_details->docate_id = $docate->id;
+                            $manifest_details->manifest_id = $manifest_id;
+                            $manifest_details->save();
                         }
-
-                        $manifest_details = new ManifestDetails();
-                        $manifest_details->status = 1;
-                        $manifest_details->docate_id = $docate->id;
-                        $manifest_details->manifest_id = $manifest_id;
-                        $manifest_details->save();
-                        
                     }
+                    $manifest_id = $docate->manifest_id;
+                }else{
+                    throw new  \Exception("something happened");
                 }
-                $manifest_id = $docate->manifest_id;
-            }
-            
-        });
-    return redirect()->route('branch.manifest_info',$manifest_id);
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+                
+            });
+            return redirect()->route('branch.manifest_info',$manifest_id);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+        }
     }
-
-}
 
     private function generateManifestNo($origin,$destination){
         $manifest = new Manifest(); 
         $manifest->branch_id =Auth::user()->id; 
         $manifest->save();
+
         $city = City::where('id',$origin)->first();
         $city_name = substr($city->name,0,3);
         $city_name = strtoupper($city_name);
@@ -123,7 +122,6 @@ class ManifestController extends Controller
         $manifest->destination = $destination;
         $manifest->manifest_no=$city_name.$id;
         $manifest->save(); 
-
         return $manifest->id;
     }
 

@@ -37,7 +37,7 @@
                                     <label for="cn_no">CN No<span><b style="color: red"> * </b></span><span class="invalid-feedback" role="alert" style="color:red;" id="error_doc">
                                         
                                     </span></label>
-                                    <input type="text" class="form-control" id="cn_no" name="cn_no">
+                                    <input type="text" class="form-control" id="cn_no" name="cn_no" value="{{ old('cn_no') }}">
                                     
                                 @if($errors->has('cn_no'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
@@ -49,9 +49,10 @@
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="mode">Select Mode<span><b style="color: red"> * </b></span></label>
                                     <select class="form-control" name="mode"  id="mode" >
-                                        <option value="Air" name="mode">By Air</option>
-                                        <option value="Train" name="mode">By Train</option>
-                                        <option value="Road" name="mode">By Road</option>
+                                        <option value="" >Please Select Mode</option>
+                                        <option value="Air" {{ old('mode')=="Air"?'selected':'' }}>By Air</option>
+                                        <option value="Train" {{ old('mode')=="Train"?'selected':'' }}>By Train</option>
+                                        <option value="Road" {{ old('mode')=="Road"?'selected':'' }}>By Road</option>
                                     </select>
                                     @if($errors->has('mode'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
@@ -62,9 +63,10 @@
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="payment_type">Select Payment Type<span><b style="color: red"> * </b></span></label>
                                     <select class="form-control" id="payment_div" name="payment_type" id="payment_type" >
-                                        <option value="c" name="payment_type">Credit</option>
-                                        <option value="cod" name="payment_type">Topay</option>
-                                        <option value="cash" name="payment_type">Cash</option>
+                                        <option value="" >Please Select Payment Type</option>
+                                        <option value="c" {{ old('payment_type')=="c"?'selected':'' }}>Credit</option>
+                                        <option value="cod" {{ old('payment_type')=="cod"?'selected':'' }}>Topay</option>
+                                        <option value="cash" {{ old('payment_type')=="cash"?'selected':'' }}>Cash</option>
                                     </select>
                                     @if($errors->has('payment_type'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
@@ -118,7 +120,7 @@
                                 <select class="form-control" name="sender_state" id="sender_state"  >
                                     <option value="" >Select State</option>
                                     @foreach($state as $value)
-                                        <option value="{{ $value->id }}"  name="sender_state">{{ $value->name }}</option>
+                                        <option value="{{ $value->id }}" >{{ $value->name }}</option>
                                     @endforeach
                                 </select>
                                 @if($errors->has('sender_state'))
@@ -165,7 +167,7 @@
                         <div class="well" style="overflow: auto">
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                 <label for="receiver_name">Receiver Name<span><b style="color: red"> * </b></span></label>
-                                <input type="text" class="form-control" name="receiver_name" value="{{ old('receiver_name') }}"placeholder="Enter Receiver Name"  value="{{ old('receiver_name') }}" >
+                                <input type="text" class="form-control" name="receiver_name"  placeholder="Enter Receiver Name"  value="{{ old('receiver_name') }}" >
                                 @if($errors->has('receiver_name'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
                                         <strong>{{ $errors->first('receiver_name') }}</strong>
@@ -226,7 +228,7 @@
                             <div class="form-row mb-10">
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="box">No of Box<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="box"  id="box" value="{{ old('box') }}" placeholder="Enter  No of boxs"  value="{{ old('box') }}" >
+                                    <input type="text" class="form-control" name="box"  id="box" placeholder="Enter  No of boxs"  value="{{ old('box') }}" >
                                     @if($errors->has('box'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('box') }}</strong>
@@ -235,7 +237,7 @@
                                 </div> 
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="actual_weight">Actual Weight<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="actual_weight" value="{{ old('actual_weight') }}" placeholder="Enter  Actual Weight"  value="{{ old('actual_weight') }}" >
+                                    <input type="text" class="form-control" name="actual_weight" placeholder="Enter  Actual Weight"  value="{{ old('actual_weight') }}" >
                                     @if($errors->has('actual_weight'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('actual_weight') }}</strong>
@@ -244,7 +246,7 @@
                                 </div> 
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="chargeable_weight">Chargeable Weight<span><b style="color: red"> * </b></span></label>
-                                    <input type="text" class="form-control" name="chargeable_weight" value="{{ old('chargeable_weight') }}" placeholder="Enter Chargeable Weight"  value="{{ old('chargeable_weight') }}" >
+                                    <input type="text" class="form-control" name="chargeable_weight"  placeholder="Enter Chargeable Weight"  value="{{ old('chargeable_weight') }}" >
                                     @if($errors->has('chargeable_weight'))
                                         <span class="invalid-feedback" role="alert" style="color:red">
                                             <strong>{{ $errors->first('chargeable_weight') }}</strong>

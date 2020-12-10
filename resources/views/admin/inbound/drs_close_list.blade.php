@@ -17,7 +17,7 @@
                 <div class="x_panel">
                     
                     <div class="x_title">
-                        <h2>DRS Prepared </h2>
+                        <h2>DRS Closed List</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div>
@@ -64,17 +64,19 @@
                     </div >
                 </div>
                 <div class="table-responsive">
-                    {{-- <div style="text-align: right">
-                        <a class="btn btn-success" target="_blank" href="{{ route('admin.drs_prepared_edit_form') }}">Edit</a>
-                    </div> --}}
+                    <div style="text-align: right">
+                        <a class="btn btn-success" target="_blank" href="{{ route('admin.edit_drs_close_form') }}">Edit</a>
+                    </div>
                     <table class="table table-striped jambo_table bulk_action" id ="docate_list">
                       <thead>
                         <tr class="headings">
                             <th class="column-title">ID</th>
                             <th>Drs No</th>
-                            <th>Total No of Docates</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>CN No</th>
+                            <th>Received By</th>
+                            <th>Delivery Date</th>
+                            <th>Delivery Time</th>
+                            
                         </tr>
                       </thead>
                       <tbody >
@@ -122,14 +124,16 @@
             processing: true,
             serverSide: true,
             "bDestroy": true,
-            ajax: {url:"{{  url('admin/inbound/drsprepared/fetch/details')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
+            ajax: {url:"{{  url('admin/inbound/drsclose/fetch/details')}}"+"?start_date="+start_date+"&end_date="+end_date+"&branch_id="+branch_id,
             method:'GET'},
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'drs_no', name: 'drs_no',searchable: true},
-                {data: 'total_no_of_docates', name: 'total_no_of_docates',searchable: true},
-                {data: 'drs_status', name: 'drs_status',searchable: true},
-                {data: 'action', name: 'action',searchable: true},
+                {data: 'docate_no', name: 'docate_no',searchable: true},
+                {data: 'received_by', name: 'received_by',searchable: true},
+                {data: 'delivery_date', name: 'delivery_date',searchable: true},
+                {data: 'delivery_time', name: 'delivery_time',searchable: true},
+                
 
             ]
         });
