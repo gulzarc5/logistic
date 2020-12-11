@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3" >
-                                <label for="pickup_date">Pickup Date</label>
+                                <label for="pickup_date">Pickup Date<span><b style="color: red"> * </b></span></label>
                                 <input type="date"  class="form-control" name="pickup_date" value="{{ old('pickup_date') }}" >
                                 @if($errors->has('pickup_date'))
                                     <span class="invalid-feedback" role="alert" style="color:red">
@@ -94,7 +94,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3" >
-                                <label for="pickup_time">Pickup Time</label>
+                                <label for="pickup_time">Pickup Time<span><b style="color: red"> * </b></span></label>
                                 <input type="time"  class="form-control" name="pickup_time" value="{{ old('pickup_time') }}" >
                                 @if($errors->has('pickup_time'))
                                     <span class="invalid-feedback" role="alert" style="color:red">

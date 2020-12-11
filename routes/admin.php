@@ -140,11 +140,11 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::post('drsprepared/update/{id}','InboundController@updateDrsPrepared')->name('admin.update_drs_prepared');
             Route::get('remove/drs/{id}','InboundController@removeDrs')->name('admin.remove_drs');
 
-            Route::get('drsclose/list','InboundController@drsCloseList')->name('admin.drs_close_list');
-            Route::get('drsclose/fetch/details/','InboundController@drsCloseListAjax')->name('admin.drs_close_list_ajax');
-            Route::get('drsclose/edit/form/','InboundController@editDrsCloseForm')->name('admin.edit_drs_close_form');
-            Route::get('drsclose/get/details/{drs_no}','InboundController@fetchDrsCloseForm')->name('admin.get_drs_close_details_form');
-            Route::get('drsclose/operation/{drs_no}','InboundController@drsCloseOperation')->name('admin.drs_close_operation');
+            // Route::get('drsclose/list','InboundController@drsCloseList')->name('admin.drs_close_list');
+            // Route::get('drsclose/fetch/details/','InboundController@drsCloseListAjax')->name('admin.drs_close_list_ajax');
+            // Route::get('drsclose/edit/form/','InboundController@editDrsCloseForm')->name('admin.edit_drs_close_form');
+            // Route::get('drsclose/get/details/{drs_no}','InboundController@fetchDrsCloseForm')->name('admin.get_drs_close_details_form');
+            // Route::get('drsclose/operation/{drs_no}','InboundController@drsCloseOperation')->name('admin.drs_close_operation');
            
         });
     });

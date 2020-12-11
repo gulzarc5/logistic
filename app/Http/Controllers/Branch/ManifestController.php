@@ -127,14 +127,14 @@ class ManifestController extends Controller
 
     public function manifestInfo($manifest_id){
         $manifest_data = Docate::where('docate.manifest_id',$manifest_id)
-                        ->where('docate.branch_id',Auth::user()->id)
-                        ->join('manifest','manifest.id','=','docate.manifest_id')
-                        ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-                        ->join('city as origin_city','origin_city.id','=','manifest.origin')
-                        ->join('city as destination_city','destination_city.id','=','manifest.destination')
-                        ->join('docate_details','docate_details.id','=','docate.sender_id')
-                        ->select('docate.*','manifest.*','origin_city.name as origin_city_name','destination_city.name as destination_city_name','receiver.name as receiver_name','docate_details.name as sender_name')
-                        ->get();
+            ->where('docate.branch_id',Auth::user()->id)
+            ->join('manifest','manifest.id','=','docate.manifest_id')
+            ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+            ->join('city as origin_city','origin_city.id','=','manifest.origin')
+            ->join('city as destination_city','destination_city.id','=','manifest.destination')
+            ->join('docate_details','docate_details.id','=','docate.sender_id')
+            ->select('docate.*','origin_city.name as origin_city_name','destination_city.name as destination_city_name','receiver.name as receiver_name','docate_details.name as sender_name')
+            ->get();
         $manifest = Manifest::where('id',$manifest_id)->where('branch_id',Auth::user()->id)->first(); 
         $manifest_no = $manifest->manifest_no;                 
         return view('branch.outbound.manifest_info',compact('manifest_data','manifest_no'));

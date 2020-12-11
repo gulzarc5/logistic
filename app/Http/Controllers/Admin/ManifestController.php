@@ -67,8 +67,8 @@ class ManifestController extends Controller
                 $docate->manifest_id = null;
                 $docate->save();
             }
-            $manifest->delete();
         }
+        $manifest->delete();
         return redirect()->back();
     }
 
@@ -162,7 +162,7 @@ class ManifestController extends Controller
     }
 
     public function viewManifest($id){
-        $manifest_details = ManifestDetails::where('manifest_id',$id)->first();
+        $manifest_details = ManifestDetails::where('manifest_id',$id)->get();
         return view('admin.outbound.manifest_details',compact('manifest_details'));
     }
 

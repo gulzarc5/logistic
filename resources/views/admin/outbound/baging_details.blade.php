@@ -14,6 +14,7 @@
     	{{-- <div class="col-md-2"></div> --}}
         <div class="col-md-12" style="margin-top:50px;">
             <div id="docket">
+                @if(isset($baging_details) || !empty($baging_details) || count($baging_details) >0)
                 <table id="product_list" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -28,21 +29,28 @@
                         </tr>
                     </thead>
                     <tbody id="data_row">
-                        <tr>
-                            <th id="cn_no">
-                                {{ $baging_details->docate->docate_id }}
-                            </th>
-                           
-                            <th>{{ $baging_details->baging->manifest->manifest_no }}</th>
-                            <th id="origin_city">{{ $baging_details->docate->sender->cityName->name }}</th>
-                            <th id="destination_name">{{ $baging_details->docate->receiver->cityName->name}}</th>
-                            <th >{{ $baging_details->baging->lock_no}}</th>
-                            <th id="weight">{{ $baging_details->docate->actual_weight }}</th>
-                            <th id="packet">{{ $baging_details->docate->no_of_box }}</th>
-                            <th id="Cust_name">{{ $baging_details->docate->receiver->name }}</th>
-                        </tr>
+                        @foreach($baging_details as $values)
+                            <tr>
+                                <th id="cn_no">
+                                    {{ $values->docate->docate_id }}
+                                </th>
+                            
+                                <th>{{ $values->baging->manifest->manifest_no }}</th>
+                                <th id="origin_city">{{ $values->docate->sender->cityName->name }}</th>
+                                <th id="destination_name">{{ $values->docate->receiver->cityName->name}}</th>
+                                <th >{{ $values->baging->lock_no}}</th>
+                                <th id="weight">{{ $values->docate->actual_weight }}</th>
+                                <th id="packet">{{ $values->docate->no_of_box }}</th>
+                                <th id="Cust_name">{{ $values->docate->receiver->name }}</th>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+                @else
+                <div>
+                    <h3>No Docates Found</h3>
+                </div>
+                @endif
             </div>
         </div>
     </div>

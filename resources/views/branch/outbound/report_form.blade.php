@@ -4,10 +4,12 @@
 
 <div class="right_col" role="main">
     <div class="row">
+        <div>
+            <h2>Docate Report</h2>
+        </div>
     	<div class="col-md-12 col-xs-12 col-sm-12" style="margin-top:50px;">
     	    <div class="x_panel">
-
-    	        <div class="x_title">
+                <div class="x_title">
                     <form method="POST" action="{{ route('branch.docate_report_downloads_xls') }}">
                     @csrf
                     <div class="well" style="overflow: auto">
@@ -35,38 +37,37 @@
                     </div>
                 </form>
               </div>
-    	        <div>
-    	            <div class="x_content">
+                <div>
+                    <div class="x_content">
                         <table id="contact_list" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                          <thead>
-                            <tr>
-                              <th>Sl</th>
-                              <th>CN No</th>
-                              <th>Pickup Date</th>
-                              <th>Pickup Time</th>
-                              <th>Sender Name</th>
-                              <th>Receiver Name</th>
-                              <th>No Of Packets</th>
-                              <th>Actual Weight</th>
-                              <th>Invoice No</th>
-                              <th>Invoice value</th>
-                              <th>Delivery Date</th>
-                              <th>Remarks</th>
-                              <th>Origin City</th>
-                              <th>Destination City</th>
-                              
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>                       
-                          </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>CN No</th>
+                                    <th>Pickup Date</th>
+                                    <th>Pickup Time</th>
+                                    <th>Sender Name</th>
+                                    <th>Receiver Name</th>
+                                    <th>No Of Packets</th>
+                                    <th>Actual Weight</th>
+                                    <th>Invoice No</th>
+                                    <th>Invoice value</th>
+                                    <th>Delivery Date</th>
+                                    <th>Remarks</th>
+                                    <th>Origin City</th>
+                                    <th>Destination City</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>                       
+                            </tbody>
                         </table>
-    	            </div>
-    	        </div>
+                    </div>
+                </div>
     	    </div>
     	</div>
     </div>
-	</div>
+</div>
 
 
  @endsection

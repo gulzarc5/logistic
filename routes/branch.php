@@ -47,6 +47,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('fetch/docate/details/{docate_no}','ManifestController@fetchDocateDetails')->name('branch.fetch_docate_details');
             Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
             Route::get('info/{manifest_id}','ManifestController@manifestInfo')->name('branch.manifest_info');
+           
             
         });
 
@@ -63,6 +64,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('add/form/{manifest_no}','SectorBookingController@fetchAddForm')->name('branch.fetch_baging_add_form');
             Route::post('add/no','SectorBookingController@sectorBook')->name('branch.sector_book');
             Route::get('info/{baging_id}','SectorBookingController@sectorInfo')->name('branch.sector_info');
+            Route::get('check/{cd_no}','SectorBookingController@checkCdNo')->name('branch.check_cd_no');
 
         });
 
@@ -71,6 +73,18 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('fetch/all/entries/','ReportController@fetchAllEntries')->name('branch.fetch_all_entries');
             Route::get('view/details/{id}/{status}','ReportController@viewDetails')->name('branch.view_details');
             Route::post('docate/report/download','ReportController@DocateListExcelExport')->name('branch.docate_report_downloads_xls');
+            Route::get('manifest/form','ReportController@manifestReportForm')->name('branch.manifest_report_form');
+            Route::get('fetch/manifest/','ReportController@manifestListAjax')->name('admin.fetch_manifest_report');
+            Route::post('manifests/report/download','ReportController@ManifestListExcelExport')->name('branch.manifest_report_downloads_xls');
+            Route::get('baging/form','ReportController@bagingReportForm')->name('branch.baging_report_form');
+            Route::get('fetch/baging/','ReportController@bagingListAjax')->name('admin.fetch_baging_report');
+            Route::post('baging/report/download','ReportController@bagingListExcelExport')->name('branch.baging_report_downloads_xls');
+            Route::get('sector/form','ReportController@sectorReportForm')->name('branch.sector_report_form');
+            Route::get('fetch/sector/','ReportController@sectorListAjax')->name('admin.fetch_sector_report');
+            Route::post('sector/report/download','ReportController@sectorListExcelExport')->name('branch.sector_report_downloads_xls');
+            Route::get('drs/form','ReportController@drsReportForm')->name('branch.drs_report_form');
+            Route::get('fetch/drs/','ReportController@drsListAjax')->name('admin.fetch_drs_report');
+            Route::post('drs/report/download','ReportController@drsListExcelExport')->name('branch.drs_report_downloads_xls');
            
         });
 

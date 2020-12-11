@@ -71,6 +71,7 @@
                             <th class="column-title">Manifest ID</th>
                             <th class="column-title">Origin</th>
                             <th class="column-title">Destination</th>
+                            <th>Total No Of Docates</th>
                             <th class="column-title">Branch</th>
                             <th class="column-title">Lock No</th>
                             <th class="column-title">Date</th>
@@ -135,6 +136,7 @@
                 {data: 'manifest_id', name: 'manifest_id',searchable: true},
                 {data: 'origin', name: 'origin' ,searchable: true},
                 {data: 'destination', name: 'destination' ,searchable: true},  
+                {data: 'total_no_of_docates', name: 'total_no_of_docates' ,searchable: true},  
                 {data: 'branch', name: 'branch' ,searchable: true},  
               
                 {data: 'lock_no', name: 'lock_no' ,searchable: true},

@@ -33,7 +33,7 @@
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                        <label for="origin">Origin</label>
+                                        <label for="origin">Origin<span><b style="color: red"> * </b></span></label>
                                         <select class="form-control" name="origin" id="origin" required>
                                             <option value="" > Select Origin</option>
                                             @foreach($city as $value)
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                    <label for="destination">Destination</label>
+                                    <label for="destination">Destination<span><b style="color: red"> * </b></span></label>
                                     <select class="form-control" name="destination"  id="destination" required>
                                         <option value="" >Select Destination</option>
                                         @foreach($city as $value)

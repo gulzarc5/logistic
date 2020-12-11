@@ -8,8 +8,17 @@ use App\Docate;
 use App\Inbound;
 use App\DocateHistory;
 use Auth;
+use App\Manifest;
+use App\Drs;
+use App\Baging;
+use App\SectorBooking;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Docates;
+use App\Exports\Manifests;
+use App\Exports\Bagings;
+use App\Exports\SectorBookings;
+use App\Exports\Drss;
+
 class ReportController extends Controller
 {
     public function reportForm(){
@@ -19,15 +28,18 @@ class ReportController extends Controller
     public function fetchAllEntries(Request $request){
        $start_date = $request->get('start_from');
        $end_date = $request->get('end_from');
-       $date_start = date('Y-m-d', strtotime($start_date));
-       $date_end = date('Y-m-d', strtotime($end_date));
+       $date_start = date('Y-m-d', strtotime($start_date))." 00:00:00";
+       $date_end = date('Y-m-d', strtotime($end_date))." 23:59:59";
        $types = $request->get('type');
       
         if($types=="Y"){
-            
-            $docate_data = Docate::whereBetween('created_at', [$date_start, $date_end])
-                ->orderBy('id','desc');
-                
+            if($start_date == null && $end_date == null){
+                $docate_data = Docate::orderBy('id','desc')->where('branch_id',Auth::user()->id);;
+            }else{
+                $docate_data = Docate::whereBetween('created_at', [$date_start, $date_end])
+                ->orderBy('id','desc')
+                ->where('branch_id',Auth::user()->id);
+            }
             return datatables()->of($docate_data->get())
             ->addIndexColumn()
             ->addColumn('origin_city', function ($row) {
@@ -86,7 +98,7 @@ class ReportController extends Controller
         }else{
             
             $inbound_docates = Inbound::whereBetween('created_at', [$date_start, $date_end])
-                ->orderBy('id','desc');
+                ->orderBy('id','desc')->where('branch_id',Auth::user()->id);;
                 
             
             return datatables()->of($inbound_docates->get())
@@ -240,5 +252,164 @@ class ReportController extends Controller
         $type = $request->input('report_type');
         return Excel::download(new Docates($start_date,$end_date,$type), 'docate_list.xlsx');
     }
+
+    public function manifestReportForm(){
+        return view('branch.outbound.manifest_report');
+    }
+
+    public function manifestListAjax(Request $request){
+       
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+       
+        $manifest = Manifest::OrderBy('id','desc');
+        if (!empty($start_date) && !empty($end_date)) {
+            $manifest->whereDate('created_at','>=', $start_date)
+                ->whereDate('created_at','<=', $end_date)
+                ->where('branch_id',Auth::user()->id);
+        }
+        
+            return datatables()->of($manifest->get())
+            ->addIndexColumn()
+            ->addColumn('origin', function ($manifest) {
+                return isset($manifest->originName->name)?$manifest->originName->name:'';
+            })->addColumn('destination', function ($manifest) {
+                return isset($manifest->destinationName->name)?$manifest->destinationName->name:'';
+            })->addColumn('total_no_docates', function ($manifest) {
+                return isset($manifest->totalDocateCount)?$manifest->totalDocateCount->count():0;
+            })->addColumn('date', function ($manifest) { 
+                return $manifest->created_at->format('d/m/y');
+            
+            })->rawColumns([ 'date','origin','total_no_docates','destination'])
+            ->make(true);
+    }
+
+    public function ManifestListExcelExport(Request $request){
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+       
+        return Excel::download(new Manifests($start_date,$end_date), 'manifest_list.xlsx');
+    }
+
+    public function bagingReportForm(){
+        return view('branch.outbound.baging_report');
+    }
+
+    public function bagingListAjax(Request $request){
+       
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+       
+        $baging = Baging::OrderBy('id','desc');
+        if (!empty($start_date) && !empty($end_date)) {
+            $baging->whereDate('created_at','>=', $start_date)
+                ->whereDate('created_at','<=', $end_date)
+                ->where('branch_id',Auth::user()->id);
+        }
+        
+            return datatables()->of($baging->get())
+            ->addIndexColumn()
+            ->addColumn('origin', function ($baging) {
+                return isset($baging->originName->name)?$baging->originName->name:'';
+            })->addColumn('destination', function ($baging) {
+                return isset($baging->destinationName->name)?$baging->destinationName->name:'';
+            })->addColumn('total_no_docates', function ($baging) {
+                return isset($baging->docatesCount)?$baging->docatesCount->count():0;
+            })->addColumn('manifest_id', function ($baging) {
+                return isset($baging->manifest->manifest_no)?$baging->manifest->manifest_no:'';
+            })->addColumn('date', function ($baging) { 
+                return $baging->created_at->format('d/m/y');
+            
+            })->rawColumns([ 'date','origin','manifest_id','total_no_docates','destination'])
+            ->make(true);
+    }
+
+    public function bagingListExcelExport(Request $request){
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        
+        return Excel::download(new Bagings($start_date,$end_date), 'baging_list.xlsx');
+    }
+
+    public function sectorReportForm(){
+        return view('branch.outbound.sector_report');
+    }
+
+    public function sectorListAjax(Request $request){
+       
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+       
+        $sector = SectorBooking::OrderBy('id','desc');
+        if (!empty($start_date) && !empty($end_date)) {
+            $sector->whereDate('created_at','>=', $start_date)
+                ->whereDate('created_at','<=', $end_date)->where('branch_id',Auth::user()->id);
+        }
+        
+            return datatables()->of($sector->get())
+            ->addIndexColumn()
+            ->addColumn('origin', function ($sector) {
+                return isset($sector->originName->name)?$sector->originName->name:'';
+            })->addColumn('destination', function ($sector) {
+                return isset($sector->destinationName->name)?$sector->destinationName->name:'';
+            })->addColumn('total_no_docates', function ($sector) {
+                return isset($sector->totalDocateCount)?$sector->totalDocateCount->count():0;
+            })->addColumn('manifest_id', function ($sector) {
+                return isset($sector->manifest->manifest_no)?$sector->manifest->manifest_no:'';
+            })->addColumn('date', function ($sector) { 
+                return $sector->created_at->format('d/m/y');
+            
+            })->rawColumns([ 'date','origin','manifest_id','total_no_docates','destination'])
+            ->make(true);
+    }
+
+    public function sectorListExcelExport(Request $request){
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        
+        return Excel::download(new SectorBookings($start_date,$end_date), 'sector_booking_list.xlsx');
+    }
+
+    public function drsReportForm(){
+        return view('branch.outbound.drs_report');
+    }
+
+    public function drsListAjax(Request $request){
+       
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+       
+        $drs = Drs::OrderBy('id','desc');
+        if (!empty($start_date) && !empty($end_date)) {
+            $drs->whereDate('created_at','>=', $start_date)
+                ->whereDate('created_at','<=', $end_date)
+                ->where('branch_id',Auth::user()->id);
+        }
+        
+            return datatables()->of($drs->get())
+            ->addIndexColumn()
+           
+            ->addColumn('status', function ($drs) {
+               if($drs->status ==1){
+                   return $btn = '<a class="btn btn-success btn-xs">Drs Prepared</a>';
+               }else{
+                   return $btn =  '<a class="btn btn-primary btn-xs">Drs Closed</a>';
+               }
+            
+            })->rawColumns([ 'status'])
+            ->make(true);
+    }
+
+    public function drsListExcelExport(Request $request){
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        
+        return Excel::download(new Drss($start_date,$end_date), 'drs_list.xlsx');
+    }
+
 }
 

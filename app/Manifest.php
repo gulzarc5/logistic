@@ -13,11 +13,11 @@ class Manifest extends Model
     ];
 
     public function originName(){
-        return $this->belongsTo('App\City','origin');
+        return $this->belongsTo('App\City','origin','id');
     }
 
     public function destinationName(){
-        return $this->belongsTo('App\City','destination');
+        return $this->belongsTo('App\City','destination','id');
     }
 
     public function totalDocateCount(){

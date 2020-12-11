@@ -120,7 +120,7 @@
                         <li class="sub_menu"><a href="{{ route('branch.sector_booking_list') }}">Sector Booking</a></li>
                       @endpermission
                       @permission(['docate-entry-list'])
-                        <li class="sub_menu"><a href="#">Product List</a></li>          
+                        {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
                       @endpermission
                     </ul>
                   </li>                  
@@ -133,7 +133,16 @@
                       <li class="sub_menu"><a href="{{ route('branch.negative_status_form') }}">Negative Status</a></li>
                     </ul>
                   </li>
-                  <li><a href="{{ route('branch.report_form') }}"><i class="fa fa-archive" aria-hidden="true"></i> Report </a></li>
+                  <li><a><i class="fa fa-archive" aria-hidden="true"></i> Report <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li class="sub_menu"><a href="{{ route('branch.report_form') }}">Docate</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.manifest_report_form') }}">Manifest </a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.baging_report_form') }}">Bagging</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.sector_report_form') }}">Sector Booking</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.drs_report_form') }}">Drs</a></li>
+                    </ul>
+                  </li>
+                  
                  
                   <li class="sub_menu"><a href="{{ route('branch.details_form') }}" target="_blank"><i class="fa fa-asterisk"></i>Inquiry</a></li>
                 

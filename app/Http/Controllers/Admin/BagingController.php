@@ -37,6 +37,9 @@ class BagingController extends Controller
                 return isset($baging->destinationName->name)?$baging->destinationName->name:'';
             })->addColumn('manifest_id', function ($baging) {
                 return isset($baging->manifest->manifest_no)?$baging->manifest->manifest_no:'';
+            })->addColumn('total_no_of_docates', function ($baging) { 
+                
+                return isset($baging->docatesCount)?$baging->docatesCount->count():'';
             })->addColumn('branch', function ($baging) { 
                 return $baging->branch->name;
             })->addColumn('date', function ($baging) { 
@@ -53,7 +56,7 @@ class BagingController extends Controller
                     }else{
                         return null;
                     }
-            })->rawColumns(['action','manifest_id', 'date','origin','branch', 'destination'])
+            })->rawColumns(['action','manifest_id', 'date','origin','branch','total_no_of_docates', 'destination'])
             ->make(true);
     }
 
@@ -67,6 +70,9 @@ class BagingController extends Controller
                 $docate->status = 2;
                 $docate->baging_id = null;
                 $docate->save();
+                $manifest_details = ManifestDetails::where('manifest_id',$docate->manifest_id)->where('docate_id',$docate->id)->first();
+                $manifest_details->status = 1;
+                $manifest_details->save();
                 $baging_details = BagingDetails::where('baging_id',$id)->where('docate_id',$docate->id)->delete();
             }
             $baging->delete();
@@ -83,13 +89,18 @@ class BagingController extends Controller
     }
 
     public function docateOperation($docate_id,$baging_id,$status){
+        $baging = Baging::where('id',$baging_id)->first();
         if($status ==1){
             $docate = Docate::where('id',$docate_id)->first();
             $docate->baging_id = null;
             $docate->status =2;
             $docate->courier_status = 2;
             if($docate->save()){
-                $baging_details = BagingDetails::where('baging_id',$baging_id)->delete();
+                $baging_details = BagingDetails::where('baging_id',$baging_id)->where('docate_id',$docate->id)->delete();
+              
+                $manifest_details = ManifestDetails::where('docate_id',$docate_id)->where('manifest_id',$baging->manifest_id)->first();
+                $manifest_details->status = 1;
+                $manifest_details->save();
             }
 
         }else{
@@ -104,6 +115,10 @@ class BagingController extends Controller
                 $baging_details->docate_id = $docate->id;
                 $baging_details->status =1;
                 $baging_details->save();
+
+                $manifest_details = ManifestDetails::where('docate_id',$docate_id)->where('manifest_id',$baging->manifest_id)->first();
+                $manifest_details->status = 2;
+                $manifest_details->save();
             }
 
         }
@@ -133,7 +148,7 @@ class BagingController extends Controller
     }
 
     public function viewBaging($id){
-        $baging_details = BagingDetails::where('baging_id',$id)->first();
+        $baging_details = BagingDetails::where('baging_id',$id)->get();
         return view('admin.outbound.baging_details',compact('baging_details'));
     }
 }

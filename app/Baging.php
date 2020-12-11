@@ -31,4 +31,8 @@ class Baging extends Model
     public function branch(){
         return $this->belongsTo('App\User','branch_id','id');
     }
+
+    public function docatesCount(){
+        return $this->belongsTo('App\BagingDetails','id','baging_id');
+    }
 }

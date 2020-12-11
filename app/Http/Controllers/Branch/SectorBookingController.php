@@ -29,18 +29,17 @@ class SectorBookingController extends Controller
             ->join('baging','baging.id','=','docate.baging_id')
             ->where('manifest.manifest_no',$manifest_no)
             ->where('docate.courier_status',3)
-            ->select('docate.*','baging.lock_no as lock_no','receiver.name as receiver_name','docate_details.name as sender_name')
-            ->get();
+            ->select('docate.*','baging.lock_no as lock_no','receiver.name as receiver_name','docate_details.name as sender_name');
             
-        $count = Docate::where('docate.courier_status',3)
-            ->where('manifest.manifest_no',$manifest_no)
-            ->join('manifest','manifest.id','=','docate.manifest_id')
-            ->join('docate_details','docate.id','=','docate_details.docate_id')->count();
-        if($count>0){
-            return $manifest_items;
-        }else{
-            return 2;
-        }
+            
+       
+        if($manifest_items->count()>0){
+                $item = $manifest_items
+                ->get();
+                return $item;
+            }else{
+                return 2;
+            }
             
     }
 
@@ -166,6 +165,15 @@ class SectorBookingController extends Controller
                         ->get();
         
         return view('branch.outbound.sector_info',compact('sector_data','sector_id'));
+    }
+
+    public function checkCdNo($cd_no){
+        $check_cd = SectorBooking::where('cd_no',$cd_no)->count();
+        if($check_cd>0){
+            return 1;
+        }else{
+            return 2;
+        }
     }
 }
 

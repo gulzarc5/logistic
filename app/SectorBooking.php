@@ -31,4 +31,8 @@ class SectorBooking extends Model
     public function branch(){
         return $this->belongsTo('App\User','branch_id','id');
     }
+
+    public function totalDocateCount(){
+        return $this->hasMany('App\SectorDetails','sector_id','id');
+    }
 }

@@ -114,11 +114,11 @@
         for(var div_count=0;div_count<box;div_count++){
             var htmlContent = `<div id="morediv${div_count}"  class="row" style="margin: 20px">
                 <div class="col-md-12 col-sm-12 col-xs-12 mb-3">
-                    <label for="content">Content</label>
+                    <label for="content">Content<span><b style="color: red"> * </b></span></label>
                     <textarea class="form-control" name="content[]"  required></textarea>
                 </div> 
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                    <label for="length">L</label>
+                    <label for="length">L<span><b style="color: red"> * </b></span></label>
                     <input type="text" class="form-control" name="length[]"   required >                                    
                 </div> 
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3" style="width: 3%;">
@@ -126,7 +126,7 @@
                     <h4 style="margin-top: 15px;">X</h4>
                 </div>
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                    <label for="breadth">B</label>
+                    <label for="breadth">B<span><b style="color: red"> * </b></span></label>
                     <input type="text" class="form-control" name="breadth[]"  required>
                 </div> 
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3" style="width: 3%;">
@@ -134,7 +134,7 @@
                     <h4  style="margin-top: 15px;">X</h4>
                 </div>
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
-                    <label for="height">H</label>
+                    <label for="height">H<span><b style="color: red"> * </b></span></label>
                     <input type="text" class="form-control" name="height[]" required>
                 </div>
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
@@ -142,7 +142,7 @@
                     <h4 style="margin-top: 15px;">/ 5000 </h4>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
-                    <label for="total"></label>
+                    <label for="total"><span><b style="color: red"> * </b></span></label>
                     <input type="text" class="form-control" name="total[]"  required>
                 </div>
             </div>`;

@@ -13,6 +13,7 @@ class Drs extends Model
         return $this->hasMany('App\Inbound','drs_id','id')->count();
 
     }
+    
 
     
 }

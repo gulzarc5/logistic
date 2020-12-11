@@ -95,7 +95,7 @@
                             var html = `<tr id='row${table_sl_count}'>
                                 <td class='a-center'>`;
                                     if(value.courier_status == 5  && value.status ==5){
-                                         html +=`<input type='checkbox' checked onclick='pickupOperation(${value.id},1)' id='check_bag${table_sl_count}' name='docate_id[]'>`;
+                                         html +=`<input type='checkbox' checked disabled onclick='pickupOperation(${value.id},1)' id='check_bag${table_sl_count}' name='docate_id[]'>`;
                                     }else{
                                         html+=`<input type='checkbox' onclick='pickupOperation(${value.id},2)' id='check_bag${table_sl_count}' name='docate_id[]'>`;
                                     }
