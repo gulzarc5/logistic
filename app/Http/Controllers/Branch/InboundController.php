@@ -165,9 +165,7 @@ class InboundController extends Controller
                                 $docate_history->docate_id = $docate->docate_id;
                                 $docate_history->type=7;
                                 $docate_history->data_id = $docate->id;
-                                if($docate->courier_status == 5 ){
-                                    $docate_history->comments = "Out for delivery";
-                                }
+                                $docate_history->comments = "Out for delivery";
                                 $docate_history->save();
                          
 
@@ -243,7 +241,7 @@ class InboundController extends Controller
                                 $docate_history->docate_id = $docate->docate_id;
                                 $docate_history->type=8;
                                 $docate_history->data_id = $docate->id;
-                                $docate_history->comments = "Drs Closed";
+                                $docate_history->comments = "Delivered";
                                 $docate_history->save();
                                 $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
                                 if($inbound->status == 2){
