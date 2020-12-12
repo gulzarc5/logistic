@@ -82,7 +82,7 @@
                   <h1>
                     <img src="{{ asset('logo/logo.png')}}" height="80">
                   </h1>
-                  <p>©2016 All Rights Reserved. </p>
+                  <p>©2020 All Rights Reserved. </p>
                 </div>
               </div>
             {{ Form::close() }}

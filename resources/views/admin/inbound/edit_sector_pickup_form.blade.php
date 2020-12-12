@@ -44,6 +44,9 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped jambo_table bulk_action" id ="sector_list" style="display: none;" >
+                        <i class="fa fa-spinner fa-spin"  style="display:none;font-size:20px" id="loader_id"></i>
+                        <span style="display:none;color:red;" id="msg2">Docate Removed From Sector Pickup</span>
+                        <span style="display:none;color:red;" id="msg">Docate Added To Sector Pickup</span>
                       <thead>
                         <tr class="headings">
                             <th></th>
@@ -95,9 +98,9 @@
                             var html = `<tr id='row${table_sl_count}'>
                                 <td class='a-center'>`;
                                     if(value.courier_status == 5  && value.status ==5){
-                                         html +=`<input type='checkbox' checked disabled onclick='pickupOperation(${value.id},1)' id='check_bag${table_sl_count}' name='docate_id[]'>`;
+                                         html +=`<input type='checkbox' checked  onclick='pickupOperation(${value.id})' id='check_bag${table_sl_count}' name='docate_id[]'>`;
                                     }else{
-                                        html+=`<input type='checkbox' onclick='pickupOperation(${value.id},2)' id='check_bag${table_sl_count}' name='docate_id[]'>`;
+                                        html+=`<input type='checkbox' onclick='pickupOperation(${value.id})' id='check_bag${table_sl_count}' name='docate_id[]'>`;
                                     }
                                 html+=`</td>
                                 <td>${value.docate_id}</td>
@@ -120,7 +123,7 @@
         });
     
 
-        function pickupOperation(docate_id,status){
+        function pickupOperation(docate_id){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -128,8 +131,30 @@
             });
             $.ajax({
                 type:"GET",
-                url:"{{ url('/admin/inbound/pickup/operation')}}"+"/"+docate_id+"/"+status,
+                url:"{{ url('/admin/inbound/pickup/operation')}}"+"/"+docate_id,
                 success:function(response){
+                    if(response == 1){
+                        $("#loader_id").show();
+                        setTimeout(function(){
+                            $("#loader_id").hide();
+                            $("#msg2").show();
+                        },1000);
+
+                        setTimeout(function(){
+                            $("#msg2").hide();
+                        },1500);
+                    }else{
+                        $("#loader_id").show();
+                        setTimeout(function(){
+                            $("#loader_id").hide();
+                            $("#msg").show();
+                        },1000);
+
+                        setTimeout(function(){
+                            $("#msg").hide();
+                        },1500);
+
+                    }
                 }
             });
             

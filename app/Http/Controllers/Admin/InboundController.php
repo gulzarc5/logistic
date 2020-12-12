@@ -31,9 +31,9 @@ class InboundController extends Controller
         }
         return datatables()->of($inbound->get())
             ->addIndexColumn()
-            ->addColumn('action', function ($inbound) {
+            ->addColumn('status', function ($inbound) {
                 if($inbound->status == 1){
-                    return $btn = '<a  href = "'. route ('admin.remove_from_pickup',['id'=>$inbound->id]) .'" class="btn btn-danger btn-sm">Remove</a>';
+                    return $btn = '<a   class="btn btn-danger btn-sm">Picked Up</a>';
                 }else if($inbound->status ==2){
                     return $btn = '<a   disabled class="btn btn-primary btn-sm">Drs Prepared</a>';
                 }else if($inbound->status ==3){
@@ -42,7 +42,7 @@ class InboundController extends Controller
                     return $btn = '<a   disabled class="btn btn-danger btn-sm">Negative Status</a>';
                 }
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['status'])
             ->make(true);
     }
 
@@ -62,6 +62,8 @@ class InboundController extends Controller
             $inbound->delete();
             return redirect()->back();
         }
+
+        return 1;
 
     }
 
@@ -91,18 +93,19 @@ class InboundController extends Controller
 
     }
 
-    public function pickupOperation($docate_id,$status){
+    public function pickupOperation($docate_id){
         $docate = Docate::where('id',$docate_id)->first();
-       
-        if($status == 1){
+        $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
+        if(!empty($inbound)){
             $docate->courier_status = 4;
             $docate->status = 4;
             $docate->save();
-            $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
+          
             $inbound->delete();
             $sector_details = SectorDetails::where('docate_id',$docate->id)->first();
             $sector_details->status =1;
             $sector_details->save();
+            return 1;
             
         }else{
             $docate->courier_status = 5;
@@ -118,7 +121,7 @@ class InboundController extends Controller
             $inbound_new->branch_id = $sector_details->sector->branch_id;
             $inbound_new->status =1;
             $inbound_new->save();
-
+            return 2;
         }
     }
 

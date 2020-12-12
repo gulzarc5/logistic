@@ -115,32 +115,34 @@
                         <div class="col-md-4 col-sm-12 col-xs-12" style="display: none;">
                         </div>
                     @endif
-                @if(isset($manifest_data) && !empty($manifest_data))
+                    @if(isset($content) && !empty($content))
                     <div class="col-md-12" >
                         <hr>
-                        <h3>Manifest Details</h3>
+                        <h3>Content Details</h3>
                         <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Docate No</th>
-                                <th><b>Manifest No</b></th>
-                                <th><b>Origin</b></th>
-                                <th><b>Destination</b></th>
-                                <th><b>Packet</b></th>
-                                <th><b>Weight</b></th>
-                                <th><b>Date</b></th>
+                               
+                                <th><b>L</b></th>
+                                <th><b>B</b></th>
+                                <th><b>H</b></th>
+                                <th><b>Total</b></th>
+                                <th><b>Content</b></th>
+                               
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{{ $manifest_data->docate_id }}</td>
-                                <td>{{ $manifest_data->manifest_no }}</td>
-                                <td>{{ $manifest_data->origin_city }}</td>
-                                <td>{{ $manifest_data->destination_city }}</td>
-                                <td>{{ $manifest_data->no_of_box }}</td>
-                                <td>{{ $manifest_data->actual_weight }}</td>
-                                <td>{{ date('d-m-Y', strtotime($manifest_data->date)) }}</td>
-                            </tr>
+                            @foreach($content as $cnts)
+                                <tr>
+                                    
+                                    <td>{{ $cnts->length }}</td>
+                                    <td>{{ $cnts->breadth }}</td>
+                                    <td>{{ $cnts->height }}</td>
+                                    <td>{{ $cnts->total }}</td>
+                                    <td>{{ $cnts->content }}</td>
+                                    
+                                </tr>
+                            @endforeach
                         </tbody>
                         </table>
                     </div>
@@ -149,6 +151,40 @@
                 </div>
                 
                 @endif
+                    @if(isset($manifest_data) && !empty($manifest_data))
+                        <div class="col-md-12" >
+                            <hr>
+                            <h3>Manifest Details</h3>
+                            <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Docate No</th>
+                                    <th><b>Manifest No</b></th>
+                                    <th><b>Origin</b></th>
+                                    <th><b>Destination</b></th>
+                                    <th><b>Packet</b></th>
+                                    <th><b>Weight</b></th>
+                                    <th><b>Date</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $manifest_data->docate_id }}</td>
+                                    <td>{{ $manifest_data->manifest_no }}</td>
+                                    <td>{{ $manifest_data->origin_city }}</td>
+                                    <td>{{ $manifest_data->destination_city }}</td>
+                                    <td>{{ $manifest_data->no_of_box }}</td>
+                                    <td>{{ $manifest_data->actual_weight }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($manifest_data->date)) }}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                    @else
+                    <div class="col-md-12" style="display: none;">
+                    </div>
+                    
+                    @endif
                 @if(!empty($baging_data) && isset($baging_data))
                     <div class="col-md-12" >=
                         <hr>
@@ -263,11 +299,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                            <tr>
                                 <td><b>{{ $inbound->docate_no}}</b></td>
                                 <td><b>{{ $inbound->docate->sender->cityName->name }}</b></td>
                                 <td><b>{{$inbound->docate->receiver->cityName->name}}</b></td>
-                                
+                                    
                             </tr>
                         </tbody>
                     </table>
@@ -280,6 +316,7 @@
                     <thead>
                         <tr>
                             <th><b>CN No</b></th>
+                            <th><b>Drs No</b></th>
                             <th><b>DRS Prepared Date</b></th>
                             <th><b> DRS Prepared Time</b></th>
                             <th><b>Delivery Employee Name</b></th>
@@ -299,10 +336,11 @@
                     <tbody>
                         <tr>
                         <td><b>{{ $inbound->docate_no }}</b></td>
-                        <td><b>{{ $inbound->drs_date}}</b></td>
-                        <td><b>{{ $inbound->drs_time }}</b></td>
-                        <td><b>{{ $inbound->de_name }}</b></td>
-                        <td><b>{{ $inbound->vehicle_no }}</b></td>
+                        <td><b>{{ $inbound->drs->drs_no}}</b></td>
+                        <td><b>{{ $inbound->drs->drs_date}}</b></td>
+                        <td><b>{{ $inbound->drs->drs_time }}</b></td>
+                        <td><b>{{ $inbound->drs->de_name }}</b></td>
+                        <td><b>{{ $inbound->drs->vehicle_no }}</b></td>
                         @if($inbound->status == 3)
                             <td><b>{{ $inbound->received_by }}</b></td>
                             <td><b>{{ $inbound->delivery_date }}</b></td>

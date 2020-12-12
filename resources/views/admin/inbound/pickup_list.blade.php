@@ -65,7 +65,7 @@
                 </div>
                 <div class="table-responsive">
                     <div style="text-align: right">
-                        <a class="btn btn-success" href="{{ route('admin.pickup_edit_form') }}">Edit</a>
+                        <a class="btn btn-success" target="_blank" href="{{ route('admin.pickup_edit_form') }}">Edit</a>
                     </div>
                     <table class="table table-striped jambo_table bulk_action" id ="docate_list">
                       <thead>
@@ -73,7 +73,7 @@
                             <th class="column-title">ID</th>
                             <th class="column-title">CN No</th>
                             <th>CD No</th>
-                            <th>Action</th>
+                            <th>Status</th>
                         </tr>
                       </thead>
                       <tbody >
@@ -127,7 +127,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'docate_no', name: 'docate_no',searchable: true},
                 {data: 'cd_no', name: 'cd_no',searchable: true},
-                {data: 'action', name: 'action',searchable: true},
+                {data: 'status', name: 'status',searchable: true},
 
             ]
         });

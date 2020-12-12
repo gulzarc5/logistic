@@ -28,7 +28,6 @@
                         @if (Session::has('error'))
                         <div class="alert alert-danger">{{ Session::get('error') }}</div>
                         @endif
-
                     </div>
                     <div>
                         <div class="x_content">
@@ -75,9 +74,9 @@
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="mode">Mode<span><b style="color: red"> * </b></span></label>
                                     <select class="form-control" name="mode" id="mode" required>
-                                        <option value="Air" name="mode">By Air</option>
-                                        <option value="Train" name="mode">By Train</option>
-                                        <option value="Road" name="mode">By Road</option>
+                                        <option value="Air">By Air</option>
+                                        <option value="Train">By Train</option>
+                                        <option value="Road">By Road</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
@@ -143,7 +142,8 @@
     var table_sl_count=0;
     $('#origin').select2();
     $('#destination').select2();
-    $("#manifest_no").change(function(){
+
+    $("#manifest_no").blur(function(){
         var manifest_no = $(this).val();
         $.ajaxSetup({
             headers: {
@@ -155,7 +155,7 @@
             url:"{{ url('/branch/sectorbooking/add/form')}}"+"/"+manifest_no,
             success:function(response){
                 if(response == 2){
-                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Bagged Found </th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th style='text-align:center;' colspan='6'>No Docates Found </td></th></tr>");
                     $('#sector_list').show();
                 }else{
                     

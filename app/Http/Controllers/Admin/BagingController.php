@@ -88,10 +88,10 @@ class BagingController extends Controller
 
     }
 
-    public function docateOperation($docate_id,$baging_id,$status){
+    public function docateOperation($docate_id,$baging_id){
         $baging = Baging::where('id',$baging_id)->first();
-        if($status ==1){
-            $docate = Docate::where('id',$docate_id)->first();
+        $docate = Docate::where('id',$docate_id)->first();
+        if($docate->baging_id !=null){
             $docate->baging_id = null;
             $docate->status =2;
             $docate->courier_status = 2;
@@ -102,10 +102,9 @@ class BagingController extends Controller
                 $manifest_details->status = 1;
                 $manifest_details->save();
             }
-
+            return 1;
         }else{
-
-            $docate =  Docate::where('id',$docate_id)->first();
+           
             $docate->status = 3;
             $docate->courier_status = 3;
             $docate->baging_id = $baging_id;
@@ -119,12 +118,10 @@ class BagingController extends Controller
                 $manifest_details = ManifestDetails::where('docate_id',$docate_id)->where('manifest_id',$baging->manifest_id)->first();
                 $manifest_details->status = 2;
                 $manifest_details->save();
+            
             }
-
+            return 2;
         }
-
-        return 1;
-
     }
 
     public function updateBaging(Request $request,$baging_id){

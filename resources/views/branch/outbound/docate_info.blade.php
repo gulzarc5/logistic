@@ -107,6 +107,42 @@
                     </div>
                     
                     @endif
+                    @if(isset($content) && !empty($content))
+                    <div class="col-md-12" >
+                        <hr>
+                        <h3>Content Details</h3>
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                               
+                                <th><b>L</b></th>
+                                <th><b>B</b></th>
+                                <th><b>H</b></th>
+                                <th><b>Total</b></th>
+                                <th><b>Content</b></th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($content as $cnts)
+                                <tr>
+                                    
+                                    <td>{{ $cnts->length }}</td>
+                                    <td>{{ $cnts->breadth }}</td>
+                                    <td>{{ $cnts->height }}</td>
+                                    <td>{{ $cnts->total }}</td>
+                                    <td>{{ $cnts->content }}</td>
+                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                    </div>
+                @else
+                <div class="col-md-12" style="display: none;">
+                </div>
+                
+                @endif
                </div>
           </div>
         </div>

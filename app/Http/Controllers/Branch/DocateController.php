@@ -157,7 +157,8 @@ class DocateController extends Controller
             ->join('state as receiver_state','receiver_state.id','=','receiver_details.state')
             ->select('docate.*','origin.name as origin_city','destination.name as destination_city','sender_details.pin as sender_pin','sender_details.address as sender_address','receiver_details.pin as receiver_pin','receiver_details.address as receiver_address','sender_details.name as sender_name','receiver_details.name as receiver_name','sender_city.name as sender_city','receiver_city.name as receiver_city','sender_state.name as sender_state','receiver_state.name as receiver_state')
             ->first();   
-        return view('branch.outbound.docate_info',compact('docate_data'));
+        $content = Content::where('docate_id',$docate_id)->get();
+        return view('branch.outbound.docate_info',compact('docate_data','content'));
     }
 
     public function checkDocate($cn_no){

@@ -71,7 +71,7 @@
                         <tr>
                             <td></td>
                             <td></td>
-                            <td><h5>No Data Found</h5></td>
+                            <td><h5>No Docates Found</h5></td>
                             <td></td>
                             <td></td>
                             <td></td>

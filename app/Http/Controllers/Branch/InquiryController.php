@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Docate;
 use App\Inbound;
 use App\DocateHistory;
+use App\Content;
 use Auth;
 class InquiryController extends Controller
 {
@@ -20,6 +21,8 @@ class InquiryController extends Controller
     
     public function getDetails(Request $request){
         $docate_id = $request->input('docate_id');
+        $docates = Docate::where('docate_id',$docate_id)->first();
+      
         $docate_data = Docate::where('docate.docate_id',$docate_id)
                         ->where('docate.branch_id',Auth::user()->id)
                         ->join('docate_details','docate.id','=','docate_details.docate_id')
@@ -31,6 +34,7 @@ class InquiryController extends Controller
                         ->join('state as receiver_state','receiver_state.id','=','receiver_details.state')
                         ->select('docate.*','origin_city.name as origin_city','sender_details.name as sender_name','sender_details.pin as sender_pin','sender_state.name as sender_state','sender_details.address as sender_address','receiver_details.name as receiver_name','receiver_city.name as receiver_city','receiver_details.pin as receiver_pin','receiver_state.name as receiver_state','receiver_details.address as receiver_address')
                         ->first();
+        $content = Content::where('docate_id',$docates->id)->get();
         
         $manifest_data = Docate::where('docate.docate_id',$docate_id)
                         ->where('docate.branch_id',Auth::user()->id)
@@ -61,9 +65,9 @@ class InquiryController extends Controller
                         ->select('manifest.manifest_no as manifest_no','sector_baging.book_date as date','sector_baging.*','docate.*','destination_city.name as destination','origin_city.name as origin')
                         ->first();
         $inbound = Inbound::where('docate_no',$docate_id)->first();
-        
+       
         $tracking_details = DocateHistory::where('docate_id',$docate_id)->get();
-        return view('branch.outbound.inquiry_form',compact('docate_data','manifest_data','baging_data','sector_data','inbound','tracking_details'));
+        return view('branch.outbound.inquiry_form',compact('docate_data','content','manifest_data','baging_data','sector_data','inbound','tracking_details'));
       
         
     }

@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class SectorBookings implements FromArray,ShouldAutoSize,WithEvents
 {
-    private $start_date,$end_date,$types;
+    private $start_date,$end_date;
 
     public function __construct($start_date,$end_date){
         $this->start_date = $start_date;
