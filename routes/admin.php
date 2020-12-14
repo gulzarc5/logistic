@@ -111,7 +111,7 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('delete/{id}','BagingController@deleteBaging')->name('admin.delete_baging');
             Route::get('view/{id}','BagingController@viewBaging')->name('admin.view_baging');
             Route::get('edit/form/{id}','BagingController@editBagingForm')->name('admin.baging_edit_form');
-            Route::get('docate/operation/{docate_id}/{baging_id}/{status}','BagingController@docateOperation')->name('admin.docate_operation');
+            Route::get('docate/operation/{docate_id}/{baging_id}','BagingController@docateOperation')->name('admin.docate_operation');
             Route::put('update/{baging_id}','BagingController@updateBaging')->name('admin.update_baging');
         });
 
@@ -127,10 +127,10 @@ Route::group(['namespace' => 'Admin'],function(){
         Route::group(['prefix'=>'inbound'],function(){
             Route::get('list','InboundController@sectorPickupList')->name('admin.sector_pickup_list');
             Route::get('fetch/details/','InboundController@sectorPickupListAjax')->name('admin.sector_pickup_list_ajax');
-            Route::get('remove/{id}','InboundController@removeFromPickup')->name('admin.remove_from_pickup');
+            // Route::get('remove/{id}','InboundController@removeFromPickup')->name('admin.remove_from_pickup');
             Route::get('edit/form/','InboundController@editPickupForm')->name('admin.pickup_edit_form');
             Route::get('fetch/pickup/form/{cd_no}','InboundController@fetchPickupForm')->name('admin.fetch_pickup_form');
-            Route::get('/pickup/operation/{docate_id}/{status}','InboundController@pickupOperation')->name('admin.pickup_operation');
+            Route::get('/pickup/operation/{docate_id}','InboundController@pickupOperation')->name('admin.pickup_operation');
 
             Route::get('drsprepared/list','InboundController@drsPreparedList')->name('admin.drs_prepared_list');
             Route::get('drsprepared/fetch/details/','InboundController@drsPreparedListAjax')->name('admin.drs_prepared_list_ajax');

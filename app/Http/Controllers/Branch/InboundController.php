@@ -22,35 +22,30 @@ class InboundController extends Controller
     
     public function fetchAddForm($cd_no){
         $data = Docate::join('sector_booking','sector_booking.id','=','docate.sector_id')
-                        ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                        ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-                        ->where('sector_booking.cd_no',$cd_no)
-                        ->where('sector_booking.branch_id',Auth::user()->id)
-                        ->where('docate.courier_status',4)
-                        ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
-                        ->get();
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+            ->where('sector_booking.cd_no',$cd_no)
+            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('docate.courier_status',4)
+            ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->get();
         
         if(count($data)>0){
             return $data;
-
         }else{
             return 2;
         }
-
     }
 
     public function sectorPickupDone(Request $request){
         try {
-            DB::transaction(function () use ($request) {
-               
+            DB::transaction(function () use ($request) {               
                 $docate_ids = $request->input('docate_id');
                 foreach($docate_ids as $docates){
                   
                     $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
                   
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
-                  
-
                     if($docate->courier_status == 4){
                         $inbound = new Inbound();
                         $inbound->cd_no = $request->input('cd_no');
@@ -77,36 +72,33 @@ class InboundController extends Controller
                             
                         }
                     }
-            }
-            
-            
+                }
             });
-            return redirect()->back()->with('message','Sector Pickup Done Successfully');
-           
-            } catch (\Exception $e) {
-                
-                return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
-            }
+        return redirect()->back()->with('message','Sector Pickup Done Successfully');
+        
+        } catch (\Exception $e) {
+            
+            return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+        }
     }
 
     public function drsPreparedForm(){
        return view('branch.inbound.drs_prepared_form');
     }
 
-    public function fetchDrsPreparedForm($docate_id){
-        
+    public function fetchDrsPreparedForm($docate_id){        
         $data = Docate::join('inbound','inbound.docate_no','=','docate.docate_id')
-                        ->join('sector_booking','sector_booking.id','=','docate.sector_id')
-                        ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                        ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-                        ->where('docate.docate_id',$docate_id)
-                        ->where('sector_booking.branch_id',Auth::user()->id)
-                        ->where(function($q){
-                            $q->where('docate.courier_status',5)
-                            ->orWhere('docate.courier_status',9);
-                        })
-                        ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
-                        ->first();
+            ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+            ->where('docate.docate_id',$docate_id)
+            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where(function($q){
+                $q->where('docate.courier_status',5)
+                ->orWhere('docate.courier_status',9);
+            })
+            ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->first();
         
         if($data){
             return $data;
@@ -125,14 +117,11 @@ class InboundController extends Controller
             'vehicle_no'   => 'required',
         ]);
 
-        
         try {
             DB::transaction(function () use ($request) {
-             
                 $docate_ids = $request->input('docate_no');
-                $drs = new Drs();
-              
-                $drs->de_name = $request->input('de_name');
+
+                $drs = new Drs();              
                 $drs->de_name = $request->input('de_name');
                 $drs->branch_id = Auth::user()->id;
                 $drs->vehicle_no = $request->input('vehicle_no');
@@ -167,21 +156,16 @@ class InboundController extends Controller
                                 $docate_history->data_id = $docate->id;
                                 $docate_history->comments = "Out for delivery";
                                 $docate_history->save();
-                         
-
+                            }
                         }
                     }
                 }
-            }
-            
-            
             });
-            return redirect()->back()->with('message','Drs Prepared Successfully');
+        return redirect()->back()->with('message','Drs Prepared Successfully');
            
-            } catch (\Exception $e) {
-                dd($e);
-                return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
-            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+        }
     }
 
     public function drsClosedForm(){
@@ -189,30 +173,25 @@ class InboundController extends Controller
      }
 
      public function fetchDrsCloseForm($drs_no){
-        $data = Docate::join('inbound','inbound.docate_no','=','docate.docate_id')
-                        ->join('sector_booking','sector_booking.id','=','docate.sector_id')
-                        ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                        ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-                        ->join('drs','drs.id','=','inbound.drs_id')
-                        ->where('drs.drs_no',$drs_no)
-                        ->where('sector_booking.branch_id',Auth::user()->id)
-                        ->where('docate.courier_status',7)
-                        ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
-                        ->get();
-
-        
-        
+        $data = Docate::where('drs.drs_no',$drs_no)
+            ->join('inbound','inbound.docate_no','=','docate.docate_id')
+            ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+            ->join('drs','drs.id','=','inbound.drs_id')
+            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('docate.courier_status',7)
+            ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->get();
         if(count($data)>0){
             return $data;
 
         }else{
             return 2;
         }
-
     }
 
     public function drsCloseDone(Request $request){
-      
         $this->validate($request, [
             'received_by'   => 'required',
             'del_date'   => 'required',
@@ -220,9 +199,8 @@ class InboundController extends Controller
             
         ]);
       
-        try {
+        try{
             DB::transaction(function () use ($request) {
-               
                 $docate_ids = $request->input('docate_id');
                 for($i=0;$i<count($docate_ids);$i++){
                     if(!empty($docate_ids[$i])){
@@ -231,12 +209,10 @@ class InboundController extends Controller
                         $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                        
                         if($docate->courier_status == 7){
-                        
                             $docate->courier_status =8;
                             $docate->status = 7;
                             $docate->save();
                             if($docate){
-                                
                                 $docate_history = new DocateHistory();
                                 $docate_history->docate_id = $docate->docate_id;
                                 $docate_history->type=8;
@@ -265,17 +241,13 @@ class InboundController extends Controller
 
                             }
                         }
+                    }
                 }
-            }
-            
-            
             });
-            return redirect()->back()->with('message','Drs Closed Successfully');
-           
-            } catch (\Exception $e) {
-                dd($e);
-                return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
-            }
+        return redirect()->back()->with('message','Drs Closed Successfully');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+        }
     }
 
     public function negativeStatusForm(){
@@ -283,45 +255,38 @@ class InboundController extends Controller
     }
 
     public function fetchDetails($drs_no){
-
-        $data = Docate::join('inbound','inbound.docate_no','=','docate.docate_id')
-                        ->join('sector_booking','sector_booking.id','=','docate.sector_id')
-                        ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                        ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-                        ->join('drs','drs.id','=','inbound.drs_id')
-                        ->where('drs.drs_no',$drs_no)
-                        ->where('sector_booking.branch_id',Auth::user()->id)
-                        ->where('docate.courier_status',7)
-                        ->where('inbound.status',2)
-                        ->select('docate.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
-                        ->get();
+        $data = Docate::where('drs.drs_no',$drs_no)
+            ->join('inbound','inbound.docate_no','=','docate.docate_id')
+            ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+            ->join('drs','drs.id','=','inbound.drs_id')
+            
+            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('docate.courier_status',7)
+            ->where('inbound.status',2)
+            ->select('docate.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->get();
         
         if(count($data)>0){
-          
-            return $data;
+          return $data;
         }else{
             return 2;
         }
-
-
     }
 
     public function negativeStatusDone(Request $request){
-        
         $this->validate($request, [
            'neg_status'=>'required'
-            
         ]);
        
         try {
             DB::transaction(function () use ($request) {
-               
                 $docate_ids = $request->input('docate_id');
                 for($i =0;$i<count($docate_ids);$i++){
                     $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',Auth::user()->id)->first();
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                     if($docate->courier_status == 7){
-                       
                         $docate->courier_status =9;
                         $docate->status = 8;
                         $docate->save();
@@ -346,16 +311,13 @@ class InboundController extends Controller
 
                         }
                     }
-            }
-            
-            
+                }
             });
-            return redirect()->back()->with('message','Drs Cancelled Successfully');
-           
-            } catch (\Exception $e) {
-               
-                return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
-            }
+        
+        return redirect()->back()->with('message','Drs Cancelled Successfully');
+        }catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
+        }
     }
 
 

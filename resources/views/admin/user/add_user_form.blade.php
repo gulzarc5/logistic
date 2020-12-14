@@ -152,6 +152,27 @@
                                 </div>
                             </div>
                        </div>
+                       <div class="well" style="overflow: auto">
+
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password"  placeholder="Enter  Password"  required>
+                                @if($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                <label for="password_confirmation">Retype Password</label>
+                                <input type="password" class="form-control" name="password_confirmation"  placeholder="Retype Password"  required>
+                                @if($errors->has('password_confirmation'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                       </div>
 
     	            	<div class="form-group">    
                             <button type="submit" class='btn btn-success'>Submit</button>

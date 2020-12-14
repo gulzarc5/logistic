@@ -10,6 +10,7 @@ use App\State;
 use App\UserProfile;
 use Auth;
 use DataTables;
+use Hash;
 
 class UserController extends Controller
 {
@@ -32,16 +33,18 @@ class UserController extends Controller
             'city'   => 'required',
             'pin'   => 'required',
             'address'   => 'required',
+            'password'=> 'required|same:password_confirmation|min:8'
         ]);
 
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'), 
-            'password' => bcrypt('password'),
+            'password' => Hash::make($request->input('password')),
             'mobile' => $request->input('mobile'),
             'user_role' => $request->input('user_type'),
             'parent_id' => 1,
         ]);
+        
         if ($user) {
             $roles = $request->input('user_type');
             $user->attachRole($roles);

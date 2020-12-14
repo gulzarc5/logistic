@@ -1,7 +1,7 @@
        <!-- footer content -->
         <footer style="background-color: transparent;">
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Developed By Webinfotech@2020
           </div>
           <div class="clearfix"></div>
         </footer>

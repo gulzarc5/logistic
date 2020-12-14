@@ -85,19 +85,22 @@
                         </tr>
                       </thead>
                       <tbody id="data_row">
+                        <i class="fa fa-spinner fa-spin"  style="display:none;font-size:20px" id="loader_id"></i>
+                        <span style="display:none;color:red;" id="msg">Docate Removed From Baging</span>
+                        <span style="display:none;color:red;" id="msg2">Docate Added To Baging</span>
                             @foreach($manifest_items as $value)
                             <tr  class='even pointer'>
                                     @if($baging->id == $value->docate->baging_id)
-                                        <td class='a-center '><input type='checkbox'  checked onclick="docateAction({{ $value->docate->id }},{{ $baging->id }},1)"></td>
+                                        <td class='a-center '></i><input type='checkbox'  id="chck_loader" checked onclick="docateAction({{ $value->docate->id }},{{ $baging->id }})"></td>
                                     @else
-                                        <td class='a-center '><input type='checkbox' onclick="docateAction({{ $value->docate->id }},{{ $baging->id }},2)"></td>
+                                        <td class='a-center '><input type='checkbox'  id="chck_loader" onclick="docateAction({{ $value->docate->id }},{{ $baging->id }})"></td>
                                     @endif
                                     <td>{{ $value->docate->docate_id }}</td>
                                     <td>{{ $value->docate->sender->name }}</td>
                                     <td>{{ $value->docate->receiver->name }}</td>
                                     <td>{{ $value->docate->no_of_box }}</td>
                                     <td>{{ $value->docate->actual_weight}}</td>
-
+                                    
                                 </tr>
                             @endforeach
                        
@@ -120,8 +123,8 @@
         $('#destination').select2();
         $('#origin').select2();
     });
-    var status;
-    function docateAction(docate_id,baging_id,status){
+    
+    function docateAction(docate_id,baging_id){
         
         $.ajaxSetup({
             headers: {
@@ -130,12 +133,37 @@
         });
         $.ajax({
             type:"GET",
-            url:"{{ url('/admin/baging/docate/operation')}}"+"/"+docate_id+"/"+baging_id+"/"+status,
+            url:"{{ url('/admin/baging/docate/operation')}}"+"/"+docate_id+"/"+baging_id,
             beforeSend: function(){
                     $('#doc_div').append('<i class="fa fa-spinner fa-spin" style="font-size:28px;position: absolute;top: 28px;right: 17px;" id="loader_id"></i>');
                 },
             success:function(response){
-                console.log(response);
+                if(response==1){
+                    $("#loader_id").show();
+                    
+                    setTimeout(function(){
+                        $("#loader_id").hide();
+                        $("#msg").show();
+                    },1000);
+
+                    setTimeout(function(){
+                        $("#msg").hide();
+                    },1500);
+                
+                }else{
+                   
+                    $("#loader_id").show();
+                    setTimeout(function(){
+                        $("#loader_id").hide();
+                        $("#msg2").show();
+                    },1000);
+
+                    setTimeout(function(){
+                        $("#msg2").hide();
+                    },1500);
+
+
+                }
 
             }
         });

@@ -20,7 +20,7 @@ $(document).ready(function() {
             url:"{{ url('/branch/baging/add/form')}}"+"/"+manifest_no,
             success:function(response){
                 if(response == 2){
-                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th></th><th>No Manifest Found or already bagged</th><th>-</th><th>-</th><th>-</th><th>-</th></tr>");
+                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><th style='text-align:center;' colspan='6'>No Docates Found </th></tr>");
                     $('#bag_list').show();
                 }else{
                     $('#lock_div').show();
