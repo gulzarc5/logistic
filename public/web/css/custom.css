@@ -1,0 +1,173 @@
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+.service-ul {
+  margin-top: 15px;
+}
+
+.service-ul li {
+  margin-bottom: 15px;
+  color: rgb(230, 230, 230);
+  list-style-type: none;
+}
+
+.service-ul li:before {
+  content: "\f00c";
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em;
+  width: 1.3em;
+  background: -webkit-linear-gradient(25deg, #ff000a, #ffe715);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-right: 10px;
+}
+
+#branch-team-table th,
+#branch-team-table td {
+  padding: 50px;
+}
+
+.clients-section {
+  background-color: #cfd6dcc4;
+}
+
+.clients-section img {
+  box-shadow: 0 2px 2px 0px transparent, 0 2px 1px 0px #00000040;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #f3f3f3;
+}
+
+.fh-icon {
+  padding-top: 0 !important;
+}
+
+.frs1box {
+  padding-bottom: 25px;
+}
+
+
+
+
+.tracking {
+  display: table;
+  width: 100%;
+  vertical-align: middle;
+  color: #fff;
+}
+.tracking-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+.search {
+  padding: 15% 8% 8% 8%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.input-group-lg > .form-control, .input-group-lg > .input-group-addon, .input-group-lg > .input-group-btn > .btn {
+  height: 52px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  background-color: #034ea2;
+  border: 0px solid #ccc;
+  border-radius: 4px;
+  color: #fff!important;
+}
+.input-group-addon a{
+  color: #fff;
+}
+.input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input-group-addon, .input-group-btn {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.input-group-addon, .input-group-btn, .input-group .form-control {
+  display: table-cell;
+}
+.input-group-addon button {
+  background: none repeat scroll 0 0 transparent;
+  border: 0 none;
+}
+.input-group-addon button:focus {
+outline: none;
+}
+
+/*delivery status*/
+ol.progtrckr {
+  margin: 0;
+  padding: 0;
+  list-style-type :none;
+}
+
+ol.progtrckr li {
+  display: inline-block;
+  text-align: center;
+  line-height: 3.5em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 16%; }
+
+ol.progtrckr li.progtrckr-done {
+  color: black;
+  border-bottom: 4px solid yellowgreen;
+}
+ol.progtrckr li.progtrckr-todo {
+  color: silver; 
+  border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+  content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+  position: relative;
+  bottom: -2.5em;
+  float: left;
+  left: 50%;
+  line-height: 1em;
+}
+ol.progtrckr li.progtrckr-done:before {
+  content: "\2713";
+  color: white;
+  background-color: yellowgreen;
+  height: 2.2em;
+  width: 2.2em;
+  line-height: 2.2em;
+  border: none;
+  border-radius: 2.2em;
+}
+ol.progtrckr li.progtrckr-todo:before {
+  content: "\039F";
+  color: silver;
+  background-color: white;
+  font-size: 2.2em;
+  bottom: -1.2em;
+}
+.delivery-status {
+  padding: 0px 0px 70px 0px;
+}
+
