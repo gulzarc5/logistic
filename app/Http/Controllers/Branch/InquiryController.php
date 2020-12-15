@@ -9,8 +9,18 @@ use App\Inbound;
 use App\DocateHistory;
 use App\Content;
 use Auth;
+use App\Services\BranchService;
+
 class InquiryController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function showInquiryForm(){
         return view('branch.outbound.inquiry_form');
     }
@@ -24,7 +34,7 @@ class InquiryController extends Controller
         $docates = Docate::where('docate_id',$docate_id)->first();
       
         $docate_data = Docate::where('docate.docate_id',$docate_id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('docate_details','docate.id','=','docate_details.docate_id')
                         ->join('docate_details as sender_details','docate.sender_id','=','sender_details.id')
                         ->join('city as origin_city','origin_city.id','sender_details.city')
@@ -37,7 +47,7 @@ class InquiryController extends Controller
         $content = Content::where('docate_id',$docates->id)->get();
         
         $manifest_data = Docate::where('docate.docate_id',$docate_id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('docate_details as receiver_name','receiver_name.id','=','docate.receiver_id')
                         ->join('city as origin_city','origin_city.id','=','manifest.origin')
@@ -45,7 +55,7 @@ class InquiryController extends Controller
                         ->select('docate.*','manifest.created_at as date','manifest.manifest_no as manifest_no','origin_city.name as origin_city','receiver_name.name as receiver_name','destination_city.name as destination_city')
                         ->first();
         $baging_data = Docate::where('docate.docate_id',$docate_id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('baging','baging.manifest_id','=','manifest.id')
                         ->join('docate_details as receiver_name','receiver_name.id','=','docate.receiver_id')
@@ -54,7 +64,7 @@ class InquiryController extends Controller
                         ->select('docate.*','baging.created_at as date','baging.lock_no as lock_no','origin_city.name as origin_city','receiver_name.name as receiver_name','destination_city.name as destination_city','manifest.manifest_no as manifest_no as manifest_no','manifest.created_at as created_data')
                         ->first();
         $sector_data = Docate::where('docate.docate_id',$docate_id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('baging','baging.manifest_id','=','manifest.id')
                         ->join('sector_booking as sector_manifest','sector_manifest.manifest_id','=','manifest.id')

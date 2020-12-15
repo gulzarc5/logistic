@@ -13,9 +13,18 @@ use DB;
 use App\Drs;
 use Carbon\Carbon;
 use Auth;
+use App\Services\BranchService;
 
 class InboundController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function sectorPickupForm(){
         return view('branch.inbound.sector_pickup_form');
     }
@@ -25,7 +34,7 @@ class InboundController extends Controller
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->where('sector_booking.cd_no',$cd_no)
-            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('sector_booking.branch_id',$this->branch_id)
             ->where('docate.courier_status',4)
             ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
             ->get();
@@ -43,7 +52,7 @@ class InboundController extends Controller
                 $docate_ids = $request->input('docate_id');
                 foreach($docate_ids as $docates){
                   
-                    $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
+                    $docate = Docate::where('id',$docates)->where('branch_id',$this->branch_id)->first();
                   
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                     if($docate->courier_status == 4){
@@ -51,7 +60,7 @@ class InboundController extends Controller
                         $inbound->cd_no = $request->input('cd_no');
                         $inbound->docate_no = $docate->docate_id;
                         $inbound->status = 1;
-                        $inbound->branch_id = Auth::user()->id;
+                        $inbound->branch_id = $this->branch_id;
                         $inbound->save();
                         $docate->courier_status =5;
                         $docate->status = 5;
@@ -92,7 +101,7 @@ class InboundController extends Controller
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->where('docate.docate_id',$docate_id)
-            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('sector_booking.branch_id',$this->branch_id)
             ->where(function($q){
                 $q->where('docate.courier_status',5)
                 ->orWhere('docate.courier_status',9);
@@ -123,7 +132,7 @@ class InboundController extends Controller
 
                 $drs = new Drs();              
                 $drs->de_name = $request->input('de_name');
-                $drs->branch_id = Auth::user()->id;
+                $drs->branch_id = $this->branch_id;
                 $drs->vehicle_no = $request->input('vehicle_no');
                 $drs->drs_date = $request->input('de_date');
                 $drs->status =1;
@@ -137,7 +146,7 @@ class InboundController extends Controller
                
                 foreach($docate_ids as $docatess){
                     if(!empty($docatess)){
-                        $docate = Docate::where('docate_id',$docatess)->where('branch_id',Auth::user()->id)->first();
+                        $docate = Docate::where('docate_id',$docatess)->where('branch_id',$this->branch_id)->first();
                         
                         if($docate->courier_status == 5 || $docate->courier_status == 9){
                             $inbound = Inbound::where('docate_no',$docate->docate_id)->first();
@@ -179,7 +188,7 @@ class InboundController extends Controller
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->join('drs','drs.id','=','inbound.drs_id')
-            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('sector_booking.branch_id',$this->branch_id)
             ->where('docate.courier_status',7)
             ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
             ->get();
@@ -205,7 +214,7 @@ class InboundController extends Controller
                 for($i=0;$i<count($docate_ids);$i++){
                     if(!empty($docate_ids[$i])){
                        
-                        $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',Auth::user()->id)->first();
+                        $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',$this->branch_id)->first();
                         $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                        
                         if($docate->courier_status == 7){
@@ -262,7 +271,7 @@ class InboundController extends Controller
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->join('drs','drs.id','=','inbound.drs_id')
             
-            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('sector_booking.branch_id',$this->branch_id)
             ->where('docate.courier_status',7)
             ->where('inbound.status',2)
             ->select('docate.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
@@ -284,7 +293,7 @@ class InboundController extends Controller
             DB::transaction(function () use ($request) {
                 $docate_ids = $request->input('docate_id');
                 for($i =0;$i<count($docate_ids);$i++){
-                    $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',Auth::user()->id)->first();
+                    $docate = Docate::where('id',$docate_ids[$i])->where('branch_id',$this->branch_id)->first();
                     $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                     if($docate->courier_status == 7){
                         $docate->courier_status =9;
