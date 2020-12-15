@@ -46,7 +46,8 @@
        </div>
        <div class="row quote1forms" style="padding-top:20px;">
           <div class="col-md-12">
-             <form>
+             <form method="POST" action="">
+                @csrf
                 <div class="fh-form request-form">
                    <div class="row">
                       <div class="field col-md-4">

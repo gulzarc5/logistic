@@ -160,6 +160,9 @@ class UserController extends Controller
         Artisan::call('cache:clear');
 
         return redirect()->back()->with('message','Permission Updated Successfully');
+    }
+
+
     public function editUserForm($id){
         $role = Role::where('name','!=','admin')->get();
         $states = State::where('status',1)->get();
@@ -212,21 +215,15 @@ class UserController extends Controller
     }
 
     public function changePassword(Request $request,$user_id){
-        
         $this->validate($request, [
-            
-            
             'new_password' => ['required', 'string', 'min:8', 'same:confirm_password'],
         ]);
-        
         $user = User::where('id',$user_id)->first();
-
-        
-            User::where('id',$user_id)->update([
-                
-                'password'=>Hash::make($request->input('new_password')),
-            ]);
-           return redirect()->back()->with('message','Password Updated Successfully');
+        User::where('id',$user_id)->update([
+            'password'=>Hash::make($request->input('new_password')),
+        ]);
+           
+        return redirect()->back()->with('message','Password Updated Successfully');
        
         
        
