@@ -20,6 +20,9 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('list/','UserController@userList')->name('admin.userList');
             Route::get('list/ajax','UserController@userListAjax')->name('admin.userListAjax');
             Route::post('edit/{id}','UserController@editUser')->name('admin.edit_user');
+
+            Route::get('permission/edit/{id}','UserController@editUserPermission')->name('admin.edit_user_permission');
+            Route::put('permission/update/{id}','UserController@updateUserPermission')->name('admin.update_user_permission');
             Route::get('details/{user_id}','UserController@userDetails')->name('admin.userDetails');
             Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('admin.userStatus');
         });

@@ -9,7 +9,7 @@
 
                 <div class="x_title">
                     <h2 style="float: left">Role List</h2>
-                    <a href="{{route('admin.add_role_form')}}" class="btn btn-warning" style="float: right">Add New</a>
+                    <!-- <a href="{{route('admin.add_role_form')}}" class="btn btn-warning" style="float: right">Add New</a> -->
                     <div class="clearfix"></div>
                 </div>
                 <div>
@@ -37,9 +37,9 @@
                                             <td>{{$item->description}}</td>
                                             <td>
                                                 <a href="{{route('admin.view_role_permissions',['id'=>encrypt($item->id)])}}" class="btn btn-info">View Permission</a>
-                                                @permission(['edit-user'])
-                                                    <a href="{{route('admin.edit_role',['id'=>encrypt($item->id)])}}" class="btn btn-warning">Edit</a>
-                                                @endpermission
+                                                
+                                                    <!-- <a href="{{route('admin.edit_role',['id'=>encrypt($item->id)])}}" class="btn btn-warning">Edit</a> -->
+                                               
                                             </td>
                                         </tr>
                                     @endforeach

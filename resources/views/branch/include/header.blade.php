@@ -110,21 +110,24 @@
                   </li>
                   @endpermission --}}
                   
-                  @permission(['create-docate-entry','docate-entry-list'])
+                  
                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Out Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      @permission(['create-docate-entry'])
-                        <li class="sub_menu"><a href="{{route('branch.docate_add_form')}}">Docate Entry</a></li>          
+                      @permission(['docate-entry'])
+                        <li class="sub_menu"><a href="{{route('branch.docate_add_form')}}">Docate Entry</a></li>     
+                      @endpermission  
+                      @permission(['manifest-docate'])   
                         <li class="sub_menu"><a href="{{ route('branch.manifest_list') }}">Manifest</a></li>
+                      @endpermission 
                         <li class="sub_menu"><a href="{{ route('branch.baging_list') }}">Baging</a></li>
                         <li class="sub_menu"><a href="{{ route('branch.sector_booking_list') }}">Sector Booking</a></li>
-                      @endpermission
+                      
                       @permission(['docate-entry-list'])
                         {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
                       @endpermission
                     </ul>
-                  </li>                  
-                  @endpermission
+                  </li>        
+
                   <li><a><i class="fa fa-cogs" aria-hidden="true"></i> In Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li class="sub_menu"><a href="{{ route('branch.sector_pickup_form') }}">Sector Pickup</a></li>

@@ -41,10 +41,9 @@
                                         </span>
                                     @enderror
                                 </div>
-
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="user_type">Select User Type</label>
-                                    <select class="form-control" name="user_type" id="user_type" required>
+                                    <select class="form-control" name="user_type" id="user_type" required onchange="userChange(this.value)">
                                         <option value="">Select User Type</option>
                                         @if (isset($role) && !empty($role))
                                             @foreach ($role as $item)
@@ -58,6 +57,24 @@
                                         </span>
                                     @enderror
                                 </div> 
+                                    
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3" style="display: none" id="branch_select">
+                                    <label for="branch">Select Branch</label>
+                                    <select class="form-control" name="branch" id="branch">
+                                        <option value="">Select Branch</option>
+                                        @if (isset($branch) && !empty($branch))
+                                            @foreach ($branch as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    @if($errors->has('branch'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('branch') }}</strong>
+                                        </span>
+                                    @enderror
+                                </div> 
+                               
                                 
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="email">Email</label>
@@ -174,6 +191,20 @@
                             </div>
                        </div>
 
+                        <div class="well" style="overflow: auto">
+                            @if (isset($permission) && !empty($permission))
+                                @foreach ($permission as $item)
+                                <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" value="{{$item->id}}" name="permission[]" >{{$item->display_name}}
+                                        </label>
+                                    </div>
+                                </div>  
+                                @endforeach
+                            @endif                                
+                        </div>
+
     	            	<div class="form-group">    
                             <button type="submit" class='btn btn-success'>Submit</button>
     	            	</div>
@@ -218,6 +249,16 @@
                 }
             }
         })
+    }
+
+    function userChange(user_type){
+        if (user_type == '2') {
+            $("#branch_select").show();
+            $("#branch").attr('required', true);
+        } else {
+            $("#branch_select").hide();      
+            $("#branch").attr('required', false);      
+        }
     }
 </script>
 @endsection

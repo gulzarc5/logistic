@@ -83,49 +83,56 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="{{ route('admin.deshboard')}}"><i class="fa fa-home"></i> Home </span></a></li>
-                 
+                  @permission(['create-roles','view-role-list','edit-role'])
                   <li><a><i class="fa fa-users" aria-hidden="true"></i> Users Roles<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">  
-                                
-                        <!-- <li class="sub_menu"><a href="{{route('admin.add_role_form')}}">Create New Role</a></li> -->
-                    
+                      @permission(['create-roles'])                    
+                        <li class="sub_menu"><a href="{{route('admin.add_role_form')}}">Create New Role</a></li>
+                      @endpermission
+                      @permission(['view-role-list','edit-role'])
                         <li class="sub_menu"><a href="{{route('admin.role_list')}}">Role List</a></li>
-                      
+                      @endpermission
                     </ul>
                   </li>
-                  
+                  @endpermission
 
-                  
+                  @permission(['create-user','view-user-list','edit-user'])
                   <li><a><i class="fa fa-users" aria-hidden="true"></i> Users <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      
+                      @permission(['create-user'])              
                         <li class="sub_menu"><a href="{{route('admin.add_user_form')}}">Add User</a></li>
-                      
+                      @endpermission
+                      @permission(['view-user-list','edit-user'])
                         <li class="sub_menu"><a href="{{route('admin.userList')}}">User List</a></li>               
-                      
+                      @endpermission
                     </ul>
                   </li>
+                  @endpermission
                   
-                  
+                  @permission(['create-docate-entry','docate-entry-list'])
                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Out Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      
+                      @permission(['create-docate-entry'])
                         {{-- <li class="sub_menu"><a href="{{route('admin.cannote_add_form')}}">New Entry</a></li>           --}}
-                      
+                      @endpermission
                       <li class="sub_menu"><a href="{{ route('admin.docate_list') }}">Docate List</a></li>  
                       <li class="sub_menu"><a href="{{ route('admin.manifest_list') }}">Manifest List</a></li>  
                         <li class="sub_menu"><a href="{{ route('admin.baging_list') }}">Bagging List</a></li>  
                       <li class="sub_menu"><a href="{{ route('admin.sector_list') }}">Sector Booking List</a></li>  
-                      
+                      @permission(['docate-entry-list'])
+                        {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
+                      @endpermission
                     </ul>
                   </li>                  
-                  
+                  @endpermission
+
                  
 
                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> In Bound <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      
-                     
+                      @permission(['create-docate-entry'])
+                        {{-- <li class="sub_menu"><a href="{{route('admin.cannote_add_form')}}">New Entry</a></li>           --}}
+                      @endpermission
                       <li class="sub_menu"><a href="{{ route('admin.sector_pickup_list') }}">Sector Pickup List</a></li>  
                       <li class="sub_menu"><a href="{{ route('admin.drs_prepared_list') }}">DRS  List</a></li>  
                         {{-- <li class="sub_menu"><a href="{{ route('admin.drs_close_list') }}">DRS Closed List</a></li>  

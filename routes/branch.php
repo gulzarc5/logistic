@@ -7,7 +7,7 @@ Route::group(['namespace' => 'Branch'],function(){
     Route::get('/branch','LoginController@index')->name('branch.login_form');    
     Route::post('branch/login', 'LoginController@branchLogin');
  
-    Route::group(['middleware'=>['role:Branch'],'prefix'=>'branch'],function(){
+    Route::group(['middleware'=>['role:Branch|Employee'],'prefix'=>'branch'],function(){
         Route::get('/dashboard', 'DashboardController@dashboardView')->name('branch.deshboard');        
         Route::post('logout', 'LoginController@logout')->name('branch.logout');
         Route::get('/change/password/form', 'DashboardController@changePasswordForm')->name('branch.change_password_form');
