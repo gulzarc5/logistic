@@ -7,8 +7,18 @@ use Illuminate\Http\Request;
 use App\Docate;
 use Carbon\Carbon;
 use Auth;
+use App\Services\BranchService;
+
 class DashboardController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function dashboardView()
     {
         $date = Carbon::now();
@@ -24,19 +34,19 @@ class DashboardController extends Controller
         ];
         $today_date = Carbon::today()->toDateString();
         $chart = $this->chartData();
-        $new_docates = Docate::where('courier_status',1)->where('branch_id',Auth::user()->id)->count();
-        $docates_manifested = Docate::where('courier_status',2)->where('branch_id',Auth::user()->id)->count();
-        $docates_bagged =  Docate::where('courier_status',3)->where('branch_id',Auth::user()->id)->count();
-        $docates_sector_booked =  Docate::where('courier_status',4)->where('branch_id',Auth::user()->id)->count();
-        $docates_picked =  Docate::where('courier_status',5)->where('branch_id',Auth::user()->id)->count();
+        $new_docates = Docate::where('courier_status',1)->where('branch_id',$this->branch_id)->count();
+        $docates_manifested = Docate::where('courier_status',2)->where('branch_id',$this->branch_id)->count();
+        $docates_bagged =  Docate::where('courier_status',3)->where('branch_id',$this->branch_id)->count();
+        $docates_sector_booked =  Docate::where('courier_status',4)->where('branch_id',$this->branch_id)->count();
+        $docates_picked =  Docate::where('courier_status',5)->where('branch_id',$this->branch_id)->count();
         $today_delivered = Docate::where('courier_status', 8)
-                                ->where('branch_id',Auth::user()->id)
+                                ->where('branch_id',$this->branch_id)
                                 ->whereDate('docate.created_at','=',$today_date)
                                 ->join('docate_details as sender','sender.id','=','docate.sender_id')
                                 ->select('docate.*','sender.name as sender_name')
                                 ->get();
         $today_pickup=Docate::where('courier_status', 5)
-                            ->where('branch_id',Auth::user()->id)
+                            ->where('branch_id',$this->branch_id)
                             ->whereDate('docate.created_at','=',$today_date)
                             ->join('docate_details as sender','sender.id','=','docate.sender_id')
                             ->select('docate.*','sender.name as sender_name')
@@ -63,24 +73,24 @@ class DashboardController extends Controller
 
     function inboundpieData($from_date,$to_date)
     {
-        $inbound_data = Docate::whereBetween('courier_status',[5,9])->where('branch_id',Auth::user()->id)->whereBetween('created_at',[$from_date,$to_date])->count();
+        $inbound_data = Docate::whereBetween('courier_status',[5,9])->where('branch_id',$this->branch_id)->whereBetween('created_at',[$from_date,$to_date])->count();
         return $inbound_data;
     }
 
     function outboundpieData($from_date,$to_date)
     {
-        $outbound_data = Docate::whereBetween('courier_status', [1, 9])->where('branch_id',Auth::user()->id)->whereBetween('created_at',[$from_date,$to_date])->count();
+        $outbound_data = Docate::whereBetween('courier_status', [1, 9])->where('branch_id',$this->branch_id)->whereBetween('created_at',[$from_date,$to_date])->count();
         return $outbound_data;
     }
 
     
     function chartQueryInbound($month){
-        $inbound = Docate::whereBetween('courier_status',[5,9])->where('branch_id',Auth::user()->id)->whereMonth('created_at', $month)->count();
+        $inbound = Docate::whereBetween('courier_status',[5,9])->where('branch_id',$this->branch_id)->whereMonth('created_at', $month)->count();
         return $inbound;
     }
 
     function chartQueryoutbound($month){
-        $outbound = Docate::whereBetween('courier_status', [1, 9])->where('branch_id',Auth::user()->id)->whereMonth('created_at', $month)->count();
+        $outbound = Docate::whereBetween('courier_status', [1, 9])->where('branch_id',$this->branch_id)->whereMonth('created_at', $month)->count();
         return $outbound;
     }
 }

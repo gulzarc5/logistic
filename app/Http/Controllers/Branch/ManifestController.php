@@ -13,10 +13,19 @@ use App\ManifestDetails;
 use App\DocateDetails;
 use DB;
 use Auth;
+use App\Services\BranchService;
+
 
 class ManifestController extends Controller
 {
-    
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function manifestList(){
         $city = City::select('id','name')->orderBy('name','asc')->get();
         return view('branch.outbound.manifest_list',compact('city'));
@@ -25,7 +34,7 @@ class ManifestController extends Controller
     public function fetchDocateDetails($docate_no){
         $docate_data = Docate::select('docate.id as id','docate.no_of_box as packet','docate.actual_weight as actual_weight','receiver.name as receiver_name','origin_city.name as origin_city_name','destination_city.name as destination_city_name')
             ->where('docate.docate_id',$docate_no)
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->where(function($q){
                 $q->where('docate.courier_status',1)
                 ->orWhere('docate.courier_status',5);
@@ -59,7 +68,7 @@ class ManifestController extends Controller
                     $manifest_id = $this->generateManifestNo($origin,$destination);
                     foreach($docate_nos as $docate_no){
                         if(!empty($docate_no)){
-                            $docate = Docate::where('docate_id',$docate_no)->where('branch_id',Auth::user()->id)->first();  
+                            $docate = Docate::where('docate_id',$docate_no)->where('branch_id',$this->branch_id)->first();  
                             $docate_history = new DocateHistory();
                             if($docate->courier_status==1){
                                 //update docate statuses
@@ -111,7 +120,7 @@ class ManifestController extends Controller
 
     private function generateManifestNo($origin,$destination){
         $manifest = new Manifest(); 
-        $manifest->branch_id =Auth::user()->id; 
+        $manifest->branch_id =$this->branch_id; 
         $manifest->save();
 
         $city = City::where('id',$origin)->first();
@@ -127,7 +136,7 @@ class ManifestController extends Controller
 
     public function manifestInfo($manifest_id){
         $manifest_data = Docate::where('docate.manifest_id',$manifest_id)
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->join('manifest','manifest.id','=','docate.manifest_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->join('city as origin_city','origin_city.id','=','manifest.origin')
@@ -135,7 +144,7 @@ class ManifestController extends Controller
             ->join('docate_details','docate_details.id','=','docate.sender_id')
             ->select('docate.*','origin_city.name as origin_city_name','destination_city.name as destination_city_name','receiver.name as receiver_name','docate_details.name as sender_name')
             ->get();
-        $manifest = Manifest::where('id',$manifest_id)->where('branch_id',Auth::user()->id)->first(); 
+        $manifest = Manifest::where('id',$manifest_id)->where('branch_id',$this->branch_id)->first(); 
         $manifest_no = $manifest->manifest_no;                 
         return view('branch.outbound.manifest_info',compact('manifest_data','manifest_no'));
     }

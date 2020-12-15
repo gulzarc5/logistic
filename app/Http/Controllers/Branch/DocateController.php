@@ -13,8 +13,18 @@ use App\DocateHistory;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use App\Services\BranchService;
+
 class DocateController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function addForm(){
         $city = City::where('status',1)->get();
         $state = State::where('status',1)->get();
@@ -69,7 +79,7 @@ class DocateController extends Controller
                 $docate->chargeable_weight = $request->input('chargeable_weight');
                 $docate->invoice_value = $request->input('invoice');
                 $docate->invoice_no = $request->input('invoice_no');
-                $docate->branch_id = Auth::user()->id;
+                $docate->branch_id = $this->branch_id;
                 $docate->pickup_date =$request->input('pickup_date');
                 $docate->pickup_time = $request->input('pickup_time');
                 $docate->save();
@@ -145,7 +155,7 @@ class DocateController extends Controller
 
     public function docateInfo($docate_id){
         $docate_data = Docate::where('docate.id',$docate_id)
-            ->where('branch_id',Auth::user()->id)
+            ->where('branch_id',$this->branch_id)
             ->join('docate_details','docate_details.docate_id','=','docate.id')
             ->join('docate_details as sender_details','sender_details.id','=','docate.sender_id')
             ->join('docate_details as receiver_details','receiver_details.id','=','docate.receiver_id')

@@ -11,8 +11,18 @@ use App\SectorDetails;
 use App\inbound;;
 use DB;
 use Auth;
+use App\Services\BranchService;
+
 class SectorPickUpController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function sectorPickupForm(){
         return view('branch.inbound.sector_pickup_form');
     }
@@ -23,7 +33,7 @@ class SectorPickUpController extends Controller
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->where('sector_booking.cd_no',$cd_no)
-            ->where('sector_booking.branch_id',Auth::user()->id)
+            ->where('sector_booking.branch_id',$this->branch_id)
             ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
             ->get();
         if($data){
@@ -42,14 +52,14 @@ class SectorPickUpController extends Controller
                 $docate_ids = $request->input('docate_id');
                 foreach($docate_ids as $docates){
                     if (!empty($docates)) {
-                        $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
+                        $docate = Docate::where('id',$docates)->where('branch_id',$this->branch_id)->first();
                         $sector = SectorBooking::where('cd_no',$request->input('cd_no'))->first();
                         if($docate->courier_status == 4){
                             $inbound = new Inbound();
                             $inbound->cd_no = $request->input('cd_no');
                             $inbound->docate_no = $docate->docate_id;
                             $inbound->status = 1;
-                            $inbound->branch_id = Auth::user()->id;
+                            $inbound->branch_id = $this->branch_id;
                             $inbound->save();
 
                             $docate->courier_status =5;

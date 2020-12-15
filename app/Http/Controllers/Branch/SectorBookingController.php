@@ -14,8 +14,18 @@ use App\BagingDetails;
 use App\Baging;
 use DB;
 use Auth;
+use App\Services\BranchService;
+
 class SectorBookingController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function sectorBookingList(){     
         $city = City::where('status',1)->get();
         return view('branch.outbound.sector_booking_list',compact('city'));
@@ -23,7 +33,7 @@ class SectorBookingController extends Controller
 
     public function fetchAddForm($manifest_no){        
         $manifest_items = Docate::where('docate.courier_status',3)
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->join('manifest','manifest.id','=','docate.manifest_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->join('docate_details','docate_details.id','=','docate.sender_id')
@@ -61,8 +71,8 @@ class SectorBookingController extends Controller
         try {
             $sector_id =null;
             DB::transaction(function () use ($request, & $sector_id) {
-                $manifest_id = Manifest::where('manifest_no',$request->input('manifest_number'))->where('branch_id',Auth::user()->id)->first();
-                $baging_id = Baging::where('manifest_id',$manifest_id->id)->where('branch_id',Auth::user()->id)->first();
+                $manifest_id = Manifest::where('manifest_no',$request->input('manifest_number'))->where('branch_id',$this->branch_id)->first();
+                $baging_id = Baging::where('manifest_id',$manifest_id->id)->where('branch_id',$this->branch_id)->first();
                 $origin_city = $request->input('origin_city');
                 $docate_ids = $request->input('docate_id');
                 $sector = new SectorBooking();
@@ -81,7 +91,7 @@ class SectorBookingController extends Controller
                 $sector->mode = $request->input('mode');
                 $sector->vehicle_no = $request->input('vehicle_no');
                 $sector->cd_no = $request->input('cd_no');
-                $sector->branch_id = Auth::user()->id;
+                $sector->branch_id = $this->branch_id;
                 
                 if($sector->save()){
 
@@ -94,7 +104,7 @@ class SectorBookingController extends Controller
                         $sector_details->docate_id = $docates;
                         $sector_details->save();
 
-                        $docate = Docate::where('id',$docates)->where('branch_id',Auth::user()->id)->first();
+                        $docate = Docate::where('id',$docates)->where('branch_id',$this->branch_id)->first();
                         
                         if($docate->courier_status == 3){                       
                             
@@ -140,7 +150,7 @@ class SectorBookingController extends Controller
 
     public function sectorInfo($sector_id){
         $sector_data = Docate::where('docate.sector_id',$sector_id)
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->join('manifest','manifest.id','=','docate.manifest_id')
             ->join('sector_booking','sector_booking.manifest_id','=','manifest.id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')

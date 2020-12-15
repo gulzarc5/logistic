@@ -18,9 +18,18 @@ use App\Exports\Manifests;
 use App\Exports\Bagings;
 use App\Exports\SectorBookings;
 use App\Exports\Drss;
+use App\Services\BranchService;
 
 class ReportController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function reportForm(){
         return view('branch.outbound.report_form');
     }
@@ -34,11 +43,11 @@ class ReportController extends Controller
       
         if($types=="Y"){
             if($start_date == null && $end_date == null){
-                $docate_data = Docate::orderBy('id','desc')->where('branch_id',Auth::user()->id);;
+                $docate_data = Docate::orderBy('id','desc')->where('branch_id',$this->branch_id);
             }else{
                 $docate_data = Docate::whereBetween('created_at', [$date_start, $date_end])
                 ->orderBy('id','desc')
-                ->where('branch_id',Auth::user()->id);
+                ->where('branch_id',$this->branch_id);
             }
             return datatables()->of($docate_data->get())
             ->addIndexColumn()
@@ -98,7 +107,7 @@ class ReportController extends Controller
         }else{
             
             $inbound_docates = Inbound::whereBetween('created_at', [$date_start, $date_end])
-                ->orderBy('id','desc')->where('branch_id',Auth::user()->id);;
+                ->orderBy('id','desc')->where('branch_id',$this->branch_id);;
                 
             
             return datatables()->of($inbound_docates->get())
@@ -199,7 +208,7 @@ class ReportController extends Controller
            $id = $docate->id;
        }
         $docate_data = Docate::where('docate.id',$id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('docate_details','docate.id','=','docate_details.docate_id')
                         ->join('docate_details as sender_details','docate.sender_id','=','sender_details.id')
                         ->join('city as origin_city','origin_city.id','sender_details.city')
@@ -211,7 +220,7 @@ class ReportController extends Controller
                         ->first();
         
         $manifest_data = Docate::where('docate.id',$id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('docate_details as receiver_name','receiver_name.id','=','docate.receiver_id')
                         ->join('city as origin_city','origin_city.id','=','manifest.origin')
@@ -219,7 +228,7 @@ class ReportController extends Controller
                         ->select('docate.*','manifest.created_at as date','manifest.manifest_no as manifest_no','origin_city.name as origin_city','receiver_name.name as receiver_name','destination_city.name as destination_city')
                         ->first();
         $baging_data = Docate::where('docate.id',$id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('baging','baging.manifest_id','=','manifest.id')
                         ->join('docate_details as receiver_name','receiver_name.id','=','docate.receiver_id')
@@ -228,7 +237,7 @@ class ReportController extends Controller
                         ->select('docate.*','baging.created_at as date','baging.lock_no as lock_no','origin_city.name as origin_city','receiver_name.name as receiver_name','destination_city.name as destination_city','manifest.manifest_no as manifest_no as manifest_no','manifest.created_at as created_data')
                         ->first();
         $sector_data = Docate::where('docate.id',$id)
-                        ->where('docate.branch_id',Auth::user()->id)
+                        ->where('docate.branch_id',$this->branch_id)
                         ->join('manifest','manifest.id','=','docate.manifest_id')
                         ->join('baging','baging.manifest_id','=','manifest.id')
                         ->join('sector_booking as sector_manifest','sector_manifest.manifest_id','=','manifest.id')
@@ -266,7 +275,7 @@ class ReportController extends Controller
         if (!empty($start_date) && !empty($end_date)) {
             $manifest->whereDate('created_at','>=', $start_date)
                 ->whereDate('created_at','<=', $end_date)
-                ->where('branch_id',Auth::user()->id);
+                ->where('branch_id',$this->branch_id);
         }
         
             return datatables()->of($manifest->get())
@@ -305,7 +314,7 @@ class ReportController extends Controller
         if (!empty($start_date) && !empty($end_date)) {
             $baging->whereDate('created_at','>=', $start_date)
                 ->whereDate('created_at','<=', $end_date)
-                ->where('branch_id',Auth::user()->id);
+                ->where('branch_id',$this->branch_id);
         }
         
             return datatables()->of($baging->get())
@@ -345,7 +354,7 @@ class ReportController extends Controller
         $sector = SectorBooking::OrderBy('id','desc');
         if (!empty($start_date) && !empty($end_date)) {
             $sector->whereDate('created_at','>=', $start_date)
-                ->whereDate('created_at','<=', $end_date)->where('branch_id',Auth::user()->id);
+                ->whereDate('created_at','<=', $end_date)->where('branch_id',$this->branch_id);
         }
         
             return datatables()->of($sector->get())
@@ -386,7 +395,7 @@ class ReportController extends Controller
         if (!empty($start_date) && !empty($end_date)) {
             $drs->whereDate('created_at','>=', $start_date)
                 ->whereDate('created_at','<=', $end_date)
-                ->where('branch_id',Auth::user()->id);
+                ->where('branch_id',$this->branch_id);
         }
         
             return datatables()->of($drs->get())

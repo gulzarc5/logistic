@@ -15,8 +15,19 @@ use App\BagingDetails;
 use Carbon\Carbon;
 use DB;
 use Auth;
+
+use App\Services\BranchService;
+
 class BagingController extends Controller
 {
+    protected $branch_id;
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            $this->branch_id = BranchService::branchId();
+            return $next($request);
+        });
+    }
+
     public function bagingList(){
         $city= City::where('status',1)->get();
         return view('branch.outbound.baging_list',compact('city'));
@@ -26,7 +37,7 @@ class BagingController extends Controller
         $manifest_items = Docate::join('manifest','manifest.id','=','docate.manifest_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->where('manifest.manifest_no',$manifest_no)
             ->where(function($q){
                 $q->where('docate.courier_status',2)
@@ -60,11 +71,11 @@ class BagingController extends Controller
                 $docate_ids = $request->input('docate_id');  // array of docate id
                 $lock_no = $request->input('lock_no');
                 $manifest_no = $request->input('manifest_number');
-                $manifest = Manifest::where('manifest_no', $manifest_no)->where('branch_id',Auth::user()->id)->first();        
+                $manifest = Manifest::where('manifest_no', $manifest_no)->where('branch_id',$this->branch_id)->first();        
             
                 $baging = new Baging();
                 $baging->manifest_id = $manifest->id;
-                $baging->branch_id = Auth::user()->id;
+                $baging->branch_id = $this->branch_id;
                 $baging->origin =$request->input('origin') ;
                 $baging->destination=$request->input('destination');
                 $baging->date=Carbon::today()->toDateString();
@@ -73,7 +84,7 @@ class BagingController extends Controller
         
                 if(count($docate_ids) > 0){
                     foreach($docate_ids as $docate_id){
-                        $docate = Docate::where('id',$docate_id)->where('branch_id',Auth::user()->id)->first();
+                        $docate = Docate::where('id',$docate_id)->where('branch_id',$this->branch_id)->first();
                         
                         $baging_details = new BagingDetails();
                         $baging_details->docate_id = $docate_id;
@@ -129,7 +140,7 @@ class BagingController extends Controller
     
     public function bagInfo($baging_id){
         $baged_data = Docate::where('docate.baging_id',$baging_id)
-            ->where('docate.branch_id',Auth::user()->id)
+            ->where('docate.branch_id',$this->branch_id)
             ->join('baging','baging.id','=','docate.baging_id')
             ->join('manifest','manifest.id','=','baging.manifest_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
