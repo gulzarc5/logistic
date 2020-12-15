@@ -121,7 +121,6 @@
                       @endpermission 
                         <li class="sub_menu"><a href="{{ route('branch.baging_list') }}">Baging</a></li>
                         <li class="sub_menu"><a href="{{ route('branch.sector_booking_list') }}">Sector Booking</a></li>
-                      
                       @permission(['docate-entry-list'])
                         {{-- <li class="sub_menu"><a href="#">Product List</a></li>           --}}
                       @endpermission
