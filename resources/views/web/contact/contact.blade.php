@@ -116,26 +116,27 @@
        <p class="paddbtm40 text-center">If you have any questions about the services we provide simply use the form below. We try and respond to all
           <br>queries and comments within 24 hours.
        </p>
-       <form>
+       <form method="POST" action="{{ route('web.add_contacts') }}">
+         @csrf
           <div class="fh-form fh-form-3">
              <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                    <p class="field">
-                      <input placeholder="Your Name*" type="text">
+                      <input placeholder="Your Name*" name="name" type="text">
                    </p>
                    <p class="field">
-                      <input placeholder="Email Address*" type="email">
+                      <input placeholder="Email Address*" name="email" type="email">
                    </p>
                    <p class="field">
-                      <input placeholder="Phone" type="text">
+                      <input placeholder="Phone" name="phone" type="text">
                    </p>
                    <p class="field">
-                      <input placeholder="Subject" type="text">
+                      <input placeholder="Subject" name="subject" type="text">
                    </p>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                    <p class="field single-field">
-                      <textarea name="your-message" cols="40" rows="10" placeholder="Your Message..."></textarea>
+                      <textarea  name="message" cols="40" rows="10" placeholder="Your Message..."></textarea>
                    </p>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">

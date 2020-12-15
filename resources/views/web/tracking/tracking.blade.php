@@ -23,15 +23,18 @@
    <div class="tracking">
       <div class="tracking-inner text-center">
          <div role="form" class="search">
+            <form method="GET" action="{{ route('web.tracking_details') }}">
             <div class="input-group input-group-lg input-search">
-               <input type="search" class="form-control" id="tracking_input" placeholder="Enter Tracking Id">
+               <input type="search" class="form-control" id="tracking_input" name="track_id" placeholder="Enter Tracking Id">
                <span class="input-group-addon" id="tracking_button">
-               <a href="{{route('web.tracking.trackingdetails')}}"><button type="submit">
+               {{-- <a href="{{route('web.tracking.trackingdetails')}}"> --}}
+               <button type="submit">
                <span class="glyphicon glyphicon-search"></span>
                </button>
-               </a>
+               {{-- </a> --}}
                </span>
             </div>
+            </form>
             <!-- /input-group -->
          </div>
       </div>

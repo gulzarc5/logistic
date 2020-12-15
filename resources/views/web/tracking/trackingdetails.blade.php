@@ -29,8 +29,8 @@
                   <h2 class="entry-title text-uppercase text-center" style="text-decoration: underline;">Sender Details</h2>
                </header>
                <div style="padding-left: 15%;">
-                  <p>Name : Gulzar Choudhury</p>
-                  <p>Address : Guwahati, pin-7800213</p>
+                  <p>Name : {{ $docate_details->sender->name }}</p>
+                  <p>Address :{{ $docate_details->sender->address }}</p>
                </div>
             </div>
          </div>
@@ -40,8 +40,8 @@
                   <h2 class="entry-title text-uppercase text-center" style="text-decoration: underline;">Receiver Details</h2>
                </header>
                <div style="padding-left: 15%;">
-                  <p>Name : Gulzar Choudhury</p>
-                  <p>Address : Guwahati, pin-7800213</p>
+                  <p>Name : {{ $docate_details->receiver->name }}</p>
+                  <p>Address :{{ $docate_details->receiver->address }}</p>
                </div>
             </div>
          </div>
@@ -52,22 +52,46 @@
    <div class="container">
       <div class="row ">
          <ol class="progtrckr" data-progtrckr-steps="2">
-            <li class="progtrckr-done">Booked</li>
+            @if($docate_details->status >=1)
+               <li class="progtrckr-done">Booked</li>
+            @else
+               <li class="progtrckr-todo">Booked</li>
+            @endif
             <!--
                -->
-            <li class="progtrckr-done">Manifested</li>
+            @if($docate_details->status >=2)   
+               <li class="progtrckr-done">Manifested</li>
+            @else
+               <li class="progtrckr-todo">Manifested</li>
+            @endif
             <!--
                -->
-            <li class="progtrckr-done">Bagged</li>
+            @if($docate_details->status >=3)   
+               <li class="progtrckr-done">Bagged</li>
+            @else
+            <li class="progtrckr-todo">Bagged</li>
+            @endif
             <!--
                -->
-            <li class="progtrckr-todo">In Transit</li>
+            @if($docate_details->status >=5)
+               <li class="progtrckr-done">In Transit</li>
+            @else
+               <li class="progtrckr-todo">In Transit</li>
+            @endif
             <!--
                -->
-           <li class="progtrckr-todo">Out for Delivery</li>
+            @if($docate_details->status >=6)
+               <li class="progtrckr-done">Out for Delivery</li>
+           @else
+               <li class="progtrckr-todo">Out for Delivery</li>
+           @endif
              <!--
                -->
-            <li class="progtrckr-todo">Delivered</li>
+            @if($docate_details->status >= 7)
+               <li class="progtrckr-done">Delivered</li>
+            @else
+               <li class="progtrckr-todo">Delivered</li>
+            @endif
          </ol>
       </div>
    </div>
@@ -80,26 +104,19 @@
                <thead>
                   <tr>
                      <th>Date</th>
-                     <th>Time</th>
+                     {{-- <th>Time</th> --}}
                      <th>Status</th>
                   </tr>
                </thead>
                <tbody>
+                  @foreach($tracking_history as $details)
                   <tr>
-                     <td>31/07/2018</td>
-                     <td>22:24:PM</td>
-                     <td>Dispatched from distibutor address</td>
+                     <td>{{ $details->created_at }}</td>
+                     {{-- <td>{{ $details->time }}</td> --}}
+                     <td>{{ $details->comments }}</td>
                   </tr>
-                  <tr>
-                     <td>31/07/2018</td>
-                     <td>22:24:PM</td>
-                     <td>Dispatched from distibutor address</td>
-                  </tr>
-                  <tr>
-                     <td>31/07/2018</td>
-                     <td>22:24:PM</td>
-                     <td>Dispatched from distibutor address</td>
-                  </tr>
+                  @endforeach
+                 
                </tbody>
             </table>
          </div>

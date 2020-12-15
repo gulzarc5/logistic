@@ -1,6 +1,9 @@
 <?php
 
-// -------- Index---------
+
+use Illuminate\Support\Facades\Route;
+Route::group(['namespace' => 'web'], function () {
+    // -------- Index---------
 Route::get('/', function () {
     return view('web.index');
 })->name('web.index');
@@ -19,9 +22,9 @@ Route::get('/tracking', function () {
     return view('web.tracking.tracking');
 })->name('web.tracking.tracking');
 
-Route::get('/trackingdetails', function () {
-    return view('web.tracking.trackingdetails');
-})->name('web.tracking.trackingdetails');
+// Route::get('/trackingdetails', function () {
+//     return view('web.tracking.trackingdetails');
+// })->name('web.tracking.trackingdetails');
 
 
 // -------- Parcel Book---------
@@ -55,4 +58,8 @@ Route::get('/franchise', function () {
 Route::get('/contact', function () {
     return view('web.contact.contact');
 })->name('web.contact.contact');
+    
+Route::get('/tracking/details','TrackingController@trackingDetails')->name('web.tracking_details');
+Route::post('/add/contacts','TrackingController@addContacts')->name('web.add_contacts');
 
+});

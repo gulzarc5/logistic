@@ -145,6 +145,7 @@
                       <li class="sub_menu"><a href="{{route('admin.serviceArea_list')}}">Service Area</a></li>
                     </ul>
                   </li>
+                  <li><a href="{{ route('admin.contact_list') }}"><i class="fa fa-product-hunt"></i> Contact </span></a></li>
 
                   {{-- <li> <a href="{{route('admin.change_password_form')}}"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a></li> --}}
 
