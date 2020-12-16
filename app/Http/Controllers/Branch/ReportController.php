@@ -18,6 +18,7 @@ use App\Exports\Manifests;
 use App\Exports\Bagings;
 use App\Exports\SectorBookings;
 use App\Exports\Drss;
+use App\Exports\Pickup;
 use App\Services\BranchService;
 
 class ReportController extends Controller
@@ -418,6 +419,38 @@ class ReportController extends Controller
         $end_date = $request->input('end_date');
         
         return Excel::download(new Drss($start_date,$end_date), 'drs_list.xlsx');
+    }
+
+    public function sectorPickupListReportForm(){
+        return view('branch.outbound.sector_pickup_report');
+    }
+
+    public function sectorPickupListAjax(Request $request){
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+       
+        $pickup = Inbound::OrderBy('id','desc');
+        if (!empty($start_date) && !empty($end_date)) {
+            $pickup->whereDate('created_at','>=', $start_date)
+                ->whereDate('created_at','<=', $end_date)
+                ->where('status',1);
+        }
+        
+        return datatables()->of($pickup->get())
+        ->addIndexColumn()
+        ->addColumn('status', function ($pickup) {
+            $btn = '<a class="btn btn-primary btn-xs">Picked Up</a>';
+            return $btn;
+        })->rawColumns(['status'])
+        ->make(true);
+    }
+
+    public function sectorPickupListExcelExport(Request $request){
+        
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        
+        return Excel::download(new Pickup($start_date,$end_date), 'pickup_list.xlsx');
     }
 
 }

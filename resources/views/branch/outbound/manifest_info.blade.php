@@ -55,7 +55,7 @@
                             @foreach ($manifest_data as $data)    
                                 <tr>
                                     <td>{{ $data->docate_id }}</td>
-                                    <td>{{ $data->manifest_no }}</td>
+                                    <td>{{  $manifest_no }}</td>
                                     <td>{{ $data->sender_name }}</td>
                                     <td>{{ $data->origin_city_name }}</td>
                                     <td>{{ $data->destination_city_name }}</td>
@@ -109,7 +109,7 @@ printWindow.document.write(`
                             @foreach ($manifest_data as $data)    
                             <tr>
                                 <td>{{ $data->docate_id }}</td>
-                                <td>{{ $data->manifest_no }}</td>
+                                <td>{{ $manifest_no }}</td>
                                 <td>{{ $data->sender_name }}</td>
                                 <td>{{ $data->origin_city_name }}</td>
                                 <td>{{ $data->destination_city_name }}</td>

@@ -141,7 +141,9 @@
                       <li class="sub_menu"><a href="{{ route('branch.manifest_report_form') }}">Manifest </a></li>
                       <li class="sub_menu"><a href="{{ route('branch.baging_report_form') }}">Bagging</a></li>
                       <li class="sub_menu"><a href="{{ route('branch.sector_report_form') }}">Sector Booking</a></li>
+                      <li class="sub_menu"><a href="{{ route('branch.sector_pickup_report') }}">Pickup</a></li>
                       <li class="sub_menu"><a href="{{ route('branch.drs_report_form') }}">Drs</a></li>
+                    
                     </ul>
                   </li>
                   
