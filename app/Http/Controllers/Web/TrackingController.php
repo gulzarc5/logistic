@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Docate;
 use App\DocateHistory;
 use App\Contact;
+use App\Partner;
+use App\Freight;
+use App\PartnerFreight;
 class TrackingController extends Controller
 {
    public function trackingDetails(Request $request){
@@ -18,6 +21,16 @@ class TrackingController extends Controller
 
    }
 
+   public function deliveryExecutive(){
+       $freight= Freight::get();
+       return view('web.delivery.delivery-executive',compact('freight'));
+   }
+
+   public function franchise(){
+    $freight= Freight::get();
+    return view('web.franchise.franchise',compact('freight'));
+
+   }
    public function addContacts(Request $request){
       
     $this->validate($request, [
@@ -38,5 +51,43 @@ class TrackingController extends Controller
     }
 
     }
+
+    public function addPartner(Request $request,$type){
+        
+        $this->validate($request, [
+            'first_name'=>'required',
+            'last_name'=>'required',
+            'email_address'=>'required',
+            'phone'=>'required|numeric',
+            'city'=>'required',
+            'state'   => 'required',
+            'bike'=>'required|numeric',
+            'special_info'=>'required',
+            'freight_type'=>'array'
+        ]);
+        
+        $partner = new Partner();
+        $partner->partner_type = $type;
+        $partner->first_name=$request->input('first_name');
+        $partner->last_name = $request->input('last_name');
+        $partner->email_address = $request->input('email_address');
+        $partner->phone = $request->input('phone');
+        $partner->city = $request->input('city');
+        $partner->state = $request->input('state');
+        $partner->bike = $request->input('bike');
+        $partner->special_info = $request->input('special_info');
+        
+        if($partner->save()){
+            $freight_type=$request->input('freight_type');
+           foreach ($freight_type as $data){
+               $partner_freight=new PartnerFreight();
+               $partner_freight->partner_id=$partner->id;
+               $partner_freight->freight_id=$data;
+               $partner_freight->save();
+           }
+        }
+
+        return redirect()->back();
    
+    }
 }

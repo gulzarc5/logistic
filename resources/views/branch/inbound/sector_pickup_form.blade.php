@@ -83,6 +83,11 @@
             $.ajax({
                 type:"GET",
                 url:"{{ url('/branch/inbound/sector_pickup/fetch/add/form')}}"+"/"+cd_no,
+                beforeSend: function() {
+                $('#data_row').html(`<tr>
+                          <td colspan="6" align="center">  <i class="fa fa-spinner fa-spin"  style="font-size:100px" id="loader_id"></i></td>
+                        </tr>`);
+                },
                 success:function(response){
                     if(response == 2){
                         $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='6'>No Docates Found </td></tr>`);

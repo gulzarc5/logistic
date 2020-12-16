@@ -146,8 +146,8 @@
                   </li>
                   
                  
-                  <li class="sub_menu"><a href="{{ route('branch.details_form') }}" target="_blank"><i class="fa fa-asterisk"></i>Inquiry</a></li>
-                
+                  <li class="sub_menu"><a href="{{ route('branch.details_form') }}"><i class="fa fa-asterisk"></i>Inquiry</a></li>
+                 
 
                   {{-- <li> <a href="{{route('admin.change_password_form')}}"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a></li> --}}
 

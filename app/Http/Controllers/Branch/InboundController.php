@@ -34,7 +34,7 @@ class InboundController extends Controller
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
             ->where('sector_booking.cd_no',$cd_no)
-            ->where('sector_booking.branch_id',$this->branch_id)
+            ->where('sector_booking.branch_id','!=',$this->branch_id)
             ->where('docate.courier_status',4)
             ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
             ->get();
@@ -96,26 +96,23 @@ class InboundController extends Controller
     }
 
     public function fetchDrsPreparedForm($docate_id){        
-        $data = Docate::join('inbound','inbound.docate_no','=','docate.docate_id')
-            ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+        $data = Inbound::join('docate','inbound.docate_no','=','docate.docate_id')
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-            ->where('docate.docate_id',$docate_id)
-            ->where('sector_booking.branch_id',$this->branch_id)
+            ->where('inbound.docate_no',$docate_id)
+            ->where('inbound.branch_id',$this->branch_id)
             ->where(function($q){
                 $q->where('docate.courier_status',5)
                 ->orWhere('docate.courier_status',9);
             })
-            ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->select('docate.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name')
             ->first();
-        
         if($data){
             return $data;
 
         }else{
             return 2;
         }
-
     }
 
     public function drsPreparedDone(Request $request){
@@ -182,16 +179,25 @@ class InboundController extends Controller
      }
 
      public function fetchDrsCloseForm($drs_no){
-        $data = Docate::where('drs.drs_no',$drs_no)
-            ->join('inbound','inbound.docate_no','=','docate.docate_id')
-            ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+        $data = Inbound::where('inbound.branch_id',$this->branch_id)
+            ->join('drs','inbound.drs_id','=','drs.id')
+            ->where('drs.drs_no',$drs_no)
+            ->join('docate','docate.docate_id','=','inbound.docate_no')
             ->join('docate_details as sender','sender.id','=','docate.sender_id')
             ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
-            ->join('drs','drs.id','=','inbound.drs_id')
-            ->where('sector_booking.branch_id',$this->branch_id)
             ->where('docate.courier_status',7)
-            ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+            ->select('docate.*','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name')
             ->get();
+        // $data = Docate::where('drs.drs_no',$drs_no)
+        //     ->join('inbound','inbound.docate_no','=','docate.docate_id')
+        //     ->join('sector_booking','sector_booking.id','=','docate.sector_id')
+        //     ->join('docate_details as sender','sender.id','=','docate.sender_id')
+        //     ->join('docate_details as receiver','receiver.id','=','docate.receiver_id')
+        //     ->join('drs','drs.id','=','inbound.drs_id')
+        //     ->where('sector_booking.branch_id',$this->branch_id)
+        //     ->where('docate.courier_status',7)
+        //     ->select('docate.*','sector_booking.id as sector_booking_id','sender.name as sender_name','receiver.address as receiver_address','receiver.name as receiver_name','sector_booking.cd_no as cd_no')
+        //     ->get();
         if(count($data)>0){
             return $data;
 

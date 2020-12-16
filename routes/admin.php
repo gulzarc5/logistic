@@ -159,5 +159,14 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('ajax/list','ContactController@contactListAjax')->name('admin.contact_list_ajax');
 
         });
+
+        Route::group(['prefix'=>'partner'],function(){
+            Route::get('delivery/executive/list','PartnerController@deliveryExecutiveList')->name('admin.delivery_executive_list');
+            Route::get('delivery/executive/ajax/list','PartnerController@deliveryExecutiveListAjax')->name('admin.delivery_executive_list_ajax');
+
+            Route::get('franchise/list/','PartnerController@franchiseList')->name('admin.franchise_list');
+            Route::get('franchise/ajax/list','PartnerController@franchiseListAjax')->name('admin.franchise_list_ajax');
+
+        });
     });
 });

@@ -43,15 +43,15 @@ Route::get('/partner', function () {
 })->name('web.partner.partner');
 
 // -------- Delivery Executive---------
-Route::get('/deliveryExecutive', function () {
-    return view('web.delivery.delivery-executive');
-})->name('web.delivery.delivery-executive');
+// Route::get('/deliveryExecutive', function () {
+//     return view('web.delivery.delivery-executive');
+// })->name('web.delivery.delivery-executive');
 
 
 // --------Franchise partner ---------
-Route::get('/franchise', function () {
-    return view('web.franchise.franchise');
-})->name('web.franchise.franchise');
+// Route::get('/franchise', function () {
+//     return view('web.franchise.franchise');
+// })->name('web.franchise.franchise');
 
 
 // --------Contact us ---------
@@ -60,6 +60,9 @@ Route::get('/contact', function () {
 })->name('web.contact.contact');
     
 Route::get('/tracking/details','TrackingController@trackingDetails')->name('web.tracking_details');
+Route::get('/deliveryExecutive','TrackingController@deliveryExecutive')->name('web.delivery_exectutive');
+Route::get('/franchise','TrackingController@franchise')->name('web.franchise');
 Route::post('/add/contacts','TrackingController@addContacts')->name('web.add_contacts');
+Route::post('/add/partner/{type}','TrackingController@addPartner')->name('web.add_partner');
 
 });

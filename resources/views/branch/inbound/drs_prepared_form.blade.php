@@ -129,6 +129,7 @@
         $.ajax({
             type:"GET",
             url:"{{ url('branch/inbound/drs_prepared/get/form')}}"+"/"+docate_id,
+           
             success:function(response){                    
                 
                 if(response ==2){           

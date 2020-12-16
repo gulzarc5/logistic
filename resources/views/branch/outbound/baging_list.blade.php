@@ -76,6 +76,7 @@
                     </div >
                 </div>
                 <div class="table-responsive">
+                   
                     <table class="table table-striped jambo_table bulk_action" id ="bag_list" style="display: none">
                       <thead>
                         <tr class="headings">

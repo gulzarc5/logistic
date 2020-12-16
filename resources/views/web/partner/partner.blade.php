@@ -39,28 +39,28 @@
           <div class="blog-wrapper col-md-4">
              <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
                 <div class="entry-thumbnail">
-                   <a href="{{route('web.delivery.delivery-executive')}}"><img src="{{asset('web/images/blogs/blog-1.jpg')}}" alt="" style="border-radius: 10px 10px 0 0;"></a>
+                   <a href="{{route('web.delivery_exectutive')}}"><img src="{{asset('web/images/blogs/blog-1.jpg')}}" alt="" style="border-radius: 10px 10px 0 0;"></a>
                 </div>
                 <header class="entry-header">
-                   <h2 class="entry-title text-uppercase"><a href="{{route('web.delivery.delivery-executive')}}">Delivery Executive</a></h2>
+                   <h2 class="entry-title text-uppercase"><a href="{{route('web.delivery_exectutive')}}">Delivery Executive</a></h2>
                 </header>
                 <!-- .entry-content -->
                 <footer class="entry-footer clearfix" style="margin-top: 5px;">
-                   <a href="{{route('web.delivery.delivery-executive')}}" style="border: 1px solid;border-radius: 10px;padding: 3px 10px;margin-top:10px;">Apply Now...</a>
+                   <a href="{{route('web.delivery_exectutive')}}" style="border: 1px solid;border-radius: 10px;padding: 3px 10px;margin-top:10px;">Apply Now...</a>
                 </footer>
              </div>
           </div>
           <div class="blog-wrapper col-md-4">
              <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
                 <div class="entry-thumbnail">
-                   <a href="{{route('web.franchise.franchise')}}"><img src="{{asset('web/images/blogs/blog-2.jpg')}}" alt="" style="border-radius: 10px 10px 0 0;"></a>
+                   <a href="{{route('web.franchise')}}"><img src="{{asset('web/images/blogs/blog-2.jpg')}}" alt="" style="border-radius: 10px 10px 0 0;"></a>
                 </div>
                 <header class="entry-header">
-                   <h2 class="entry-title text-uppercase"><a href="{{route('web.franchise.franchise')}}">Franchise partner</a></h2>
+                   <h2 class="entry-title text-uppercase"><a href="{{route('web.franchise')}}">Franchise partner</a></h2>
                 </header>
                 <!-- .entry-content -->
                 <footer class="entry-footer clearfix" style="margin-top: 5px;">
-                   <a href="{{route('web.franchise.franchise')}}" style="border: 1px solid;border-radius: 10px;padding: 3px 10px;margin-top:10px;">Appy Now...</a>
+                   <a href="{{route('web.franchise')}}" style="border: 1px solid;border-radius: 10px;padding: 3px 10px;margin-top:10px;">Appy Now...</a>
                 </footer>
              </div>
           </div>

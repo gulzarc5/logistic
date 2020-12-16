@@ -24,7 +24,7 @@ class CreatePartnerTable extends Migration
             $table->string('state')->nullable();
             $table->string('special_info')->nullable();
             $table->string('email_address')->nullable();
-            $table->bigInteger('freight_id')->nullable();
+            
             $table->timestamps();
         });
     }

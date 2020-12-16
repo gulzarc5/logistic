@@ -50,7 +50,11 @@
             $.ajax({
                 type:"GET",
                 url:"{{ url('/branch/manifest/fetch/docate/details')}}"+"/"+docate_id,
+                beforeSend: function() {
+                    $('#loader_id').show();
+                },
                 success:function(response){  
+                    $('#loader_id').hide();
                     if(response ==1){           
                         alert('No Data Found');            
                         $('#origin_city'+table_id).html('No Data Found');
@@ -70,6 +74,7 @@
                             <th>${table_sl_count}</th>
                             <th><input type="text" name="docate_no[]" onblur="fetchDocate(this.value,${table_sl_count})" id="docate${table_sl_count}"></th>
                             <th id="origin_city${table_sl_count}"></th>
+                            
                             <th id="destination_name${table_sl_count}"></th>
                             <th id="weight${table_sl_count}"></th>
                             <th id="packet${table_sl_count}"></th>

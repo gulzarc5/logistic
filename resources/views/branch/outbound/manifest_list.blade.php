@@ -3,6 +3,7 @@
 @section('content')
 
 <link href="{{ asset('admin/select2-4.1.0-beta.1/dist/css/select2.min.css') }}" rel="stylesheet" />
+
 <style>
     .error{
         color:red;
@@ -14,7 +15,8 @@
             <form method="POST" action="{{ route('branch.add_manifest_no') }}">
             @csrf
                 <div class="x_panel">
-                    
+                   
+                   
                     <div class="x_title">
                         <h2>Manifest List</h2>
                         <div class="clearfix"></div>
@@ -30,8 +32,12 @@
                     </div>
                     <div>
                     <div class="x_content">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                       </div>
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
+                                  
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                         <label for="origin">Origin<span><b style="color: red"> * </b></span></label>
                                         <select class="form-control" name="origin" id="origin" required>
@@ -57,7 +63,7 @@
                 </div>
             
                 <div id="docket">
-                    
+                    <i class="fa fa-spinner fa-spin"  style="display:none;font-size:100px" id="loader_id"></i>
                 </div>
                 <div class="form-group" style="display:none" id="btn">
                     <button id="docate_submit "class="btn btn-sm btn-primary text-white">Save</button>

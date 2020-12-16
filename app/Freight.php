@@ -10,6 +10,6 @@ class Freight extends Model
     protected $primaryKey = 'id';
 
     protected $fillable=[
-        'warehousing_services','road_transportation','air_transportation','sea_transportaion','logistic_planning'
+        'name'
     ];
 }

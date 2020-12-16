@@ -146,7 +146,14 @@
                     </ul>
                   </li>
                   <li><a href="{{ route('admin.contact_list') }}"><i class="fa fa-product-hunt"></i> Contact </span></a></li>
-
+                   <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Partners <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="{{route('admin.delivery_executive_list')}}">Delivery Executives </a></li>
+                        <li class="sub_menu"><a href="{{route('admin.franchise_list')}}">Franchise</a></li>
+                       
+                      </ul>
+                    </li>
+                 
                   {{-- <li> <a href="{{route('admin.change_password_form')}}"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a></li> --}}
 
                 </ul>

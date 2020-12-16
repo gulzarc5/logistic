@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFreightTable extends Migration
+class CreatePartnerFreightTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateFreightTable extends Migration
      */
     public function up()
     {
-        Schema::create('freight', function (Blueprint $table) {
+        Schema::create('partner_freight', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name',256)->nullable();
+            $table->unsignedBigInteger('partner_id')->nullable();
+            $table->unsignedBigInteger('freight_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateFreightTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('freight');
+        Schema::dropIfExists('partner_freight');
     }
 }
