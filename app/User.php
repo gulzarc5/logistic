@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserProfile','user_id','id');
     }
+
+    public function branch()
+    {
+        return $this->belongsTo('App\User','parent_id','id');
+    }
 }

@@ -45,11 +45,11 @@ class DocateController extends Controller
                 }
             })->addColumn('action', function ($docate){
                 if($docate){
-                    $btn = '<a href="' . route('admin.view_details', ['id' => $docate->id]) . '" class="btn btn-info btn-sm" target="_blank">View</a>';
+                    $btn = '<a href="' . route('admin.view_details', ['id' => $docate->id]) . '" class="btn btn-info btn-xs" target="_blank">View</a>';
                     if($docate->courier_status == 1){
-                        $btn .= '<a href="' . route('admin.delete_docate', ['id' => $docate->id]) . '" class="btn btn-danger" >Delete</a>';
+                        $btn .= '<a href="' . route('admin.delete_docate', ['id' => $docate->id]) . '" class="btn btn-xs btn-danger" onclick="return confirm(\'Are You Sure To Delete ?\')">Delete</a>';
                     }
-                    $btn .= '<a href="' . route('admin.edit_form', ['id' => $docate->id]) . '" class="btn btn-primary"  target="_blank">Edit</a>';
+                    $btn .= '<a href="' . route('admin.edit_form', ['id' => $docate->id]) . '" class="btn btn-xs btn-primary"  target="_blank">Edit</a>';
                     return $btn;
                 }else{
                     return null;

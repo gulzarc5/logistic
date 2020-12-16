@@ -28,7 +28,7 @@
     	        <div>
     	            <div class="x_content">
     	           
-    	            	{{ Form::open(['method' => 'post','route'=>['admin.update_user','id'=>$user_details->id] ]) }}
+    	            	{{ Form::open(['method' => 'put','route'=>['admin.update_user','id'=>$user_details->id] ]) }}
     	            	
                         <div class="well" style="overflow: auto">
                             <div class="form-row mb-10">
@@ -41,23 +41,6 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
-                                    <label for="user_type">Select User Type</label>
-                                    <select class="form-control" name="user_type" id="user_type" required>
-                                        <option value="">Select User Type</option>
-                                        @if (isset($role) && !empty($role))
-                                            @foreach ($role as $item)
-                                                <option value="{{$item->id}}" {{ $item->id == $user_details->user_role ?"selected":''}}   >{{$item->display_name}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    @if($errors->has('user_type'))
-                                        <span class="invalid-feedback" role="alert" style="color:red">
-                                            <strong>{{ $errors->first('user_type') }}</strong>
-                                        </span>
-                                    @enderror
-                                </div> 
                                 
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                     <label for="email">Email</label>

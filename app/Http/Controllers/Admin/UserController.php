@@ -89,17 +89,27 @@ class UserController extends Controller
         ->addColumn('action', function($row){
 
             $btn ='<a href="'.route('admin.userDetails',['user_id'=>encrypt($row->id)]).'" class="btn btn-success btn-xs" target="_blank">View</a>';  
-            $btn .='<a target="_blank" href="'.route('admin.edit_user_form',['id'=>$row->id]).'" class="btn btn-warning btn-sm">Edit</a>';           
-            $btn .='<a href="'.route('admin.edit_user_permission',['id'=>encrypt($row->id)]).'" class="btn btn-primary btn-xs">Edit Permissions</a>';
+            $btn .='<a target="_blank" href="'.route('admin.edit_user_form',['id'=>$row->id]).'" class="btn btn-warning btn-xs">Edit</a>';    
+            if ($row->hasRole('Employee')) {
+                $btn .='<a href="'.route('admin.edit_user_permission',['id'=>encrypt($row->id)]).'" class="btn btn-primary btn-xs">Edit Permissions</a>';
+            }       
         
             if ($row->status == '1') {
                 $btn .='<a href="'.route('admin.userStatus',['user_id'=>encrypt($row->id),'status'=>2]).'" class="btn btn-danger btn-xs" >Disable</a>';
             } else {
                 $btn .='<a href="'.route('admin.userStatus',['user_id'=>encrypt($row->id),'status'=>1]).'" class="btn btn-primary btn-xs" >Enable</a>';
             }   
-            $btn .='<a target="_blank" href="'.route('admin.reset_password_form',['user_id'=>$row->id]).'" class="btn btn-warning btn-sm">Change Password</a>';        
+            $btn .='<a target="_blank" href="'.route('admin.reset_password_form',['user_id'=>$row->id]).'" class="btn btn-warning btn-xs">Change Password</a>';        
             return $btn;
         })->addColumn('role', function($row){          
+            return $row->role->display_name;
+        })->addColumn('branch', function($row){         
+            if (!empty($row->parent_id)) {
+                return isset($row->branch->name) ? $row->branch->name : '';
+            } else {
+                return "";
+            }
+             
             return $row->role->display_name;
         })->addColumn('status_tab', function($row){
             if ($row->status == 1){
@@ -178,20 +188,17 @@ class UserController extends Controller
     public function updateUser(Request $request,$id){
         $this->validate($request, [
             'name'   => 'required',
-            'user_type'   => 'required',
-            'email'   => 'required|email|unique:users,email',
-            'mobile'   => 'required|string|unique:users,mobile',
+            'email'   => 'required|email|unique:users,email,'.$id,
+            'mobile'   => 'required|string|unique:users,mobile,'.$id,
             'state'   => 'required',
             'city'   => 'required',
             'pin'   => 'required',
             'address'   => 'required',
-           
         ]);
         $user  = User::where('id',$id)->first();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->mobile =$request->input('mobile');
-        $user->user_role =$request->input('user_type');
         if($user->save()){
             $user_profile = UserProfile::where('user_id',$user->id)->first();
             $user_profile->state_id = $request->input('state');

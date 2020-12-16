@@ -28,7 +28,7 @@
 
                 </div>
     	        <div>
-                    {{Form::model($docate_details, ['method' => 'post','route'=>['admin.update_docate_details',$docate_details->id]])}}
+                    {{Form::model($docate_details, ['method' => 'put','route'=>['admin.update_docate_details',$docate_details->id]])}}
                         <div class="x_content">
                             <div class="well" style="overflow: auto">
                                 <div class="form-row mb-10">
@@ -286,7 +286,7 @@
                                                 <input type="hidden" name="content_id[]" value="{{ $value->id }}"> 
                                             </div> 
                                            
-                                            <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                                            <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                                                 <label for="length">L</label>
                                                 <input type="text" class="form-control" name="length[]"   value="{{ $value->length }}" required >                                    
                                             </div> 
@@ -294,7 +294,7 @@
                                                 <br/>
                                                 <h4 style="margin-top: 15px;">X</h4>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                                            <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                                                 <label for="breadth">B</label>
                                                 <input type="text" class="form-control" name="breadth[]"  value="{{ $value->breadth }}" required>
                                             </div> 
@@ -302,13 +302,13 @@
                                                 <br/>
                                                 <h4  style="margin-top: 15px;">X</h4>
                                             </div>
-                                            <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                                            <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                                                 <label for="height">H</label>
                                                 <input type="text" class="form-control" name="height[]" value="{{ $value->height }}" required>
                                             </div>
                                             <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
                                                 <br>
-                                                <h4 style="margin-top: 15px;">/ 5000 </h4>
+                                                <h4 style="margin-top: 15px;">/5000</h4>
                                             </div>
                                             <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
                                                 <label for="total"></label>
@@ -329,6 +329,7 @@
                             </div>
                             <div class="form-group">    
                                 <button type="submit" class='btn btn-success'>Submit</button>
+                                <button type="button" class="btn btn-danger" onclick="window.close();">Close</button>
                             </div>      
                         </div>
                     {{ Form::close() }}
@@ -420,7 +421,7 @@
                     <label for="content">Content</label>
                     <textarea class="form-control" name="content[]"  required></textarea>
                 </div> 
-                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                     <label for="length">L</label>
                     <input type="text" class="form-control" name="length[]"   required >                                    
                 </div> 
@@ -428,7 +429,7 @@
                     <br/>
                     <h4 style="margin-top: 15px;">X</h4>
                 </div>
-                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                     <label for="breadth">B</label>
                     <input type="text" class="form-control" name="breadth[]"  required>
                 </div> 
@@ -436,13 +437,13 @@
                     <br/>
                     <h4  style="margin-top: 15px;">X</h4>
                 </div>
-                <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
+                <div class="col-md-2 col-sm-12 col-xs-12 mb-3">
                     <label for="height">H</label>
                     <input type="text" class="form-control" name="height[]" required>
                 </div>
                 <div class="col-md-1 col-sm-12 col-xs-12 mb-3">
                     <br>
-                    <h4 style="margin-top: 15px;">/ 5000 </h4>
+                    <h4 style="margin-top: 15px;">/5000</h4>
                 </div>
                 <div class="col-md-3 col-sm-12 col-xs-12 mb-3">
                     <label for="total"></label>

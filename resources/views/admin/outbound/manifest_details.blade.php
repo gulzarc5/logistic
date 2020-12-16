@@ -49,6 +49,9 @@
                 </div>
                 @endif
             </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-sm btn-danger" onclick="window.close()">Close</button>
+            </div>
         </div>
     </div>
 </div>

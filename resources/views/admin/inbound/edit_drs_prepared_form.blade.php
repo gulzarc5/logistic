@@ -12,7 +12,7 @@
 <div class="right_col" role="main">
     <div class="row">
         {{-- <div class="col-md-2"></div> --}}
-        <form method="POST" action="{{route('admin.update_drs_prepared',['id'=>$drs->id]) }}">
+        <form method="put" action="{{route('admin.update_drs_prepared',['id'=>$drs->id]) }}">
         @csrf
             <div class="col-md-12" style="margin-top:50px;">
                 <div class="x_panel">

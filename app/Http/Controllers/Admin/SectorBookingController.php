@@ -42,18 +42,16 @@ class SectorBookingController extends Controller
             })->addColumn('date', function ($sector) { 
                 return $sector->created_at->format('d/m/y');
             })->addColumn('action', function ($sector){
-                if($sector){
-                   
+                if($sector->id){
                     $btn = '<a href="' . route('admin.view_sector', ['id' => $sector->id]) . '" class="btn btn-info btn-sm" target="_blank">View</a>';
                     if($sector->sectorBookedCount()==0){
-                        $btn .= '<a href="' . route('admin.delete_sector', ['id' => $sector->id]) . '" class="btn btn-danger" >Delete</a>';
+                        $btn .= '<a href="' . route('admin.delete_sector', ['id' => $sector->id]) . '" class="btn btn-danger" onclick="return confirm(\'Are You Sure To Delete ??\')">Delete</a>';
                         $btn .= '<a href="' . route('admin.sector_edit_form', ['id' => $sector->id]) . '" class="btn btn-primary" target="_blank">Edit</a>';
                     }
-                    
                     return $btn;
-                    }else{
-                        return null;
-                    }
+                }else{
+                    return null;
+                }
             })->rawColumns(['action','manifest_id', 'date','origin','branch', 'destination'])
             ->make(true);
     }

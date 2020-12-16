@@ -18,7 +18,7 @@
           <div>
               <div class="x_content">               
                 
-                {{ Form::open(['method' => 'post','route'=>['admin.change_password','user_id'=>$user_id]])}}                  
+                {{ Form::open(['method' => 'put','route'=>['admin.change_password','user_id'=>$user_id]])}}                  
                     <div class="well" style="overflow: auto">
                       <center><h3>Reset Password</h3></center>
                       <div class="form-row mb-10">

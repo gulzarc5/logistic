@@ -23,9 +23,9 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('permission/edit/{id}','UserController@editUserPermission')->name('admin.edit_user_permission');
             Route::put('permission/update/{id}','UserController@updateUserPermission')->name('admin.update_user_permission');
             Route::get('edit/{id}','UserController@editUserForm')->name('admin.edit_user_form');
-            Route::post('update/{id}','UserController@updateUser')->name('admin.update_user');
+            Route::put('update/{id}','UserController@updateUser')->name('admin.update_user');
             Route::get('update/password/form/{user_id}','UserController@resetPasswordForm')->name('admin.reset_password_form');
-            Route::post('change/password/{user_id}','UserController@changePassword')->name('admin.change_password');
+            Route::put('change/password/{user_id}','UserController@changePassword')->name('admin.change_password');
             Route::get('details/{user_id}','UserController@userDetails')->name('admin.userDetails');
             Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('admin.userStatus');
         });
@@ -98,7 +98,7 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('check/{cn_no}','DocateController@checkDocate')->name('admin.check_docate');
             Route::get('city/list/{state_id}','DocateController@cityList')->name('admin.list');
             Route::get('remove/content/{content_id}','DocateController@removeContent')->name('admin.remove_content');
-            Route::post('update/{id}','DocateController@updateDocate')->name('admin.update_docate_details');
+            Route::put('update/{id}','DocateController@updateDocate')->name('admin.update_docate_details');
         });
         Route::group(['prefix'=>'manifest'],function(){
             Route::get('list','ManifestController@manifestList')->name('admin.manifest_list');
@@ -143,7 +143,7 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('drsprepared/remove/{id}','InboundController@removeFromDrsPrepared')->name('admin.remove_from_drs_prepared');
             Route::get('drsprepared/edit/form/{id}','InboundController@editDrsPreparedForm')->name('admin.drs_prepared_edit_form');
             Route::get('drsprepared/get/form/{docate_id}','InboundController@fetchDrsPreparedForm')->name('admin.drs_prepared_form');
-            Route::post('drsprepared/update/{id}','InboundController@updateDrsPrepared')->name('admin.update_drs_prepared');
+            Route::put('drsprepared/update/{id}','InboundController@updateDrsPrepared')->name('admin.update_drs_prepared');
             Route::get('remove/drs/{id}','InboundController@removeDrs')->name('admin.remove_drs');
 
             // Route::get('drsclose/list','InboundController@drsCloseList')->name('admin.drs_close_list');

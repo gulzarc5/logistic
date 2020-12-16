@@ -22,6 +22,7 @@
                                 <th>Mobile Number</th>
                                 <th>Email Id</th>
                                 <th>User Role</th>
+                                <th>Branch</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -53,6 +54,7 @@
                     {data: 'mobile', name: 'mobile',searchable: true},
                     {data: 'email', name: 'email' ,searchable: true},
                     {data: 'role', name: 'role' ,searchable: true},
+                    {data: 'branch', name: 'branch' ,searchable: true},
                     {data: 'action', name: 'action' ,searchable: true},
                 ]
             });            

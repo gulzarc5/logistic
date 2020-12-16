@@ -24,15 +24,16 @@ Route::group(['namespace' => 'Branch'],function(){
         });
 
 
-        Route::group(['prefix'=>'user'],function(){
-            Route::get('add/form','UserController@addUserForm')->name('branch.add_user_form');
-            Route::post('add','UserController@addUser')->name('branch.add_user');
-            Route::get('list/','UserController@userList')->name('branch.userList');
-            Route::get('list/ajax','UserController@userListAjax')->name('branch.userListAjax');
-            Route::post('edit/{id}','UserController@editUser')->name('branch.edit_user');
-            Route::get('details/{user_id}','UserController@userDetails')->name('branch.userDetails');
-            Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('branch.userStatus');
-        });
+        // Route::group(['prefix'=>'user'],function(){
+        //     Route::get('add/form','UserController@addUserForm')->name('branch.add_user_form');
+        //     Route::post('add','UserController@addUser')->name('branch.add_user');
+        //     Route::get('list/','UserController@userList')->name('branch.userList');
+        //     Route::get('list/ajax','UserController@userListAjax')->name('branch.userListAjax');
+        //     Route::put('edit/{id}','UserController@editUser')->name('branch.edit_user');
+        //     Route::get('details/{user_id}','UserController@userDetails')->name('branch.userDetails');
+        //     Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('branch.userStatus');
+        // });
+        
         Route::group(['prefix'=>'docate'],function(){
             Route::get('add/form','DocateController@addForm')->name('branch.docate_add_form');
             Route::post('add','DocateController@addDocate')->name('branch.add_docate');

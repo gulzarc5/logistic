@@ -40,17 +40,17 @@ class DashboardController extends Controller
         $docates_sector_booked =  Docate::where('courier_status',4)->where('branch_id',$this->branch_id)->count();
         $docates_picked =  Docate::where('courier_status',5)->where('branch_id',$this->branch_id)->count();
         $today_delivered = Docate::where('courier_status', 8)
-                                ->where('branch_id',$this->branch_id)
-                                ->whereDate('docate.created_at','=',$today_date)
-                                ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                                ->select('docate.*','sender.name as sender_name')
-                                ->get();
+            ->where('branch_id',$this->branch_id)
+            ->whereDate('docate.created_at','=',$today_date)
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->select('docate.*','sender.name as sender_name')
+            ->get();
         $today_pickup=Docate::where('courier_status', 5)
-                            ->where('branch_id',$this->branch_id)
-                            ->whereDate('docate.created_at','=',$today_date)
-                            ->join('docate_details as sender','sender.id','=','docate.sender_id')
-                            ->select('docate.*','sender.name as sender_name')
-                            ->get();
+            ->where('branch_id',$this->branch_id)
+            ->whereDate('docate.created_at','=',$today_date)
+            ->join('docate_details as sender','sender.id','=','docate.sender_id')
+            ->select('docate.*','sender.name as sender_name')
+            ->get();
         return view('branch.dashboard',compact('new_docates','docates_manifested','docates_bagged','docates_sector_booked','chart','pie','today_delivered','today_pickup','docates_picked'));
     }
 

@@ -48,14 +48,13 @@ class BagingController extends Controller
                 if($baging){
                     $btn = '<a href="' . route('admin.view_baging', ['id' => $baging->id]) . '" class="btn btn-info btn-sm" target="_blank">View</a>';
                     if($baging->sectorBookedCount()==0){
-                        $btn .= '<a href="' . route('admin.delete_baging', ['id' => $baging->id]) . '" class="btn btn-danger" >Delete</a>';
+                        $btn .= '<a href="' . route('admin.delete_baging', ['id' => $baging->id]) . '" class="btn btn-danger" onclick="return confirm(\'Are You Sure To Delete ??\')">Delete</a>';
                         $btn .= '<a href="' . route('admin.baging_edit_form', ['id' => $baging->id]) . '" class="btn btn-primary" target="_blank">Edit</a>';
-                    }
-                    
+                    }                    
                     return $btn;
-                    }else{
-                        return null;
-                    }
+                }else{
+                    return null;
+                }
             })->rawColumns(['action','manifest_id', 'date','origin','branch','total_no_of_docates', 'destination'])
             ->make(true);
     }

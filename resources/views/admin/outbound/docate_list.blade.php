@@ -73,7 +73,7 @@
                             <th class="column-title">Destination</th>
                             <th class="column-title">Payment Type</th>
                             <th class="column-title">Branch ID</th>
-                            <th class="column-title">Action</th>
+                            <th class="column-title" style="min-width: 146px;">Action</th>
                         </tr>
                       </thead>
                       <tbody >

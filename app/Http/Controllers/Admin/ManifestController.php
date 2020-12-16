@@ -16,6 +16,7 @@ class ManifestController extends Controller
         $branches = User::where('user_role',3)->get();
         return view('admin.outbound.manifest_list',compact('branches'));
     }
+
     public function manifestListAjax(Request $request){
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
@@ -28,7 +29,7 @@ class ManifestController extends Controller
         if ($branch_id) {
             $manifest->where('branch_id',$branch_id);
         }
-            return datatables()->of($manifest->get())
+        return datatables()->of($manifest->get())
             ->addIndexColumn()
             ->addColumn('origin', function ($manifest) {
                 return isset($manifest->originName->name)?$manifest->originName->name:'';
@@ -44,14 +45,13 @@ class ManifestController extends Controller
                 if($manifest){
                     $btn = '<a href="' . route('admin.view_manifest', ['id' => $manifest->id]) . '" class="btn btn-info btn-sm" target="_blank">View</a>';
                     if($manifest->manifestBagedCount()==0){
-                        $btn .= '<a href="' . route('admin.delete_manifest', ['id' => $manifest->id]) . '" class="btn btn-danger" >Delete</a>';
+                        $btn .= '<a href="' . route('admin.delete_manifest', ['id' => $manifest->id]) . '" class="btn btn-danger" onclick="return confirm(\'Are You Sure To Delete ??\')">Delete</a>';
                         $btn .= '<a href="' . route('admin.manifest_edit_form', ['id' => $manifest->id]) . '" class="btn btn-primary" target="_blank">Edit</a>';
                     }
-                   
                     return $btn;
-                    }else{
-                        return null;
-                    }
+                }else{
+                    return null;
+                }
             })->rawColumns(['action','total_no_docates', 'date','origin','branch', 'destination'])
             ->make(true);
     }
@@ -151,14 +151,11 @@ class ManifestController extends Controller
                             $manifest_details->status = 1;
                             $manifest_details->save();
                         }
+                    }
                 }
             }
         }
-
-        }
-
         return redirect()->back()->with('message','Manifest Details Updated Successfully');
-
     }
 
     public function viewManifest($id){
