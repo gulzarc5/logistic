@@ -44,6 +44,7 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>CN No</th>
+                                    <th>Status</th>
                                     <th>Pickup Date</th>
                                     <th>Pickup Time</th>
                                     <th>Sender Name</th>
@@ -95,6 +96,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'docate_id', name: 'docate_id',searchable: true},
+                {data: 'status_tab', name: 'status_tab',searchable: false},
                 {data: 'pickup_date', name: 'pickup_date' ,searchable: true},  
                 {data: 'pickup_time', name: 'pickup_time' ,searchable: true},  
                 {data: 'sender_name', name: 'sender_name' ,searchable: true}, 
