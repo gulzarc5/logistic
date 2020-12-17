@@ -63,6 +63,7 @@ class InboundController extends Controller
                         $inbound = new Inbound();
                         $inbound->cd_no = $request->input('cd_no');
                         $inbound->docate_no = $docate->docate_id;
+                        $inbound->docate_id = $docate->id;
                         $inbound->status = 1;
                         $inbound->branch_id = $this->branch_id;
                         $inbound->save();

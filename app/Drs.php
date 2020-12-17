@@ -11,9 +11,11 @@ class Drs extends Model
 
     public function docatesCount(){
         return $this->hasMany('App\Inbound','drs_id','id')->count();
-
     }
     
+    public function inbound(){
+        return $this->hasMany('App\Inbound','drs_id','id');
+    }
 
     
 }
