@@ -79,6 +79,7 @@
     var table_sl_count = 1;
     $("#drs_no").change(function(){
         var drs_no = $(this).val();
+        if(drs_no){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -89,7 +90,7 @@
                 url:"{{ url('/branch/inbound/drs_close/get/form')}}"+"/"+drs_no,
                 beforeSend: function() {
                 $('#data_row').html(`<tr>
-                          <td colspan="9" align="center">  <i class="fa fa-spinner fa-spin"  style="font-size:100px" id="loader_id"></i></td>
+                        <td colspan="9" align="center">  <i class="fa fa-spinner fa-spin"  style="font-size:100px" id="loader_id"></i></td>
                         </tr>`);
                 },
                 success:function(response){
@@ -99,10 +100,11 @@
                     }else{
                         
                         $('#row'+table_sl_count).remove();
+                        $("#data_row").html('');
                         $.each( response, function( key, value ) {
                             $("#data_row").append(`<tr id="+'row'+table_sl_count+">
                                 <td class='a-center '>
-                                    <input type='checkbox' onclick='check_btn()' id="check_bag${table_sl_count}" name='docate_id[]'>
+                                    <input type='checkbox' value='${value.id}' onclick='check_btn()' id="check_bag${value.id}" name='docate_id[]' onchange="checkDocateField(this.value)">
                                 </td>
                                 
                                 <td>${value.docate_id}</td>
@@ -111,31 +113,45 @@
                                 <td>${value.sender_name}</td>
                                 <td>${value.receiver_name}</td>
                                 <td>${value.receiver_address}</td>
-                                <td><input type='text' name='received_by[]' ></td>
-                                <td><input type='date' name='del_date[]' ></td>
-                                <td><input type='time' name='del_time[]' ></td>
+                                <td><input type='text' name='received_by[${value.id}]' id="rcv_by${value.id}"></td>
+                                <td><input type='date' name='del_date[${value.id}]' id="del_date${value.id}"></td>
+                                <td><input type='time' name='del_time[${value.id}]' id="del_time${value.id}"></td>
                             </tr>`);
                             $("#check_bag"+table_sl_count).val(value.id);    
-                        table_sl_count++;
-                    });                         
-                    $('#sector_list').show();
-                    $('#check_cd').show();
-                   
-                }
-                                    
+                            table_sl_count++;
+                        });                         
+                        $('#sector_list').show();
+                        $('#check_cd').show();                        
+                    }         
                 }
             });
-        });
-    
+        }else{
+            $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='10'>No Docates Found </td></tr>`);
+                $('#sector_list').show();
+        }
+    });
 
-        function check_btn(){
-        
+    function check_btn(){        
         if($('input[name="docate_id[]"]').is(':checked')){
             $('#btn').show();
         }else{
             $('#btn').hide();
+        }            
+    }
+
+    function checkDocateField(id){
+        // alert(table_sl_count)
+        if($('#check_bag'+id).is(':checked')){
+            $('#rcv_by'+id).prop('required',true);
+            $('#del_date'+id).prop('required',true);
+            $('#del_time'+id).prop('required',true);
+
+
+        }else{
+            $('#rcv_by'+id).prop('required',false);
+            $('#del_date'+id).prop('required',false);
+            $('#del_time'+id).prop('required',false);
         }
-         
     }
     
 </script>

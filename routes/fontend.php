@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-Route::group(['namespace' => 'web'], function () {
+
     // -------- Index---------
 Route::get('/', function () {
     return view('web.index');
@@ -58,11 +58,10 @@ Route::get('/partner', function () {
 Route::get('/contact', function () {
     return view('web.contact.contact');
 })->name('web.contact.contact');
-    
-Route::get('/tracking/details','TrackingController@trackingDetails')->name('web.tracking_details');
-Route::get('/deliveryExecutive','TrackingController@deliveryExecutive')->name('web.delivery_exectutive');
-Route::get('/franchise','TrackingController@franchise')->name('web.franchise');
-Route::post('/add/contacts','TrackingController@addContacts')->name('web.add_contacts');
-Route::post('/add/partner/{type}','TrackingController@addPartner')->name('web.add_partner');
-
+Route::group(['namespace' => 'Web'], function () {   
+    Route::get('/tracking/details','TrackingController@trackingDetails')->name('web.tracking_details');
+    Route::get('/deliveryExecutive','TrackingController@deliveryExecutive')->name('web.delivery_exectutive');
+    Route::get('/franchise','TrackingController@franchise')->name('web.franchise');
+    Route::post('/add/contacts','TrackingController@addContacts')->name('web.add_contacts');
+    Route::post('/add/partner/{type}','TrackingController@addPartner')->name('web.add_partner');
 });

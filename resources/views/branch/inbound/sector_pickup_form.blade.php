@@ -75,6 +75,7 @@
     var table_sl_count = 1;
     $("#cd_no").change(function(){
         var cd_no = $(this).val();
+        if (cd_no) {            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -93,7 +94,7 @@
                         $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='6'>No Docates Found </td></tr>`);
                         $('#sector_list').show();
                     }else{
-                        
+                        $("#data_row").html('');
                         $('#row'+table_sl_count).remove();
                         $.each( response, function( key, value ) {
                             $("#data_row").append(`<tr id="+'row'+table_sl_count+">
@@ -108,13 +109,15 @@
                             </tr>`);
                             $("#check_bag"+table_sl_count).val(value.id);    
                         table_sl_count++;
-                    });                         
-                    $('#sector_list').show();
-                   
-                }
-                                    
+                        });                         
+                        $('#sector_list').show();
+                    }              
                 }
             });
+        } else {
+            $("#data_row").html(`<tr id='row${table_sl_count}' class='even pointer' ><td style='text-align:center;' colspan='6'>No Docates Found </td></tr>`);
+            $('#sector_list').show();
+        }
         });
     
 

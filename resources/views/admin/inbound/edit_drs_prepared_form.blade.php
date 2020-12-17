@@ -12,8 +12,9 @@
 <div class="right_col" role="main">
     <div class="row">
         {{-- <div class="col-md-2"></div> --}}
-        <form method="put" action="{{route('admin.update_drs_prepared',['id'=>$drs->id]) }}">
-        @csrf
+        <form method="post" action="{{route('admin.update_drs_prepared',['id'=>$drs->id]) }}">
+            @method('put')
+            @csrf
             <div class="col-md-12" style="margin-top:50px;">
                 <div class="x_panel">
                     
@@ -89,7 +90,7 @@
                                 <th id="mode">{{ $value->docate->payment_option }}</th>
                                 <th id="amount">{{ $value->docate->collecting_amount }}</th>
                                 <th>@if($value->status == 2)
-                                        <a  href ="{{  route ('admin.remove_from_drs_prepared',['id'=>$value->id])}}" class="btn btn-danger btn-sm">Remove</a>
+                                        <a  href ="{{  route ('admin.remove_from_drs_prepared',['id'=>$value->id])}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure To Remove ??')">Remove</a>
                                     @else 
                                         @if($value->status == 3)
                                             <a class="btn btn-primary btn-sm">Already Closed</a>

@@ -25,7 +25,7 @@ class DocateEntrySeeder extends Seeder
         $mode = ['Air','Train','Road']; 
         $branch_ids = [3,10]; 
         $faker = Faker::create();
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
             $docate = new Docate();    
             $docate->payment_option =$payment_type_array[rand(0,2)];
             if ($docate->payment_option == 'cod' || $docate->payment_option == 'cash' ) {
@@ -45,7 +45,7 @@ class DocateEntrySeeder extends Seeder
             $docate->pickup_time = Carbon::today()->toTimeString();
             if($docate->save()){
                 //Sender Details Insert
-                $city_id = rand(1,5);
+                $city_id = 1;
                 $city_data = City::find($city_id);
 
                 $docate_details = new DocateDetails();
@@ -62,7 +62,7 @@ class DocateEntrySeeder extends Seeder
                 }
 
                 // Receiver Details Insert
-                $city_id = rand(1,637);
+                $city_id = 2;
                 $city_data = City::find($city_id);
 
                 $docate_details = new DocateDetails();
