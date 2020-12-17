@@ -43,6 +43,26 @@ class DocateController extends Controller
                 }else{
                     return "<button class='btn btn-xs btn-success'>Cash</button>";
                 }
+            })->addColumn('status_tab', function ($row) {
+                if ($row->courier_status == '1') {
+                    $btn = '<button type="button" class="btn btn-xs  btn-warning">Booked</button>';
+                } elseif ($row->courier_status == '2') {
+                    $btn = '<button type="button" class="btn btn-xs btn-info">Manifested</button>';
+                } elseif ($row->courier_status == '3') {
+                    $btn = '<button type="button" class="btn btn-xs btn-primary">Begged</button>';
+                }elseif ($row->courier_status == '4') {
+                    $btn = '<button type="button" class="btn btn-xs btn-success">Sector Booked</button>';
+                }elseif ($row->courier_status == '5' || $row->courier_status == '6') {
+                    $btn = '<button type="button" class="btn btn-xs btn-warning">Pickup</button>';
+                }elseif ($row->courier_status == '7') {
+                    $btn = '<button type="button" class="btn btn-xs btn-info">DRS Prepared</button>';
+                }elseif ($row->courier_status == '8') {
+                    $btn = '<button type="button" class="btn btn-xs btn-success">Delivered</button>';
+                }elseif ($row->courier_status == '9') {
+                    $btn = '<button type="button" class="btn btn-xs btn-danger">Delivery Delayed</button>';
+                }
+                return $btn;
+                
             })->addColumn('action', function ($docate){
                 if($docate){
                     $btn = '<a href="' . route('admin.view_details', ['id' => $docate->id]) . '" class="btn btn-info btn-xs" target="_blank">View</a>';
@@ -54,7 +74,7 @@ class DocateController extends Controller
                 }else{
                     return null;
                 }
-            })->rawColumns(['action', 'origin', 'destination','payment_type_btn'])
+            })->rawColumns(['action', 'status_tab','origin', 'destination','payment_type_btn'])
             ->make(true);
     }
 

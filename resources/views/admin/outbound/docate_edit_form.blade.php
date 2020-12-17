@@ -43,8 +43,7 @@
                                         <label for="mode">Select Mode<span><b style="color: red"> * </b></span></label>
                                         <select class="form-control" name="mode"  id="mode" >
                                             <option value="Air" name="mode" {{ $docate_details->send_mode == 'Air'? 'selected':'' }}>By Air</option>
-                                            <option value="Train" name="mode" {{ $docate_details->send_mode == 'Train'? 'selected':'' }}>By Tra
-                                                in</option>
+                                            <option value="Train" name="mode" {{ $docate_details->send_mode == 'Train'? 'selected':'' }}>By Train</option>
                                             <option value="Road" name="mode" {{ $docate_details->send_mode == 'Road'? 'selected':'' }}>By Road</option>
                                         </select>
                                         @if($errors->has('mode'))

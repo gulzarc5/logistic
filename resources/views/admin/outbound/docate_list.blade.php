@@ -69,6 +69,7 @@
                         <tr class="headings">
                             <th class="column-title">ID</th>
                             <th class="column-title">Docate ID</th>
+                            <th class="column-title">Status</th>
                             <th class="column-title"> Origin</th>
                             <th class="column-title">Destination</th>
                             <th class="column-title">Payment Type</th>
@@ -132,6 +133,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'docate_id', name: 'docate_id',searchable: true},
+                {data: 'status_tab', name: 'status_tab',searchable: true},
                 {data: 'origin', name: 'origin' ,searchable: true},
                 {data: 'destination', name: 'destination' ,searchable: true},  
                 {data: 'payment_type_btn', name: 'payment_type_btn' ,searchable: true},  
