@@ -146,39 +146,46 @@
 
     $("#manifest_no").blur(function(){
         var manifest_no = $(this).val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type:"GET",
-            url:"{{ url('/branch/sectorbooking/add/form')}}"+"/"+manifest_no,
-            beforeSend: function() {
-                $('#data_row').html(`<tr>
-                          <td colspan="6" align="center">  <i class="fa fa-spinner fa-spin"  style="font-size:100px" id="loader_id"></i></td>
-                        </tr>`);
-           },
-            success:function(response){
-                if(response == 2){
-                    $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><td style='text-align:center;' colspan='6'>No Docates Found </td></th></tr>");
-                    $('#sector_list').show();
-                }else{
-                    
-                    $('#row'+table_sl_count).remove();
-                    $.each( response, function( key, value ) {
-                        
-                            $("#data_row").append("<tr id="+'row'+table_sl_count+"><th>"+value.docate_id+"<input type='hidden' name='docate_id[]' id="+'docate_id'+table_sl_count+"></th><th>"+value.actual_weight+"</th><th>"+value.no_of_box+"</th><th>"+value.lock_no+"</th><th>"+value.sender_name+"</th><th>"+value.receiver_name+"</th></tr>");
-                            $("#docate_id"+table_sl_count).val(value.id);
-                                
-                        table_sl_count++;
-                    });                         
-                    $('#sector_list').show();
-                    $('#btn').show();
+
+        if (manifest_no) {            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-                                
-            }
-        });
+            });
+            $.ajax({
+                type:"GET",
+                url:"{{ url('/branch/sectorbooking/add/form')}}"+"/"+manifest_no,
+                beforeSend: function() {
+                    $('#data_row').html(`<tr>
+                              <td colspan="6" align="center">  <i class="fa fa-spinner fa-spin"  style="font-size:100px" id="loader_id"></i></td>
+                            </tr>`);
+               },
+                success:function(response){
+                    if(response == 2){
+                        $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><td style='text-align:center;' colspan='6'>No Docates Found </td></th></tr>");
+                        $('#sector_list').show();
+                    }else{                        
+                        $('#row'+table_sl_count).remove();
+                        $("#data_row").html('');
+                        $.each( response, function( key, value ) {
+                            
+                                $("#data_row").append("<tr id="+'row'+table_sl_count+"><th>"+value.docate_id+"<input type='hidden' name='docate_id[]' id="+'docate_id'+table_sl_count+"></th><th>"+value.actual_weight+"</th><th>"+value.no_of_box+"</th><th>"+value.lock_no+"</th><th>"+value.sender_name+"</th><th>"+value.receiver_name+"</th></tr>");
+                                $("#docate_id"+table_sl_count).val(value.id);
+                                    
+                            table_sl_count++;
+                        });                         
+                        $('#sector_list').show();
+                        $('#btn').show();
+                    }
+                                    
+                }
+            });
+        }else{
+            $("#data_row").html("<tr id="+'row'+table_sl_count+" class='even pointer'><td style='text-align:center;' colspan='6'>No Docates Found </td></th></tr>");
+            $('#sector_list').show();
+            $('#btn').hide();
+        }
     });
 
     $("#cd_no").blur(function(){

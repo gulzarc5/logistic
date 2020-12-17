@@ -40,7 +40,7 @@ class ReportController extends Controller
        $end_date = $request->get('end_from');
        $date_start = date('Y-m-d', strtotime($start_date))." 00:00:00";
        $date_end = date('Y-m-d', strtotime($end_date))." 23:59:59";
-       $types = $request->get('type');
+       $types = $request->get('type'); // Y = Outbond 
       
         if($types=="Y"){
             if($start_date == null && $end_date == null){
@@ -106,10 +106,15 @@ class ReportController extends Controller
             ->make(true);
                                 
         }else{
+            if($start_date == null && $end_date == null){
+                $inbound_docates = Inbound::where('branch_id',$this->branch_id)
+                    ->orderBy('id','desc');
+            }else{
+                $inbound_docates = Inbound::whereBetween('created_at', [$date_start, $date_end])
+                    ->where('branch_id',$this->branch_id)
+                    ->orderBy('id','desc');
+            }
             
-            $inbound_docates = Inbound::whereBetween('created_at', [$date_start, $date_end])
-                ->orderBy('id','desc')->where('branch_id',$this->branch_id);;
-                
             
             return datatables()->of($inbound_docates->get())
                 ->addIndexColumn()

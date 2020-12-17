@@ -63,7 +63,7 @@ class SectorBookingController extends Controller
             'dep_date' => 'required',
             'dep_time'=> 'required',            
             'vehicle_no'=>'required',
-            'cd_no'=>'required',
+            'cd_no'=>'required|unique:sector_booking,cd_no',
             'manifest_number'=>'required',
         ]);
        

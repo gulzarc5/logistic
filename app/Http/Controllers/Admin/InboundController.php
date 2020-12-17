@@ -158,7 +158,7 @@ class InboundController extends Controller
             ->addColumn('action', function ($drs) {
                 if($drs->status == 1){
                     $btn = '<a  target="_blank" href = "'. route('admin.drs_prepared_edit_form',['id'=>$drs->id]) .'" class="btn btn-success btn-sm">Edit</a>';
-                    $btn .= '<a  href = "'. route ('admin.remove_drs',['id'=>$drs->id]) .'" class="btn btn-danger btn-sm">Remove</a>';
+                    $btn .= '<a  href = "'. route ('admin.remove_drs',['id'=>$drs->id]) .'" class="btn btn-danger btn-sm" onclick="return confirm(\'Are You Sure To Delete ??\')">Remove</a>';
                     return $btn;
                 }else{
                     return  $btn = '<a  target="_blank"  class="btn btn-success btn-sm">Already Delivered</a>';
@@ -186,7 +186,7 @@ class InboundController extends Controller
 
     public function removeDrs($id){
         $drs = Drs::where('id',$id)->delete();
-        $inbound = Inbound::where('drs_id',$drs->id)->get();
+        $inbound = Inbound::where('drs_id',$id)->get();
         foreach($inbound as $values){
             $values->status = 1;
             $values->drs_id = null;
@@ -195,7 +195,6 @@ class InboundController extends Controller
             $docate->courier_status = 5;
             $docate->status = 5;
             $docate->save();
-
         }
         return redirect()->back();
     }
