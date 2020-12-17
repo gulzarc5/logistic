@@ -12,14 +12,18 @@ use App\Freight;
 use App\PartnerFreight;
 class TrackingController extends Controller
 {
-   public function trackingDetails(Request $request){
-      
-       $track_id = $request->input('track_id');
-      $docate_details = Docate::where('docate_id',$track_id)->first(); 
-      $tracking_history = DocateHistory::where('docate_id',$track_id)->get();
-       return view('web.tracking.trackingdetails',compact('docate_details','tracking_history'));
-
-   }
+    public function trackingDetails(Request $request){
+        $this->validate($request, [
+            'track_id' => 'required',
+        ]);
+        $track_id = $request->input('track_id');
+        if ( Docate::where('docate_id',$track_id)->count() == 0) {
+            return redirect()->back()->with('error','OOPS !! Please Enter Valid Tracking Id');
+        }
+        $docate_details = Docate::where('docate_id',$track_id)->first(); 
+        $tracking_history = DocateHistory::where('docate_id',$track_id)->get();
+        return view('web.tracking.trackingdetails',compact('docate_details','tracking_history'));
+    }
 
    public function deliveryExecutive(){
        $freight= Freight::get();
