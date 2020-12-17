@@ -41,6 +41,7 @@
                                     <th>Drs Date</th>
                                     <th>Drs Time</th>
                                     <th>status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>                       
@@ -62,29 +63,33 @@
    function fetchDetails(){
         var start_date = $('#start_date').val();
         var end_date = $('#end_date').val();
-      
-        var table = $('#contact_list').DataTable({
-            processing: true,
-            serverSide: true,
-            "destroy" : true,
-          
-            "ajax": {
-                "url": "{{ route('admin.fetch_drs_report') }}",
-                "data": function ( d ) {
-                    d.start_from = start_date,
-                    d.end_from = end_date
-                 
-                }
-            },
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                {data: 'drs_no', name: 'drs_no',searchable: true},
-                {data: 'de_name', name: 'de_name' ,searchable: true},  
-                {data: 'drs_date', name: 'drs_date' ,searchable: true},  
-                {data: 'drs_time', name: 'drs_time' ,searchable: true}, 
-                {data: 'status', name: 'status' ,searchable: true}, 
-            ]
-        });
+        if(start_date=="" || end_date==""){
+            alert('start and end date cant be empty');
+        }else{
+            var table = $('#contact_list').DataTable({
+                processing: true,
+                serverSide: true,
+                "destroy" : true,
+            
+                "ajax": {
+                    "url": "{{ route('admin.fetch_drs_report') }}",
+                    "data": function ( d ) {
+                        d.start_from = start_date,
+                        d.end_from = end_date
+                    
+                    }
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'drs_no', name: 'drs_no',searchable: true},
+                    {data: 'de_name', name: 'de_name' ,searchable: true},  
+                    {data: 'drs_date', name: 'drs_date' ,searchable: true},  
+                    {data: 'drs_time', name: 'drs_time' ,searchable: true}, 
+                    {data: 'status', name: 'status' ,searchable: true}, 
+                    {data: 'action', name: 'action' ,searchable: true}, 
+                ]
+            });
+        }
         
     }
   </script>

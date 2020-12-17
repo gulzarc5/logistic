@@ -90,6 +90,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('drs/form','ReportController@drsReportForm')->name('branch.drs_report_form');
             Route::get('fetch/drs/','ReportController@drsListAjax')->name('admin.fetch_drs_report');
             Route::post('drs/report/download','ReportController@drsListExcelExport')->name('branch.drs_report_downloads_xls');
+            Route::get('drs/details/{id}','ReportController@drsDetails')->name('branch.drs_details');
 
             Route::get('sector/booking/form','ReportController@sectorPickupListReportForm')->name('branch.sector_pickup_report');
             Route::get('fetch/sector/pickup','ReportController@sectorPickupListAjax')->name('admin.fetch_sector_pickup_report');

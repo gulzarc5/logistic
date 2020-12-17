@@ -393,29 +393,26 @@ class ReportController extends Controller
     }
 
     public function drsListAjax(Request $request){
-       
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
-       
         $drs = Drs::OrderBy('id','desc');
-        if (!empty($start_date) && !empty($end_date)) {
+        if(!empty($start_date) && !empty($end_date)) {
             $drs->whereDate('created_at','>=', $start_date)
                 ->whereDate('created_at','<=', $end_date)
                 ->where('branch_id',$this->branch_id);
         }
-        
-            return datatables()->of($drs->get())
-            ->addIndexColumn()
-           
-            ->addColumn('status', function ($drs) {
-               if($drs->status ==1){
-                   return $btn = '<a class="btn btn-success btn-xs">Drs Prepared</a>';
-               }else{
-                   return $btn =  '<a class="btn btn-primary btn-xs">Drs Closed</a>';
-               }
-            
-            })->rawColumns([ 'status'])
-            ->make(true);
+        return datatables()->of($drs->get())
+        ->addIndexColumn()
+        ->addColumn('status', function ($drs) {
+            if($drs->status ==1){
+                return $btn = '<a class="btn btn-success btn-xs">Drs Prepared</a>';
+            }else{
+                return $btn =  '<a class="btn btn-primary btn-xs">Drs Closed</a>';
+            }
+        })->addColumn('action', function ($drs) {
+            return $btn = '<a target="_blank" href="'.route('branch.drs_details',['id'=>$drs->id]).'" class="btn btn-success btn-xs">View Details</a>';
+        })->rawColumns([ 'status','action'])
+        ->make(true);
     }
 
     public function drsListExcelExport(Request $request){
@@ -424,6 +421,12 @@ class ReportController extends Controller
         $end_date = $request->input('end_date');
         
         return Excel::download(new Drss($start_date,$end_date), 'drs_list.xlsx');
+    }
+
+    public function drsDetails($id){
+        $drs = Drs::findOrFail($id);
+        return view('branch.outbound.drs_details',compact('drs'));
+
     }
 
     public function sectorPickupListReportForm(){
