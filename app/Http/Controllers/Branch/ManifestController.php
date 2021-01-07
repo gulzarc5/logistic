@@ -14,7 +14,7 @@ use App\DocateDetails;
 use DB;
 use Auth;
 use App\Services\BranchService;
-
+use Carbon\Carbon;
 
 class ManifestController extends Controller
 {
@@ -57,15 +57,17 @@ class ManifestController extends Controller
             'docate_no'   => 'required|array|min:1',
             'destination'   => 'required',
             'origin'   => 'required',
+            'created_at'=> 'required'
         ]);
         try {
             $manifest_id =null;
             DB::transaction(function () use ($request ,& $manifest_id) {
                 $origin = $request->input('origin');
+                $created_at =Carbon::parse($request->input('created_at'))->format('Y-m-d H:i:s');
                 $docate_nos = $request->input('docate_no'); //array of docate nos
                 $destination = $request->input('destination');
                 if(count($docate_nos)>0){
-                    $manifest_id = $this->generateManifestNo($origin,$destination);
+                    $manifest_id = $this->generateManifestNo($origin,$destination,$created_at);
                     foreach($docate_nos as $docate_no){
                         if(!empty($docate_no)){
                             $docate = Docate::where('docate_id',$docate_no)->where('branch_id',$this->branch_id)->first();  
@@ -118,8 +120,9 @@ class ManifestController extends Controller
         }
     }
 
-    private function generateManifestNo($origin,$destination){
+    private function generateManifestNo($origin,$destination,$created_at){
         $manifest = new Manifest(); 
+        $manifest->created_at = $created_at;
         $manifest->branch_id =$this->branch_id; 
         $manifest->save();
 

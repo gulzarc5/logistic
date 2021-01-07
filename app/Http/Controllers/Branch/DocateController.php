@@ -59,9 +59,9 @@ class DocateController extends Controller
             'length'=>'required|array|min:1',
             'breadth'=>'required|array|min:1',
             'height'=>'required|array|min:1',
-            'total'=>'required|array|min:1'
-        ]);   
-        
+            'total'=>'required|array|min:1',
+            'created_at'=>'required'
+        ]);  
        
         try {
             $docate_id = null;
@@ -82,6 +82,7 @@ class DocateController extends Controller
                 $docate->branch_id = $this->branch_id;
                 $docate->pickup_date =$request->input('pickup_date');
                 $docate->pickup_time = $request->input('pickup_time');
+                $docate->created_at = Carbon::parse($request->input('created_at'))->format('Y-m-d H:i:s');
                 $docate->save();
 
                 $this->srDetailsInsert($request,$docate);
@@ -105,6 +106,7 @@ class DocateController extends Controller
             });
             return redirect()->route('branch.docate_info',$docate_id);
         }catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
         }
 

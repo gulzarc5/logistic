@@ -20,10 +20,13 @@
    </div>
 </div>
    @if (isset($docate_details) && !empty($docate_details))
-       
+   <div class="row">
+      <div class="col-md-12" style="text-align: center;"><h3>Tracking Details For Tracking Id : <strong style="color:blue;">{{ $docate_details->docate_id }}</strong></h3></div>
+   </div>
       <section class="blogpage blog-grid  secpadd" style="padding-bottom: 30px;">
          <div class="container">
-            <div class="row ">
+            <div class="row">
+               
                <div class="col-md-2"></div>
                <div class="blog-wrapper col-md-4">
                   <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;">
@@ -47,6 +50,7 @@
                      </div>
                   </div>
                </div>
+               <div class="col-md-2"></div>
             </div>
          </div>
       </section>
@@ -75,7 +79,7 @@
                   @endif
                   <!--
                      -->
-                  @if($docate_details->status >=5)
+                  @if($docate_details->status >=4 ||$docate_details->status >=5 )
                      <li class="progtrckr-done">In Transit</li>
                   @else
                      <li class="progtrckr-todo">In Transit</li>
@@ -84,9 +88,9 @@
                      -->
                   @if($docate_details->status >=6)
                      <li class="progtrckr-done">Out for Delivery</li>
-               @else
-                     <li class="progtrckr-todo">Out for Delivery</li>
-               @endif
+                  @else
+                        <li class="progtrckr-todo">Out for Delivery</li>
+                  @endif
                   <!--
                      -->
                   @if($docate_details->status >= 7)
@@ -114,7 +118,15 @@
                         <tbody>
                            @foreach($tracking_history as $details)
                            <tr>
-                              <td>{{ $details->created_at }}</td>
+                              @if(  $details->type ==  1)
+                                 <td>{{ $details->docate->created_at ?? "" }}</td>
+                              @elseif($details->type == 2)
+                                 <td>{{ $details->docate->manifest->created_at ?? ""  }}</td>
+                              @elseif($details->type == 3)
+                                 <td>{{ $details->docate->baging->created_at ?? ""  }}</td>
+                              @else
+                              <td>{{ $details->docate->sector->created_at ?? ""  }}</td>
+                              @endif
                               {{-- <td>{{ $details->time }}</td> --}}
                               <td>{{ $details->comments }}</td>
                            </tr>

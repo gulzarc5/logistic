@@ -45,6 +45,11 @@
                                             <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('origin'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('origin') }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="destination">Destination<span><b style="color: red"> * </b></span></label>
@@ -54,22 +59,47 @@
                                             <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('destination'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('destination') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="coloader_name">Co-Loader Name<span><b style="color: red"> * </b></span></label>
                                     <input type="text" class="form-control" id="coloader_name" name="coloader_name" required>
+                                    @if($errors->has('coloader_name'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('coloader_name') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="date">Book Date<span><b style="color: red"> * </b></span></label>
                                     <input type="date" class="form-control" id="date" name="date" required>
+                                    @if($errors->has('date'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('date') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="time">Book Time<span><b style="color: red"> * </b></span></label>
                                     <input type="time" class="form-control" id="time" name="time" required>
+                                    @if($errors->has('time'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('time') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="booked_by">Booked By<span><b style="color: red"> * </b></span></label>
                                     <input type="text" class="form-control" id="booked_by" name="booked_by" required>
+                                    @if($errors->has('booked_by'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('booked_by') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="mode">Mode<span><b style="color: red"> * </b></span></label>
@@ -78,30 +108,74 @@
                                         <option value="Train">By Train</option>
                                         <option value="Road">By Road</option>
                                     </select>
+                                    @if($errors->has('mode'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('mode') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="vehicle_no">Ft No/Train No/Vehicle No<span><b style="color: red"> * </b></span></label>
                                     <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
+                                     @if($errors->has('vehicle_no'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('vehicle_no') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="cd_no">CD No<span><b style="color: red"> * </b></span><span class="invalid-feedback" role="alert" style="color:red;" id="error_doc"></span></label>
                                     <input type="text" class="form-control" id="cd_no" name="cd_no" required>
+                                     @if($errors->has('cd_no'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('cd_no') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="dep_date">Departure Date<span><b style="color: red"> * </b></span></label>
                                     <input type="date" class="form-control" id="dep_date" name="dep_date" required>
+                                     @if($errors->has('dep_date'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('dep_date') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="dep_time">Departure Time<span><b style="color: red"> * </b></span></label>
                                     <input type="time" class="form-control" id="dep_time" name="dep_time" required>
+                                     @if($errors->has('dep_time'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('dep_time') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3"><span><b style="color: red"> * </b></span>
                                     <label for="arr_date">Arrival Date<span><b style="color: red"> * </b></span></label>
                                     <input type="date" class="form-control" id="arr_date" name="arr_date" required>
+                                     @if($errors->has('arr_date'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('arr_date') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="arr_time">Arrival Time<span><b style="color: red"> * </b></span></label>
                                     <input type="time" class="form-control" id="arr_time" name="arr_time" required>
+                                     @if($errors->has('arr_time'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('arr_time') }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="created_at">Sector Booking Date&Time<span><b style="color: red"> * </b></span></label>
+                                    <input type="datetime-local" class="form-control" id="created_at" name="created_at" required>
+                                     @if($errors->has('created_at'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('created_at') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 
                             </div>

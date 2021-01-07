@@ -31,6 +31,12 @@ class Docate extends Model
     public function manifest(){
         return $this->belongsTo('App\Manifest','manifest_id','id');
     }
+    public function sector(){
+        return $this->belongsTo('App\SectorBooking','sector_id','id');
+    }
+    public function baging(){
+        return $this->belongsTo('App\Baging','baging_id','id');
+    }
 
     
 }

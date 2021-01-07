@@ -45,7 +45,12 @@
                                             @foreach($city as $value)
                                                 <option value="{{ $value->id }}"> {{ $value->name }}</option>
                                             @endforeach
-                                        </select>                                    
+                                        </select>     
+                                        @if($errors->has('origin'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('origin') }}</strong>
+                                        </span>
+                                    @enderror                               
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
@@ -56,7 +61,21 @@
                                             <option value="{{ $value->id }}"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('destination'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('destination') }}</strong>
+                                    </span>
+                                @enderror
                                 </div>  
+                                <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
+                                    <label for="created_at">Manifest Date&Time<span><b style="color: red"> * </b></span></label>
+                                    <input type="datetime-local" name="created_at" class="form-control">
+                                    @if($errors->has('created_at'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('created_at') }}</strong>
+                                    </span>
+                                    @enderror
+                                </div> 
                             </div>
                         </div>
                     </div >

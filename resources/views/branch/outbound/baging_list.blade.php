@@ -41,7 +41,11 @@
                                                 <option value="{{ $value->id }}" name="origin"> {{ $value->name }}</option>
                                             @endforeach
                                         </select>
-                                                                            
+                                        @if($errors->has('origin'))
+                                            <span class="invalid-feedback" role="alert" style="color:red">
+                                                <strong>{{ $errors->first('origin') }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3" >
@@ -52,10 +56,29 @@
                                             <option value="{{ $value->id }}" name="destination"> {{ $value->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('destination'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('destination') }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
                                     <label for="manifest_no">Manifest Number<span><b style="color: red"> * </b></span></label>
                                     <input type="text" class="form-control" id="manifest_no" name="manifest_number" required>
+                                    @if($errors->has('manifest_number'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('manifest_number') }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                                    <label for="created_at">Baging Date&Time<span><b style="color: red"> * </b></span></label>
+                                    <input type="datetime-local" class="form-control" id="created_at" name="created_at" required>
+                                    @if($errors->has('created_at'))
+                                        <span class="invalid-feedback" role="alert" style="color:red">
+                                            <strong>{{ $errors->first('created_at') }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 @if($errors->has('lock_no'))
                                     <div class="col-md-6 col-sm-12 col-xs-12 mb-3" id="lock_div">

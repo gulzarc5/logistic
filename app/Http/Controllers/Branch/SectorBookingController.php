@@ -14,6 +14,7 @@ use App\BagingDetails;
 use App\Baging;
 use DB;
 use Auth;
+use Carbon\Carbon;
 use App\Services\BranchService;
 
 class SectorBookingController extends Controller
@@ -92,6 +93,7 @@ class SectorBookingController extends Controller
                 $sector->vehicle_no = $request->input('vehicle_no');
                 $sector->cd_no = $request->input('cd_no');
                 $sector->branch_id = $this->branch_id;
+                $sector->created_at = Carbon::parse($request->input('created_at'))->format('Y-m-d H:i:s');
                 
                 if($sector->save()){
 

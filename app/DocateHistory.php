@@ -12,4 +12,9 @@ class DocateHistory extends Model
         'docate_id','type','data_id','comments'
     ];
 
+    public function docate(){
+        return $this->belongsTo('App\Docate','data_id','id');
+    }
+
+
 }

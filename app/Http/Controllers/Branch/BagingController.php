@@ -80,6 +80,7 @@ class BagingController extends Controller
                 $baging->destination=$request->input('destination');
                 $baging->date=Carbon::today()->toDateString();
                 $baging->lock_no = $lock_no ;
+                $baging->created_at = Carbon::parse($request->input('created_at'))->format('Y-m-d H:i:s');
                 $baging->save();
         
                 if(count($docate_ids) > 0){

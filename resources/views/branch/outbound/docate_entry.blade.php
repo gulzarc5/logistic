@@ -102,6 +102,15 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12 mb-3" >
+                                <label for="created_at">Docate Date Time<span><b style="color: red"> * </b></span></label>
+                                <input type="datetime-local"  class="form-control" name="created_at" value="{{ old('created_at') }}" >
+                                @if($errors->has('created_at'))
+                                    <span class="invalid-feedback" role="alert" style="color:red">
+                                        <strong>{{ $errors->first('created_at') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                                 
                             </div>
                         </div>
