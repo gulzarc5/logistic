@@ -386,7 +386,7 @@ table tr th {
 }
 
 .secpadd {
-  padding: 70px 0px;
+  padding: 25px 0px;
 }
 .secpadd2 {
   padding: 70px 0 40px;
@@ -4836,8 +4836,8 @@ ul.service-menu .children li:last-child {
 }
 .contact-widget {
   border-bottom: 1px solid #232951;
-  padding-top: 50px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 0px;
 }
 .contact-widget .contact h4 {
   color: #fff;
@@ -4886,8 +4886,8 @@ ul.service-menu .children li:last-child {
   margin-bottom: 5px;
 }
 .footer-sidebars {
-  padding-top: 80px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 0px;
 }
 .opening-hours {
   list-style: none;
@@ -7112,6 +7112,9 @@ ul.service-menu .children li:last-child {
   font-weight: 400;
   font-style: normal;
   margin: 0;
+}
+.padd {
+  padding: 15px;
 }
 
 /*custom made*/

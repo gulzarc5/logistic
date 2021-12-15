@@ -1,6 +1,6 @@
 @extends('web.templete.master')
 @section('seo')
-<meta name="description" content="Blazelog">
+<meta name="description" content="SRA Express">
 @endsection
 @section('content')
 <!--Page Header-->
@@ -37,11 +37,11 @@
             <div class="fh-section-title clearfix  text-left version-dark paddbtm30">
                <h2>About Us</h2>
             </div>
-            <p><img src="{{asset('web/images//resources/aboutus-1.jpg')}}" class="img-responsive pull-left" style="margin-right: 40px;"><b>Blazelog</b> Services is one of the leading express courier and logistics companies in North East India. It was founded in 2019 and offers world-class courier services and professionalism. Blazelog Services has a national footprint and services the whole of India with established distribution hubs in all over major cities. With our local offices and in conjunction with our business partners and associates it enables us to reach over 200 Major Cities, Worldwide.</p>
+            <p><img src="{{asset('web/images//resources/aboutus-1.jpg')}}" class="img-responsive pull-left" style="margin-right: 40px;"><b>SRA Express</b> Services is one of the leading express courier and logistics companies in North East India. It was founded in 2019 and offers world-class courier services and professionalism. SRA Express Services has a national footprint and services the whole of India with established distribution hubs in all over major cities. With our local offices and in conjunction with our business partners and associates it enables us to reach over 200 Major Cities, Worldwide.</p>
             <p>Our team consists of dedicated and pro-active individuals’ which gives us an edge in terms of having an urgent mentality opposed to a relaxed approach.</p>
-            <p>Blazelog services aim is to develop lasting business relationships through mutual trust as well as to be an extension of the professionalism that we know our customers deserve while pioneering brand building to achieve high levels of success within their respective businesses. World trade has been enhanced via the worldwide web but for success to be realized product samples and information have to be shipped to International prospects and we are perfectly positioned to ensure that this type of service is provided to perfection.</p>
+            <p>SRA Express services aim is to develop lasting business relationships through mutual trust as well as to be an extension of the professionalism that we know our customers deserve while pioneering brand building to achieve high levels of success within their respective businesses. World trade has been enhanced via the worldwide web but for success to be realized product samples and information have to be shipped to International prospects and we are perfectly positioned to ensure that this type of service is provided to perfection.</p>
             <p>We strive to give our customers the fastest most reliable service! 24 hours a day – 7 days a week and 365 days of the year.</p>
-            <p>Blazelog services offers you timely, cost effective and efficient courier services that will help your business focus on what it should be focusing on. Save time and money by using our clockwork services.</p>
+            <p>SRA Express services offers you timely, cost effective and efficient courier services that will help your business focus on what it should be focusing on. Save time and money by using our clockwork services.</p>
          </div>
       </div>
    </div>

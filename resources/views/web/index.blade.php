@@ -10,7 +10,7 @@
          <!-- SLIDE  -->
          <li data-index="rs-4" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
             <!-- MAIN IMAGE -->
-            <img src="{{asset('web/images/main-slider/slide1-4.jpg')}}" alt="" title="Home Page 2" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="0" class="rev-slidebg" data-no-retina>
+            <img src="{{asset('web/images/main-slider/slider1.jpg')}}" alt="" title="Home Page 2" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="0" class="rev-slidebg" data-no-retina>
             <!-- LAYERS -->
             <!-- LAYER NR. 1 -->
             <div class="tp-caption ch_title   tp-resizeme" id="slide-4-layer-1" data-x="['left','left','left','left']" data-hoffset="['0','0','0','0']" data-y="['top','top','top','top']" data-voffset="['150','150','250','200']" data-fontsize="['55','50','45','25']" data-lineheight="['55','50','45','25']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"delay":200,"speed":500,"text_c":"transparent","bg_c":"transparent","use_text_c":false,"use_bg_c":false,"frame":"0","from":"opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":500,"use_text_c":false,"use_bg_c":false,"text_c":"transparent","bg_c":"transparent","frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5; white-space: nowrap; letter-spacing: 0px;color:rgb(255, 255, 255);">THE ULTIMATE
@@ -83,7 +83,7 @@
                <span class="fh-icon"><i class="flaticon-transport-5"></i></span>
                <h4 class="box-title"><a href="#" title="Read More">Competitive rates</a></h4>
                <div class="desc">
-                  <p>Blazelog provides Competitive rates for their clients so that they become the regular clients.</p>
+                  <p>SRA Express provides Competitive rates for their clients so that they become the regular clients.</p>
                </div>
                <a href="{{route('web.about.about')}}" title="Read More" class="button-box fh-btn-2">Read More</a>
             </div>
@@ -101,13 +101,13 @@
       <div class="row">
          <div class="col-md-6">
             <div class="abotimglft" style="margin-top: 60px;">
-               <img src="{{asset('web/images/resources/hp2-about.png')}}" class="img-responsive" />
+               <img src="{{asset('web/images/resources/about.png')}}" class="img-responsive" />
             </div>
          </div>
          <div class="col-md-6">
             <div class="abotinforgt">
                <div class="fh-section-title clearfix  text-left version-dark paddbtm30">
-                  <h2>About Blazelog</h2>
+                  <h2>About SRA Express</h2>
                </div>
                <p>Presently we have started our operations in two LOB’s, B2B & B2C. Within a very short time from our date of incorporation we have been able to attract a diverse clientele base in both ecommence and the cargo domain and servicing them with utmost delight. This, as a result of our aggressive and innovative business development strategies.</p>
                <p>Simultaneously, we have set up a standard infrastructure including physical infra, IT infra as well as a warehouse facility in the aforesaid premise. We are adequately staffed for our current operations and our people are well trained. In the process, we have provided employment to local youths of Assam</p>
@@ -128,18 +128,10 @@
          <h2>Our Services</h2>
       </div>
       <div class="row">
-         <div class="col-md-4 col-sm-6">
-            <div class="fh-service-box icon-type-theme_icon style-2">
-               <span class="fh-icon"><i class="flaticon-open-cardboard-box"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog Express</a></h4>
-               <div class="desc">
-               </div>
-            </div>
-         </div>
          <div class="col-md-4">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-buildings"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog Normal</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express Normal</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -147,7 +139,7 @@
          <div class="col-md-4 col-sm-6">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-transport-9"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog Warehousing</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express Warehousing</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -155,7 +147,7 @@
          <div class="col-md-4">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-transport-2"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog Criticare</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express Criticare</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -163,7 +155,7 @@
          <div class="col-md-4 col-sm-6">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-international-delivery"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog Hyperlocal logistics</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express Logistics</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -171,7 +163,7 @@
          <div class="col-md-4 col-sm-6">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-international-delivery"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog E-commerce</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express E-commerce</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -180,7 +172,7 @@
          <div class="col-md-4 col-sm-6">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-international-delivery"></i></span>
-               <h4 class="service-title"><a href="#!" class="link">Blazelog International</a></h4>
+               <h4 class="service-title"><a href="#!" class="link">SRA Express International</a></h4>
                <div class="desc">
                </div>
             </div>
@@ -227,7 +219,7 @@
       <div class="row">
          <div class="col-md-6">
             <div class="abotimglft" >
-               <img src="{{asset('web/images/resources/about2.jpg')}}" class="img-responsive">
+               <img src="{{asset('web/images/resources/about1.png')}}" class="img-responsive">
             </div>
          </div>
          <div class="col-md-6">
@@ -235,7 +227,7 @@
                <div class="fh-section-title clearfix  text-left version-dark paddbtm30">
                   <h2>The Complete Solution</h2>
                </div>
-               <p>With an already sound reputation the Blazelog services team has beefed up its service capacity and willingness to provide the ultimate in Courier experiences.  Having already developed a comprehensive domestic and international courier network, will ensure the best in affordable service whilst maintaining the personal effective service our clients are used to!</p>
+               <p>With an already sound reputation the SRA Express services team has beefed up its service capacity and willingness to provide the ultimate in Courier experiences.  Having already developed a comprehensive domestic and international courier network, will ensure the best in affordable service whilst maintaining the personal effective service our clients are used to!</p>
                <a href="{{route('web.about.about')}}" class="fh-button button  fh-btn margtop30">More About Us</a>
             </div>
          </div>

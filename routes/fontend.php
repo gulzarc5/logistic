@@ -13,6 +13,10 @@ Route::get('/about', function () {
     return view('web.about.about');
 })->name('web.about.about');
 
+Route::get('/service', function () {
+    return view('web.service.service');
+})->name('web.service.service');
+
 // -------- Tracking---------
 Route::get('/trackingold', function () {
     return view('web.tracking.tracking-old');

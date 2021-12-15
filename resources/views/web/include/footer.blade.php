@@ -4,14 +4,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="contact col-md-3 col-xs-12 col-sm-12">
-                            <a href="#" class="footer-logo"><img src="{{asset('web/images/blazelog.png')}}" alt="Footer Logo"></a>
+                            <a href="#" class="footer-logo"><img src="{{asset('web/images/sra.png')}}" alt="Footer Logo"></a>
                         </div>
                         <!-- <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-signs"></i>
                             <p>Guwahati Branch :-South Sarania Rd.H/no-18 ,</p>
                             <h4>Ulubari-781007</h4></div> -->
                         <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-phone-call "></i>
                             <p>Phone Number :</p>
-                            <h4>+91-6002330216</h4></div>
+                            <h4>+91-987654321</h4></div>
                         <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-clock-1"></i>
                             <p>Opening Hours :</p>
                             <h4>MON – FRI: 8AM – 5PM</h4></div>
@@ -26,17 +26,17 @@
                     <div class="row">
                         <div class="footer-sidebar footer-1 col-xs-12 col-sm-6 col-md-4">
                             <div class="widget widget_text">
-                                <h4 class="widget-title">About Blazelog</h4>
+                                <h4 class="widget-title">About SRA Express</h4>
                                 <div class="textwidget">
-                                    <p class="text-justify">Presently we have started our operations in two LOB’s, B2B & B2C. Within a very short time from our date of incorporation we have been able to attract a diverse clientele base in both ecommence and the cargo domain and servicing them with utmost delight...<a href="about.php" class="text-primary" target="_blank">read more</a></p>
+                                    <p class="text-justify">Presently we have started our operations in two LOB’s, B2B & B2C. Within a very short time from our date of incorporation we have been able to attract a diverse clientele base in both ecommence and the cargo domain and servicing them.</p>
                                 </div>
                             </div>
                             <div class="widget Blazeloghub-social-links-widget">
                                 <div class="list-social style-1">
-                                    <a href="#" class="text-danger" target="_blank"><i class="fa fa-facebook"></i></a>
-                                    <a href="#" class="text-danger" target="_blank"><i class="fa fa-twitter"></i></a>
-                                    <a href="#" class="text-danger" target="_blank"><i class="fa fa-facebook"></i></a>
-                                    <a href="#" class="text-danger" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    <a href="#" class="text-danger padd" target="_blank"><i class="fa fa-facebook"></i></a>
+                                    <a href="#" class="text-danger padd" target="_blank"><i class="fa fa-twitter"></i></a>
+                                    <a href="#" class="text-danger padd" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                                    <a href="#" class="text-danger padd" target="_blank"><i class="fa fa-instagram"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -59,11 +59,10 @@
                                 <h4 class="widget-title">Services</h4>
                                 <div class="menu-service-menu-container">
                                     <ul class="menu">
-                                        <li><a href="#!">Blazelog Express</a></li>
-                                        <li><a href="#!">Blazelog Normal</a></li>
-                                        <li><a href="#!">Blazelog Warehousing</a></li>
-                                        <li><a href="#!">Blazelog Criticare</a></li>
-                                        <li><a href="#!">Blazelog Hyperlocal logistics</a></li>
+                                        <li><a href="{{route('web.service.service')}}">Service 1</a></li>
+                                        <li><a href="{{route('web.service.service')}}">Service 2</a></li>
+                                        <li><a href="{{route('web.service.service')}}">Service 3</a></li>
+                                        <li><a href="{{route('web.service.service')}}">Service 4</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -78,7 +77,7 @@
         <div class="container">
             <div class="row">
                 <div class="footer-copyright col-md-6 col-sm-12 col-sx-12">
-                    <div class="site-info">Copyright @ 2020 <a href="#">Blazelog</a>, All Right Reserved </div>
+                    <div class="site-info">Copyright @ 2021 <a href="#">SRA Express</a>, All Right Reserved </div>
                 </div>
                 <div class="col-md-6 col-sm-12 col-xs-12 text-right footer-text">Developed by <a href="https://www.webinfotech.net.in/" target="_blank">Webinfotech</a> </div>
                 </div>
@@ -97,11 +96,7 @@
             <li><a href="about.php">About</a></li>
             <li class="menu-item-has-children"><a href="#" class="dropdown-toggle">Services</a>
                 <ul class="sub-menu">
-                    <li><a href="">Blazelog Express</a></li>
-                    <li><a href="">Blazelog Normal</a></li>
-                    <li><a href="">Blazelog Warehousing</a></li>
-                    <li><a href="">Blazelog Criticare</a></li>
-                    <li><a href="">Blazelog Hyperlocal logistics</a></li>
+                    <li><a href="">SRA Express</a></li>
                 </ul>
             </li>
             <li><a href="tracking.php">Tracking</a></li>
