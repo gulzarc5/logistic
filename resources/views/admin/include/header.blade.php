@@ -13,7 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="icon" href="images/favicon.png" type="image/ico" />
 
-    <title>Logistic</title>
+    <title>SRA Express</title>
     {{-- <link rel="icon" href="{{ asset('logo/logo.png')}}" type="image/icon type"> --}}
 
 
@@ -57,7 +57,8 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="{{route('admin.deshboard')}}" class="site_title">
-                <img src="{{ asset('logo/logo.png')}}" height="50" style=" width: 90%;">
+                {{-- <img src="{{ asset('logo/logo.png')}}" height="50" style=" width: 90%;"> --}}
+                <img src="{{asset('web/images/sra.png')}}" alt="sra" class="logo-light show-logo"  style=" width: 90%;" >
               </a>
             </div>
 

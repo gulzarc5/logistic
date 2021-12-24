@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Logistic</title>
+    <title>SRA Express</title>
     <link rel="icon" href="{{ asset('/logo/favicon.png')}}" type="image/icon type">
 
     <!-- Bootstrap -->
@@ -80,9 +80,9 @@
 
                 <div>
                   <h1>
-                    <img src="{{ asset('logo/logo.png')}}" height="80">
+                    <img src="{{asset('web/images/sra.png')}}" alt="sra" class="logo-light show-logo">
                   </h1>
-                  <p>©2020 All Rights Reserved. </p>
+                  <p>©2021 All Rights Reserved. </p>
                 </div>
               </div>
             {{ Form::close() }}

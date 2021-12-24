@@ -1,7 +1,7 @@
        <!-- footer content -->
         <footer style="background-color: transparent;">
           <div class="pull-right">
-            Developed By Webinfotech@2020
+            Developed By Webinfotech@2021
           </div>
           <div class="clearfix"></div>
         </footer>
