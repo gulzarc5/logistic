@@ -462,7 +462,7 @@ display:inline-block;
 .welcomesec-2 .intro-hp2 {width: 60%; margin: 0 auto; text-align: center;}
 .welcomesec-2 .intro-hp2 h4{font-size: 30px; margin: 0; color: #fff; font-weight: 400;}
 .contact_services{
-background: #0c1239 url(../images/bg/bg-2.jpg) center top no-repeat;
+background: #0c1239 url(../images/bg/bg-2.png) center top no-repeat;
 bacground-size:cover;
 }
 
@@ -593,7 +593,7 @@ border:0;
 	padding: 80px 0 100px;
 }
 .aboutsec-3.secpadd {
-	padding: 85px 0 60px;
+    padding: 37px 0 5px;
 }
 .homeserv1.secpadd2 {
 	padding: 90px 0 40px;
@@ -608,7 +608,7 @@ border:0;
 	margin-bottom: 50px !important;
 }
 .aboutsec-2.secpaddbig {
-	padding: 80px 0 90px;
+    padding: 50px 0 30px;
 }
 
 .delservtest  .fh-testimonials .testi-des {

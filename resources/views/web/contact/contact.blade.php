@@ -46,8 +46,8 @@
                       <i class="flaticon-phone-call "></i>
                       <h4 class="box-title">Call us on</h4>
                       <div class="desc">
-                         <p>Office:+91-6002330216 
-                            <br> Customer Care: +91-6002330216 
+                         <p>Office:+91-987654321 
+                            <br> Customer Care: +91-987654321 
                          </p>
                       </div>
                    </div>
@@ -55,7 +55,7 @@
                       <i class="flaticon-business"></i>
                       <h4 class="box-title">Mail Us at</h4>
                       <div class="desc">
-                         <p>blazelogservices@gmail.com
+                         <p>example@gmail.com
                          </p>
                       </div>
                    </div>

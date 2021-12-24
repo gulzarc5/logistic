@@ -46,7 +46,7 @@
              <div class="fh-section-title clearfix  text-left version-dark paddbtm40">
                 <h2>Application Form</h2>
              </div>
-             <p>Blazelog is looking for ambitious and dynamic Delivery Partners who are ready to take FOOD, GROCERY, MEDICINES and E-COMMERCE delivery to the next level.
+             <p>SRA Express is looking for ambitious and dynamic Delivery Partners who are ready to take FOOD, GROCERY, MEDICINES and E-COMMERCE delivery to the next level.
                 Do deliveries with great Payout, Bonus, Insurance, Flexible work timing and Promotion
              </p>
           </div>
