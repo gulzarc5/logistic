@@ -40,7 +40,7 @@ class LoginController extends Controller
                 return redirect()->back()->with('error','User Id And Password Wrong');
             }
         } else {          
-            return redirect()->back()->with('error','User Id And Password Wrong');
+            return redirect()->back()->with('error','User Id And Password Wrongsss');
         }
     }
 
