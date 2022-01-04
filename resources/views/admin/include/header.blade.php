@@ -56,9 +56,9 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{route('admin.deshboard')}}" class="site_title">
+              <a href="{{route('admin.deshboard')}}" class="site_title" style="height: 60px;">
                 {{-- <img src="{{ asset('logo/logo.png')}}" height="50" style=" width: 90%;"> --}}
-                <img src="{{asset('web/images/sra.png')}}" alt="sra" class="logo-light show-logo"  style=" width: 90%;" >
+                <img src="{{asset('web/images/log.png')}}" alt="sra" class="logo-light show-logo"  style=" width: 90%;" >
               </a>
             </div>
 

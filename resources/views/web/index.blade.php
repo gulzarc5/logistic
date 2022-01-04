@@ -127,7 +127,50 @@
       <div class="fh-section-title clearfix  text-center version-dark paddbtm30">
          <h2>Our Services</h2>
       </div>
-      <div class="row">
+      <div class="row text-center">
+       
+         <div class="blog-wrapper col-md-3">
+            <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
+               <div class="entry-thumbnail">
+                <img src="{{asset('web/images/services/1.jpg')}}" class="img-responsive" alt="" style="border-radius: 10px 10px 0 0;">
+               </div>
+               <header class="entry-header">
+                  <h6 class="entry-title1 text-uppercase"> Normal</h6>
+               </header>     
+            </div>
+         </div>
+         <div class="blog-wrapper col-md-3">
+            <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
+               <div class="entry-thumbnail">
+                <img src="{{asset('web/images/services/2.jpg')}}" class="img-responsive" alt="" style="border-radius: 10px 10px 0 0;"></a>
+               </div>
+               <header class="entry-header">
+                  <h6 class="entry-title1 text-uppercase"> E-commerce</h6>
+               </header>
+            </div>
+         </div>
+         <div class="blog-wrapper col-md-3">
+            <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
+               <div class="entry-thumbnail">
+                <img src="{{asset('web/images/services/3.jpg')}}" class="img-responsive" alt="" style="border-radius: 10px 10px 0 0;">
+               </div>
+               <header class="entry-header">
+                  <h6 class="entry-title1 text-uppercase"> Logistics</h6>
+               </header>     
+            </div>
+         </div>
+         <div class="blog-wrapper col-md-3">
+            <div class="wrapper" style="box-shadow: 0 2px 3px #00000054;border-radius: 10px;overflow: hidden;padding-bottom: 20px;">
+               <div class="entry-thumbnail">
+                <img src="{{asset('web/images/services/4.jpg')}}" class="img-responsive" alt="" style="border-radius: 10px 10px 0 0;">
+               </div>
+               <header class="entry-header">
+                  <h6 class="entry-title1 text-uppercase"> International</h6>
+               </header>     
+            </div>
+         </div>
+      </div>
+      {{-- <div class="row">
          <div class="col-md-4">
             <div class="fh-service-box icon-type-theme_icon style-2">
                <span class="fh-icon"><i class="flaticon-buildings"></i></span>
@@ -177,7 +220,7 @@
                </div>
             </div>
          </div>
-      </div>
+      </div> --}}
    </div>
 </section>
 <!--Services sec end -->

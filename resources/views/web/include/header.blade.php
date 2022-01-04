@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="site-logo col-md-3 col-sm-6 col-xs-6">
                             <a href="{{route('web.index')}}" class="logo">
-                                <img src="{{asset('web/images/sra.png')}}" alt="sra" class="logo-light show-logo">
+                                <img src="{{asset('web/images/log.png')}}" alt="sra" class="logo-light show-logo">
                                 <img src="{{asset('web/images/logo.png')}}" alt="" class="logo-dark hide-logo">
                             </a>
                             <h1 class="site-title"><a href="#">SRA Express</a></h1>

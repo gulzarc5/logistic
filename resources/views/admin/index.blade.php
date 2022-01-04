@@ -80,7 +80,7 @@
 
                 <div>
                   <h1>
-                    <img src="{{asset('web/images/sra.png')}}" alt="sra" class="logo-light show-logo">
+                    <img src="{{asset('web/images/footer-logo.png')}}" alt="sra" class="logo-light show-logo">
                   </h1>
                   <p>©2021 All Rights Reserved. </p>
                 </div>

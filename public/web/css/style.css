@@ -7118,3 +7118,30 @@ ul.service-menu .children li:last-child {
 }
 
 /*custom made*/
+.but {
+  position: fixed;
+  top: 45vh;
+  right: -6vw;
+  transform: rotate(-90deg);
+  font-size: 20px;
+  padding: 20px;
+}
+.form {
+  margin: 50px;
+}
+.pick {
+  padding: 12px 12px;
+    margin-left: 350px;
+    font-size: 18px;
+}
+.call {
+  opacity: .9;
+  margin:30px;
+}
+.entry-title1 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}

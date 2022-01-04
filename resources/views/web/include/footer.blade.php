@@ -4,7 +4,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="contact col-md-3 col-xs-12 col-sm-12">
-                            <a href="#" class="footer-logo"><img src="{{asset('web/images/sra.png')}}" alt="Footer Logo"></a>
+                            <a href="#" class="footer-logo"><img src="{{asset('web/images/log.png')}}" alt="Footer Logo"></a>
                         </div>
                         <!-- <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-signs"></i>
                             <p>Guwahati Branch :-South Sarania Rd.H/no-18 ,</p>
@@ -110,7 +110,96 @@
     </div>
     <div id="off-canvas-layer" class="off-canvas-layer"></div>
     <!--primary-mobile-nav end-->
+    <button type="button" class="btn btn-primary but" data-toggle="modal" data-target=".bd-example-modal-lg">PICKUP &nbsp; REQUEST</button>
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="close call" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <form class="form">
+                <div class="form-row">
+                    <h3>PICKUP  REQUEST</h3>
+                    <h4>Source</h4>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState">
+                        {{-- <select id="inputState" class="form-control">
+                          <option selected>Choose</option>
+                          <option>Assam</option>
+                          <option>Meghalaya</option>
+                        </select> --}}
+                      </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputCity">City</label>
+                      <input type="text" class="form-control" id="inputCity">
+                    </div>
+                </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputPin">Pin</label>
+                        <input type="text" class="form-control" id="inputPin">
+                      </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputArea">Area</label>
+                      <input type="text" class="form-control" id="inputArea">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <h4>Destination</h4>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputState">State</label>
+                        <input type="text" class="form-control" id="inputState">
+                        {{-- <select id="inputState" class="form-control">
+                          <option selected>Choose</option>
+                          <option>Assam</option>
+                          <option>Meghalaya</option>
+                        </select> --}}
+                      </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputCity">City</label>
+                      <input type="text" class="form-control" id="inputCity">
+                    </div>
+                </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputPin">Pin</label>
+                        <input type="text" class="form-control" id="inputPin">
+                      </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputArea">Area</label>
+                      <input type="text" class="form-control" id="inputArea">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress">
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputDescription">Description</label>
+                        <textarea id="w3review" name="w3review" rows="4" cols="50">
+                        </textarea>
+                      </div>
+                  </div>
+                <button type="submit" class="btn btn-primary pick">Pickup Request</button>
+              </form>
+        </div>
+      </div>
+    </div>
     <!--Scroll to top-->
     <a id="scroll-top" class="backtotop" href="#page-top"><i class="fa fa-angle-up"></i></a>
 
