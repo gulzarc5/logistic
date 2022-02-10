@@ -346,8 +346,9 @@ img {
   height: auto;
 }
 input[type="text"],
-textarea {
-  border: 1px solid #555;
+textarea,
+select {
+  border: 1px solid #555!important;
   background: #fff;
 }
 blockquote {

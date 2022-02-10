@@ -75,6 +75,13 @@ Route::group(['namespace' => 'Admin'],function(){
                 
                 Route::put('update/{id}','ConfigurationController@serviceAreaUpdate')->name('admin.serviceArea_update');
             });
+            Route::group(['prefix'=>'pincode'],function(){
+                Route::get('list','PincodeController@pincodeList')->name('admin.pincode_list');
+                Route::get('list/ajax','PincodeController@pincodeListAjax')->name('admin.pincode_list.ajax');
+                Route::get('form/{id?}','PincodeController@addPincode')->name('admin.pincode.form');
+                Route::post('submit','PincodeController@submit')->name('admin.pincode.submit');
+                Route::get('status/{id}','PincodeController@status')->name('admin.edit.status');
+            });
         });
 
 
@@ -158,6 +165,11 @@ Route::group(['namespace' => 'Admin'],function(){
             Route::get('contact/list/form','ContactController@contactList')->name('admin.contact_list');
             Route::get('ajax/list','ContactController@contactListAjax')->name('admin.contact_list_ajax');
 
+        });
+        Route::group(['prefix'=>'enquiry'],function(){
+            Route::get('list','EnquiryRequestController@list')->name('admin.enquiryList');
+            Route::get('list/ajax','EnquiryRequestController@listAjax')->name('admin.enquiryListAjax');
+            Route::get('details/{id}','EnquiryRequestController@details')->name('admin.enqueryRequest.details');
         });
 
         Route::group(['prefix'=>'partner'],function(){

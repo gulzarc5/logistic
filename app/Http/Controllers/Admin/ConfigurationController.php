@@ -93,8 +93,6 @@ class ConfigurationController extends Controller
                 $btn .='<a href="'.route('admin.city_status',['id'=>encrypt($row->id),'status'=>1]).'" class="btn btn-primary btn-sm" >Enable</a>';
             }            
             return $btn;
-        })->addColumn('state', function($row){          
-            return $row->state->name;
         })->addColumn('status_tab', function($row){
             if ($row->status == 1){
                 return '<a class="btn btn-primary btn-sm">Enabled</a>';
@@ -102,7 +100,7 @@ class ConfigurationController extends Controller
                 return '<a class="btn btn-danger btn-sm">Disabled</a>';
             }
         })
-        ->rawColumns(['action','status_tab','state'])
+        ->rawColumns(['action','status_tab'])
         ->make(true);
     }
 

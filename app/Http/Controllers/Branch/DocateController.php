@@ -35,7 +35,7 @@ class DocateController extends Controller
     public function addDocate(Request $request){        
         
         $this->validate($request, [
-            'cn_no'=>'required',
+            'cn_no'=>'nullable|numeric|digits:10',
             'mode'=>'required',
             'pickup_date'=>'required|date',
             'pickup_time'=>'required',
@@ -62,7 +62,7 @@ class DocateController extends Controller
             'total'=>'required|array|min:1',
             'created_at'=>'required'
         ]);  
-       
+        
         try {
             $docate_id = null;
             DB::transaction(function () use ($request, & $docate_id) {    

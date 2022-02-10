@@ -144,9 +144,11 @@
                       <li class="sub_menu"><a href="{{route('admin.state_list')}}">State</a></li>
                       <li class="sub_menu"><a href="{{route('admin.city_list')}}">City</a></li>
                       <li class="sub_menu"><a href="{{route('admin.serviceArea_list')}}">Service Area</a></li>
+                      <li class="sub_menu"><a href="{{route('admin.pincode_list')}}">Pincode List</a></li>
                     </ul>
                   </li>
                   <li><a href="{{ route('admin.contact_list') }}"><i class="fa fa-product-hunt"></i> Contact </span></a></li>
+                  <li><a href="{{ route('admin.enquiryList')}}"><i class="fa fa-product-hunt"></i> Pickup Requests </span></a></li>
                    <li><a><i class="fa fa-product-hunt" aria-hidden="true"></i> Partners <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li class="sub_menu"><a href="{{route('admin.delivery_executive_list')}}">Delivery Executives </a></li>

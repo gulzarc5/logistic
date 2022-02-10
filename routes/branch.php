@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Branch'],function(){
         //     Route::get('status/update/{user_id}/{status}','UserController@userStatus')->name('branch.userStatus');
         // });
         
-        Route::group(['prefix'=>'docate'],function(){
+        Route::group(['prefix'=>'docate'],function(){ 
             Route::get('add/form','DocateController@addForm')->name('branch.docate_add_form');
             Route::post('add','DocateController@addDocate')->name('branch.add_docate');
             Route::get('city/list/{state_id}','DocateController@cityList')->name('branch.city_list');

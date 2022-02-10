@@ -17,7 +17,7 @@
     	        <div class="x_title">
     	            <h2>New Docate Entry</h2>
     	            <div class="clearfix"></div>
-    	        </div>
+    	        </div> 
                 <div>
                      @if (Session::has('message'))
                         <div class="alert alert-success" >{{ Session::get('message') }}</div>
@@ -123,7 +123,7 @@
                                         <strong>{{ $errors->first('sender_name') }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> 
                             <div class="col-md-6 col-sm-12 col-xs-12 mb-3">
                                 <label for="sender_state">Select State<span><b style="color: red"> * </b></span></label>
                                 <select class="form-control" name="sender_state" id="sender_state"  >

@@ -118,84 +118,108 @@
             <button type="button" class="close call" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-            <form class="form">
+            <form class="form" action="" method="POST">
                 <div class="form-row">
                     <h3>PICKUP  REQUEST</h3>
                     <h4>Source</h4>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="inputState">
-                        {{-- <select id="inputState" class="form-control">
-                          <option selected>Choose</option>
-                          <option>Assam</option>
-                          <option>Meghalaya</option>
-                        </select> --}}
+                        <label for="state">Select State</label>
+                            <select class="form-control" name="source_state" id="source_state">
+                                <option value="">Select State</option>
+                                @foreach ($footer_data['state'] as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger error-area" id="source_state_error"></span>
                       </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity">
+                      <select class="form-control" name="source_city" id="source_city">
+                        <option value="">Select City</option>
+                        {{-- @foreach ($footer_data['city'] as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach --}}
+                        </select>
+                        <span class="text-danger error-area" id="source_city_error"></span>
                     </div>
                 </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputPin">Pin</label>
-                        <input type="text" class="form-control" id="inputPin">
+                        <input type="text" class="form-control" id="source_pin">
+                        <span class="text-danger error-area" id="source_pin_error"></span>
                       </div>
                     <div class="form-group col-md-6">
                       <label for="inputArea">Area</label>
-                      <input type="text" class="form-control" id="inputArea">
+                      <input type="text" class="form-control" id="source_area">
+                      <span class="text-danger error-area" id="source_area_error"></span>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress">
+                        <input type="text" class="form-control" id="source_address">
+                        <span class="text-danger error-area" id="source_address_error"></span>
                       </div>
                   </div>
+
                   <div class="form-row">
                     <h4>Destination</h4>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="inputState">
-                        {{-- <select id="inputState" class="form-control">
-                          <option selected>Choose</option>
-                          <option>Assam</option>
-                          <option>Meghalaya</option>
-                        </select> --}}
+                        <select class="form-control" name="destination_state" id="destination_state">
+                            <option value="">Select State</option>
+                            @foreach ($footer_data['state'] as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                            </select>
+                            <span class="text-danger error-area" id="destination_state_error"></span>
                       </div>
                     <div class="form-group col-md-6">
                       <label for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity">
+                      <select class="form-control" name="destination_city" id="destination_city">
+                        <option value="">Select City</option>
+                        {{-- @foreach ($footer_data['city'] as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach --}}
+                        </select>
+                        <span class="text-danger error-area" id="destination_city_error"></span>
                     </div>
                 </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputPin">Pin</label>
-                        <input type="text" class="form-control" id="inputPin">
+                        <input type="text" class="form-control" id="destination_pin">
+                        <span class="text-danger error-area" id="destination_pin_error"></span>
                       </div>
                     <div class="form-group col-md-6">
                       <label for="inputArea">Area</label>
-                      <input type="text" class="form-control" id="inputArea">
+                      <input type="text" class="form-control" id="destination_area">
+                      <span class="text-danger error-area" id="destination_area_error"></span>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="inputAddress">
+                        <input type="text" class="form-control" id="destination_address">
+                        <span class="text-danger error-area" id="destination_address_error"></span>
                       </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputDescription">Description</label>
-                        <textarea id="w3review" name="w3review" rows="4" cols="50">
-                        </textarea>
+                        <textarea id="description" name="description" rows="4" cols="50"></textarea>
+                        <span class="text-danger error-area" id="description_error"></span>
                       </div>
                   </div>
-                <button type="submit" class="btn btn-primary pick">Pickup Request</button>
+                  <div class="text-center">
+                    <button type="button" id="submit_button" class="btn btn-primary" onclick="submitQuery()">Pickup Request <span id="success"></span></button>
+                </div>      
+                
               </form>
         </div>
       </div>
@@ -245,3 +269,119 @@
 </body>
 
 </html>
+<script>
+$(document).ready(function(){
+    $('#source_state').select2();
+    $('#destination_state').select2();
+});
+
+
+function submitQuery(){
+    var source_state = $("#source_state").val();
+    var source_city = $("#source_city").val();
+    var source_pin = $("#source_pin").val();
+    var source_area = $("#source_area").val();
+    var source_address = $("#source_address").val();
+    var destination_state = $("#destination_state").val();
+    var destination_city = $("#destination_city").val();
+    var destination_pin = $("#destination_pin").val();
+    var destination_area = $("#destination_area").val();
+    var destination_address = $("#destination_address").val();
+    var description = $("#description").val();
+
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });         
+
+        $.ajax({
+            type: "POST",
+            url:"{{ route('web.enquery_request.submit') }}", 
+            data: {
+            "_token": "{{ csrf_token() }}",
+                source_state : source_state,
+                source_city : source_city,
+                source_pin : source_pin,
+                source_area : source_area,
+                source_address : source_address,
+                destination_state : destination_state,
+                destination_city : destination_city,
+                destination_pin : destination_pin,
+                destination_area : destination_area,
+                destination_address : destination_address,
+                description : description,
+            },
+        
+            beforeSend: function(){
+                $('#submit_button').attr('disabled',true);
+                $("#submit_button").html(`<i class="fa fa-spinner fa-spin" aria-hidden="true" style="color:white"></i>`);
+            },
+            error: function (xhr) {
+                $("[id$='_error']").html('');
+                $.each(xhr.responseJSON.errors, function(key,value) {
+                    $('#'+key+'_error').html('<span style="color:red">'+value+'</span');
+                });
+                $("#submit_button").html("Pickup Request");
+                $('#submit_button').attr('disabled',false);
+            },
+            success:function(response){ 
+                if (response.status) {
+                    $("#submit_button").html("Request Send Successfully");
+                    $('#submit_button').attr('disabled',true);
+                }
+            }
+        });         
+};
+
+$("#source_state").change(function(){
+    var state_id = $(this).val();
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/enquery/city/list')}}"+"/"+state_id+"",
+        success:function(data){
+            console.log(data);
+            
+            if ($.isEmptyObject(data)) {
+                $("#source_city").html("<option value=''>No City Found</option>"); 
+            } else {
+                $("#source_city").html("<option value=''>Please Select City</option>"); 
+                $.each( data, function( key, value ) {
+                    $("#source_city").append("<option value='"+value.id+"'>"+value.name+"</option>");
+                });                         
+            }       
+        }
+    });
+});
+$("#destination_state").change(function(){
+    var state_id = $(this).val();
+    
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type:"GET",
+        url:"{{ url('/enquery/city/list')}}"+"/"+state_id+"",
+        success:function(data){
+            console.log(data);
+            
+            if ($.isEmptyObject(data)) {
+                $("#destination_city").html("<option value=''>No City Found</option>"); 
+            } else {
+                $("#destination_city").html("<option value=''>Please Select City</option>"); 
+                $.each( data, function( key, value ) {
+                    $("#destination_city").append("<option value='"+value.id+"'>"+value.name+"</option>");
+                });                         
+            }       
+        }
+    });
+});
+</script>

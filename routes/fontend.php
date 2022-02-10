@@ -69,3 +69,7 @@ Route::group(['namespace' => 'Web'], function () {
     Route::post('/add/contacts','TrackingController@addContacts')->name('web.add_contacts');
     Route::post('/add/partner/{type}','TrackingController@addPartner')->name('web.add_partner');
 });
+Route::group(['prefix'=>'enquery'],function(){
+    Route::get('/city/list/{state_id}','Admin\EnquiryRequestController@cityList')->name('we.city.list');
+    Route::post('/request/submit','Admin\EnquiryRequestController@submit')->name('web.enquery_request.submit');
+});
