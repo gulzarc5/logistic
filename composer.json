@@ -17,7 +17,8 @@
         "phpoffice/phpspreadsheet": "^1.15",
         "santigarcor/laratrust": "^6.1",
         "yajra/laravel-datatables": "^1.5",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "milon/barcode": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

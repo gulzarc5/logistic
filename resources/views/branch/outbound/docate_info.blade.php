@@ -33,7 +33,7 @@
                                 @elseif($docate_data->payment_option=='cod')
                                     Topay
                                 @else
-                                    Cash
+                                    Cash 
                                 @endif
                             </h5>
                             <h5 class="col-md-12 col-sm-12 col-xs-12"><strong>Origin:</strong>
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="form-group" id="btn">
-            <button class="btn btn-sm btn-primary text-white" id="print" >Print</button>
+            <a href= "{{route('branch.outbound.docate_print',['docate_id' => $docate_data->docate_id])}}"class="btn btn-sm btn-primary text-white" id="print" >Print</a>
             <a href="{{ route('branch.docate_add_form') }}" class="btn btn-sm btn-warning text-white">Add More Docates</a>
         </div>
       </div>
@@ -156,65 +156,3 @@
   <!-- /page content -->
 
  @endsection
- @section('script')
- <script>
-$('#print').click(function(){
-var printWindow = window.open('about:blank', 'Print', 'left=50000,top=50000,width=0,height=0');
-printWindow.document.write(`
-                @if(isset($docate_data))
-                <table border=1 style="border-collapse: collapse;width:90%;border: 1px solid #999;text-align:center; margin: auto;" id="report_list">
-                @else
-                <table border=1 id="report_list" style="border-collapse: collapse;width:90%;border: 1px solid #999;text-align:center; margin: auto;display: none"> 
-                @endif
-                    <thead>
-                       <h4>Docate Data</h4>
-                        <tr class="headings">
-                            @if(isset($docate_data))
-                                <th class="column-title" style="padding:10px;background:#f9d776" id="docate_no">Docate No</th>
-                            @endif
-                           <th class="column-title" style="padding:10px;background:#f9d776" id="sender_name">Sender Name</th>
-                            <th class="column-title" style="padding:10px;background:#f9d776" id="origin"> Origin</th>
-                            <th class="column-title" style="padding:10px;background:#f9d776" id="destination">Destination</th>
-                            <th class="column-title" style="padding:10px;background:#f9d776" id="receiver_name">Receiver Name</th>
-                            <th class="column-title" style="padding:10px;background:#f9d776" id="weight">Weight</th>
-                            <th class="column-title" style="padding:10px;background:#f9d776" id="packet">Packet</th>
-                        </tr>
-                    </thead>
-                    </tbody>
-                    <tbody id="data_row">
-                    @if(isset($docate_data))
-                       
-                            <tr>
-                                <td>{{ $docate_data->docate_id }}</td>
-                                <td>{{ $docate_data->sender_name }}</td>
-                                <td>{{ $docate_data->origin_city }}</td>
-                                <td>{{ $docate_data->destination_city}}</td>
-                                <td>{{ $docate_data->receiver_name }}</td>
-                                <td>{{ $docate_data->actual_weight }}</td>
-                                <td>{{ $docate_data->no_of_box }}</td>
-                            </tr>
-                        
-                    @endif
-                    </tbody>
-                </table>`);
-printWindow.document.close();
-printWindow.onload = function() {
-    var isIE = /(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
-    if (isIE) {
-        printWindow.print();
-        setTimeout(function () { printWindow.close(); }, 100);
-    } else {
-        setTimeout(function () {
-            printWindow.print();
-            var ival = setInterval(function() {
-                printWindow.close();
-                clearInterval(ival);
-            }, 200);
-        }, 500);
-    }
-}
-
-});
-
-</script>
-@endsection

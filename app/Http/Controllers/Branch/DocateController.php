@@ -32,8 +32,7 @@ class DocateController extends Controller
         return view('branch.outbound.docate_entry',compact('city','state'));
     }
 
-    public function addDocate(Request $request){        
-        
+    public function addDocate(Request $request){     
         $this->validate($request, [
             'cn_no'=>'nullable|numeric|digits:10',
             'mode'=>'required',
@@ -72,8 +71,9 @@ class DocateController extends Controller
                     $docate->collecting_amount = $request->input('amount');
                 }
                 $cn_no = $request->input('cn_no');
+
+                // $docate->docate_id = $cn_no;
                 $docate->send_mode = $request->input('mode');
-                $docate->docate_id=$cn_no;
                 $docate->no_of_box = $request->input('box');        
                 $docate->actual_weight = $request->input('actual_weight');
                 $docate->chargeable_weight = $request->input('chargeable_weight');
@@ -83,8 +83,25 @@ class DocateController extends Controller
                 $docate->pickup_date =$request->input('pickup_date');
                 $docate->pickup_time = $request->input('pickup_time');
                 $docate->created_at = Carbon::parse($request->input('created_at'))->format('Y-m-d H:i:s');
-                $docate->save();
-
+                if (!empty($cn_no)) {
+                    $docate->docate_id = $cn_no;
+                }  
+                if ($docate->save()) {
+                    if (empty($docate->docate_id)) {                     
+                        $serial_id = $docate->id;
+                        $cn_no = sprintf("%'.010d", $serial_id);
+                        $old_docate = Docate::where('docate_id',$cn_no)->count();
+                        if ($old_docate > 0) {
+                            do {
+                                $cn_no = rand(1000000000,9999999999);  
+                                $old_docate = Docate::where('docate_id',$cn_no)->count();                             
+                            } while ($old_docate > 0);
+                        }
+                        $docate->docate_id = $cn_no;
+                        $docate->save();
+                    }
+                }
+       
                 $this->srDetailsInsert($request,$docate);
                 $this->docateHistory($docate);
                 $content = $request->input('content');
@@ -102,9 +119,12 @@ class DocateController extends Controller
                     $contents->total = $total[$i];
                     $contents->save();
                 }
-                $docate_id = $docate->id;        
+                $docate_id = $docate->id;
+
+                       
             });
             return redirect()->route('branch.docate_info',$docate_id);
+            // return redirect()->route('branch.outbound.docate_print',$docate_id);
         }catch (\Exception $e) {
             dd($e);
             return redirect()->back()->with('error', 'Something went Wrong! Try after sometime!');
@@ -180,5 +200,23 @@ class DocateController extends Controller
         }else{
             return 2;
         }
+    }
+    public function print($docate_id)
+    {
+        $docate_data = Docate::where('docate.id',$docate_id)
+            ->where('branch_id',$this->branch_id)
+            ->join('docate_details','docate_details.docate_id','=','docate.id')
+            ->join('docate_details as sender_details','sender_details.id','=','docate.sender_id')
+            ->join('docate_details as receiver_details','receiver_details.id','=','docate.receiver_id')
+            ->join('city as origin','origin.id','=','sender_details.city')
+            ->join('city as destination','destination.id','=','receiver_details.city')
+            ->join('city as sender_city','sender_city.id','=','sender_details.city')
+            ->join('city as receiver_city','receiver_city.id','=','receiver_details.city')
+            ->join('state as sender_state','sender_state.id','=','sender_details.state')
+            ->join('state as receiver_state','receiver_state.id','=','receiver_details.state')
+            ->select('docate.*','origin.name as origin_city','destination.name as destination_city','sender_details.pin as sender_pin','sender_details.address as sender_address','receiver_details.pin as receiver_pin','receiver_details.address as receiver_address','sender_details.name as sender_name','receiver_details.name as receiver_name','sender_city.name as sender_city','receiver_city.name as receiver_city','sender_state.name as sender_state','receiver_state.name as receiver_state')
+            ->first();   
+        $content = Content::where('docate_id',$docate_id)->get();
+        return view('branch.outbound.docate_print',compact('docate_data','content'));
     }
 }

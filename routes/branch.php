@@ -40,7 +40,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('city/list/{state_id}','DocateController@cityList')->name('branch.city_list');
             Route::get('info/{docate_id}','DocateController@docateInfo')->name('branch.docate_info');
             Route::get('check/{cn_no}','DocateController@checkDocate')->name('branch.check_docate');
-            Route::view('print','branch.outbound.docate_print')->name('branch.outbound.docate_print');
+            Route::get('print/{docate_id}','DocateController@print')->name('branch.outbound.docate_print');
         });
 
 

@@ -10,6 +10,7 @@
 
     $("#cn_no").blur(function(){
         var cn_no = $(this).val();
+        console.log(cn_no);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

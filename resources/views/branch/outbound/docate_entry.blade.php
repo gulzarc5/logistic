@@ -289,7 +289,7 @@
 
     	            	<div class="form-group">    
                             <button type="submit" class='btn btn-success'>Submit</button>
-                            <a href="{{route('branch.outbound.docate_print')}}" class='btn btn-primary'>Print</a>
+                            {{-- <a href="{{route('branch.outbound.docate_print')}}" class='btn btn-primary'>Print</a> --}}
     	            	</div>
     	            	
 
