@@ -4,7 +4,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="contact col-md-3 col-xs-12 col-sm-12">
-                            <a href="#" class="footer-logo"><img src="{{asset('web/images/log.png')}}" alt="Footer Logo"></a>
+                            <a href="#" class="footer-logo"><img src="{{asset('web/images/log.png')}}" alt="Footer Logo" style="border-radius: 4px;" /></a>
                         </div>
                         <!-- <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-signs"></i>
                             <p>Guwahati Branch :-South Sarania Rd.H/no-18 ,</p>
