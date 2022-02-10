@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="form-group" id="btn">
-            <a href= "{{route('branch.outbound.docate_print',['docate_id' => $docate_data->docate_id])}}"class="btn btn-sm btn-primary text-white" id="print" >Print</a>
+            <a href= "{{route('branch.outbound.docate_print',['docate_id' => $docate_data->docate_id])}}"class="btn btn-sm btn-primary text-white" id="print" target="_blank">Print</a>
             <a href="{{ route('branch.docate_add_form') }}" class="btn btn-sm btn-warning text-white">Add More Docates</a>
         </div>
       </div>

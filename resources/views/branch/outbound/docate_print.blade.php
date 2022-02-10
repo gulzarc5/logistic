@@ -603,5 +603,13 @@
             </table>
         </div>
     </section>
+    <script>
+        // Auto Print
+        window.print();
+        window.onafterprint = function(event) {
+          window.close();
+          window.location.href = "{{ url()->previous() }}";
+        };
+    </script>
 </body>
 </html>
