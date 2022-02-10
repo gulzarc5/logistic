@@ -44,14 +44,14 @@
                    <form>
                       <div class="fh-form track-form">
                          <div>
-                            <label>Pin<span class="require">*</span></label>
                             <p class="field">
-                               <input size="40" placeholder="Pin*" type="text">
+                               <input size="40" placeholder="Enter Pincode*" type="text">
                             </p>
+                            <p class="submit">
+                              <input value="Check Available" class="fh-btn" type="submit">
+                           </p>
                          </div>
-                         <p class="submit">
-                            <input value="Search Now" class="fh-btn" type="submit">
-                         </p>
+                         
                       </div>
                    </form>
                 </div>

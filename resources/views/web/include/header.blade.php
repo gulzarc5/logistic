@@ -2,42 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SRA Express</title>
     <!-- Stylesheets -->
     <!-- bootstrap v3.3.6 css -->
-    <link href="{{asset('web/css/bootstrap.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/bootstrap.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- font-awesome css -->
-    <link href="{{asset('web/css/font-awesome.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/font-awesome.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- flaticon css -->
-    <link href="{{asset('web/css/flaticon.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/flaticon.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- factoryplus-icons css -->
-    <link href="{{asset('web/css/factoryplus-icons.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/factoryplus-icons.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- animate css -->
-    <link href="{{asset('web/css/animate.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/animate.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- owl.carousel css -->
-    <link href="{{asset('web/css/owl.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/owl.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- fancybox css -->
-    <link href="{{asset('web/css/jquery.fancybox.css')}}" rel="stylesheet">
-    <link href="{{asset('web/css/hover.css')}}" rel="stylesheet">
-    <link href="{{asset('web/css/frontend.css')}}" rel="stylesheet">
-    <link href="{{asset('web/css/style.css')}}" rel="stylesheet">
+    <link rel="preload" type="text/css" href="{{asset('web/css/jquery.fancybox.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/hover.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/frontend.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/style.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!-- switcher css -->
-    <link href="{{asset('web/css/switcher.css')}}" rel="stylesheet">
-    <link href="{{asset('web/css/switcher/bluehome.css')}}" rel="stylesheet">
-    <link rel='stylesheet' id='factoryhub-color-switcher-css' href='{{asset('web/css/switcher/default.css')}}' />
+    <link rel="preload" type="text/css" href="{{asset('web/css/switcher.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/switcher/bluehome.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href='{{asset('web/css/switcher/default.css')}}' media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';"/>
     <!-- revolution slider css -->
-    <link rel="stylesheet" type="text/css" href="{{asset('web/css/revolution/settings.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('web/css/revolution/layers.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('web/css/revolution/navigation.css')}}">
+    <link rel="preload" type="text/css" href="{{asset('web/css/revolution/settings.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/revolution/layers.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/revolution/navigation.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
     <!--Favicon-->
     {{-- <link rel="shortcut icon" href="{{asset('web/images/favicon.png')}}" type="image/x-icon">
     <link rel="icon" href="{{asset('web/images/favicon.png')}}" type="image/x-icon"> --}}
     <!-- Responsive -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{asset('web/css/custom.css')}}">
-    <link href="{{asset('web/css/responsive.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('web/css/responsive2.css')}}">
+    <link rel="preload" type="text/css" href="{{asset('web/css/custom.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/responsive.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
+    <link rel="preload" type="text/css" href="{{asset('web/css/responsive2.css')}}" media="screen" as="style"onload="this.onload=null;this.rel='stylesheet';" />
 </head>
 
 <body class="home   header-sticky header-v2 hide-topbar-mobile">

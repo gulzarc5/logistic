@@ -40,6 +40,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('city/list/{state_id}','DocateController@cityList')->name('branch.city_list');
             Route::get('info/{docate_id}','DocateController@docateInfo')->name('branch.docate_info');
             Route::get('check/{cn_no}','DocateController@checkDocate')->name('branch.check_docate');
+            Route::view('print','branch.outbound.docate_print')->name('branch.outbound.docate_print');
         });
 
 
@@ -47,9 +48,7 @@ Route::group(['namespace' => 'Branch'],function(){
             Route::get('list/','ManifestController@manifestList')->name('branch.manifest_list');
             Route::get('fetch/docate/details/{docate_no}','ManifestController@fetchDocateDetails')->name('branch.fetch_docate_details');
             Route::post('add/no','ManifestController@addManifestNo')->name('branch.add_manifest_no');
-            Route::get('info/{manifest_id}','ManifestController@manifestInfo')->name('branch.manifest_info');
-           
-            
+            Route::get('info/{manifest_id}','ManifestController@manifestInfo')->name('branch.manifest_info');      
         });
 
 

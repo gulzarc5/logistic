@@ -4,7 +4,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="contact col-md-3 col-xs-12 col-sm-12">
-                            <a href="#" class="footer-logo"><img src="{{asset('web/images/log.png')}}" alt="Footer Logo"></a>
+                            <a href="#" class="footer-logo"><img src="{{asset('web/images/log.png')}}" alt="Footer Logo" style="border-radius: 4px;" /></a>
                         </div>
                         <!-- <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-signs"></i>
                             <p>Guwahati Branch :-South Sarania Rd.H/no-18 ,</p>
@@ -110,18 +110,21 @@
     </div>
     <div id="off-canvas-layer" class="off-canvas-layer"></div>
     <!--primary-mobile-nav end-->
-    <button type="button" class="btn btn-primary but" data-toggle="modal" data-target=".bd-example-modal-lg">PICKUP &nbsp; REQUEST</button>
+    <div class="but">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">PICKUP &nbsp; REQUEST</button>
+        <a class="btn btn-warning" href="{{route('web.pinsearch.pinsearch')}}">Pincode Availablity</a>
+    </div>
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <button type="button" class="close call" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            <form class="form" action="" method="POST">
+            <div class="modal-header new-bg">
+                <button type="button" class="close call" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" style="color: #fff">PICKUP  REQUEST</h4>
+            </div>
+            <form class="form-pickup" action="" method="POST">
                 <div class="form-row">
-                    <h3>PICKUP  REQUEST</h3>
-                    <h4>Source</h4>
+                    <h4 class="modal-section-title">Source</h4>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -166,7 +169,7 @@
                   </div>
 
                   <div class="form-row">
-                    <h4>Destination</h4>
+                    <h4 class="modal-section-title">Destination</h4>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -234,7 +237,7 @@
     <!-- fancybox js -->
     <script src="{{asset('web/js/jquery.fancybox.pack.js')}}"></script>
     <script src="{{asset('web/js/jquery.fancybox-media.js')}}"></script>
-    <script src="../../../../unpkg.com/isotope-layout%403.0.5/dist/isotope.pkgd.min.js')}}"></script>
+    <script src="https://unpkg.com/isotope-layout%403.0.5/dist/isotope.pkgd.min.js"></script>
     <!-- owl.carousel js -->
     <script src="{{asset('web/js/owl.js')}}"></script>
     <!-- counter js -->
