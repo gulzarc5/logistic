@@ -292,7 +292,8 @@ blockquote {
 .fh-team .team-member .team-header:before,
 .fh-icon-box.version-light:before,
 .fh-btn-2,
-.fh-testimonials-carousel .testi-wrapper {
+.fh-testimonials-carousel .testi-wrapper,
+.new-bg {
   background: linear-gradient(45deg, #1359a8, #ed1c24);
 }
 
