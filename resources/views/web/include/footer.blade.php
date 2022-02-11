@@ -299,7 +299,7 @@ function submitQuery(){
         });         
 
         $.ajax({
-            type: "POST",
+            method: "POST",
             url:"{{ route('web.enquery_request.submit') }}", 
             data: {
             "_token": "{{ csrf_token() }}",

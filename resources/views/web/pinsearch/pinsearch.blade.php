@@ -29,7 +29,7 @@
           </div>
        </div>
     </div>
- </div>
+</div>
  <!--Page Header end-->
  <!--Partner with us -->
  <section class="tracksipment secpadd">
@@ -41,14 +41,17 @@
              </div>
              <div class="row paddtop30">
                 <div class="col-sm-9">
-                   <form>
+                   <form method="POST" action="">
                       <div class="fh-form track-form">
                          <div>
                             <p class="field">
-                               <input size="40" placeholder="Enter Pincode*" type="text">
+                               <input maxlength="6" placeholder="Enter Pincode*" id="pin" type="text">
+                               <span style="
+                               font-size: 15px;
+                               font-weight: 600;" id="message"></span>
                             </p>
                             <p class="submit">
-                              <input value="Check Available" class="fh-btn" type="submit">
+                              <input value="Check Available" onclick="checkPin()" id="submit_button" class="fh-btn" type="button">
                            </p>
                          </div>
                          
@@ -64,4 +67,36 @@
 @endsection
 
 @section('script')
+<script>
+function checkPin(){
+   let pin = $("#pin").val();
+   console.log(pin);
+   if (isNaN(pin)) 
+   {
+      $("#message").css('color', 'red').html('Invalid Input');
+   }
+   else{
+      $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+      }); 
+      $.ajax({
+         method: "POST",
+         url:"{{ route('web.pincode.check') }}", 
+         data: {
+         "_token": "{{ csrf_token() }}",
+               pin : pin,
+         },
+         success:function(response){ 
+            if (response.status) {
+               $("#message").css('color', 'green').html('Pin Code Available');
+            }else{
+               $("#message").css('color', 'red').html('Pin Code is Not Available');
+            }
+         }
+      });
+   }
+}
+</script>
 @endsection

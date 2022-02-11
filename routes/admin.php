@@ -81,6 +81,7 @@ Route::group(['namespace' => 'Admin'],function(){
                 Route::get('form/{id?}','PincodeController@addPincode')->name('admin.pincode.form');
                 Route::post('submit','PincodeController@submit')->name('admin.pincode.submit');
                 Route::get('status/{id}','PincodeController@status')->name('admin.edit.status');
+                Route::get('delete/{id}','PincodeController@delete')->name('admin.pincode.delete');
             });
         });
 

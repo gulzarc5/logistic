@@ -18,6 +18,7 @@ class PincodeController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function($row){
             $btn ='<a href="'.route('admin.pincode.form',['id'=>$row->id]).'" class="btn btn-warning btn-sm">Edit</a>';
+            $btn .='<a href="'.route('admin.pincode.delete',['id'=>$row->id]).'" class="btn btn-dark btn-sm">Delete</a>';
             if ($row->status == '1') {
                 $btn .='<a href="'.route('admin.edit.status',['id'=>$row->id]).'" class="btn btn-danger btn-sm" >Disable</a>';
             } else {
@@ -73,5 +74,30 @@ class PincodeController extends Controller
         $pincode->status = $pincode->status == 1 ? 2 : 1;
         $pincode->save();
         return back();
+    }
+    public function delete($id)
+    {
+        $pincode = Pincode::findOrFail($id);
+        $pincode->delete();
+        return back();
+    }
+    public function check(Request $request)
+    {
+        $pin = $request->input('pin');
+        $check = Pincode::where('pincode',$pin)->count();
+        if ($check > 0) {
+            $response = [
+                'status' => true,
+                'message' => "Pin Code Available",
+            ];
+            return response()->json($response, 200);
+        } else {
+            $response = [
+                'status' => false,
+                'message' => "Pin Code Not Available",
+            ];
+            return response()->json($response, 200);
+        }
+        
     }
 }

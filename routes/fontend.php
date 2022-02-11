@@ -73,3 +73,4 @@ Route::group(['prefix'=>'enquery'],function(){
     Route::get('/city/list/{state_id}','Admin\EnquiryRequestController@cityList')->name('we.city.list');
     Route::post('/request/submit','Admin\EnquiryRequestController@submit')->name('web.enquery_request.submit');
 });
+Route::post('web.pincode.check','Admin\PincodeController@check')->name('web.pincode.check');
