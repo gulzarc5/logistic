@@ -55,8 +55,8 @@
                                 <a class="current-office" href="#">Regd Office</a>
                             </div>
                             <ul class="topbar-office active">
-                                <li><i class="flaticon-telephone" aria-hidden="true"></i>Phone +91-987654321 </li>
-                                <li><i class="flaticon-web" aria-hidden="true"></i>example@gmail.com</li>
+                                <li ><i class="flaticon-telephone" aria-hidden="true"></i>Phone <a href="tel:7002932778" style="color:white;">  7002932778 /</a> <a href="tel:8876800155" style="color:white;">  8876800155 </a> </li>
+                                <li><i class="flaticon-web" aria-hidden="true"></i> <a href="mailto:sar.gau20@gmail.com" style="color:white;">  sar.gau20@gmail.com </a></li>
                                 <!-- <li><i class="flaticon-pin" aria-hidden="true"></i>Bhetapara, Guwahati – 781028</li> -->
                             </ul>
                         </div>

@@ -46,8 +46,7 @@
                       <i class="flaticon-phone-call "></i>
                       <h4 class="box-title">Call us on</h4>
                       <div class="desc">
-                         <p>Office:+91-987654321 
-                            <br> Customer Care: +91-987654321 
+                         <p><a href="tel:7002932778" >  7002932778 /</a> <a href="tel:8876800155" >  8876800155 </a>
                          </p>
                       </div>
                    </div>
@@ -55,16 +54,17 @@
                       <i class="flaticon-business"></i>
                       <h4 class="box-title">Mail Us at</h4>
                       <div class="desc">
-                         <p>example@gmail.com
+                         <p><a href="mailto:sar.gau20@gmail.com">  sar.gau20@gmail.com </a>
                          </p>
                       </div>
                    </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                    <div class="fh-contact-box type-social ">
-                      <i class="flaticon-share"></i>
-                      <h4 class="box-title">We are social</h4>
-                      <ul class="clearfix">
+                      <i class="fa fa-map-marker"></i>
+                      <h4 class="box-title">Our Address</h4>
+                      <p>Opposite : HOTEL SJ INTERNATIONAL, <br>SOLAPARA ROAD, PALTAN BAZAR,<br> GUWAHATI KAMRUP (M),<br> Pin - 781008</p>
+                      {{-- <ul class="clearfix">
                          <li class="facebook">
                             <a href="#" target="_blank">
                             <i class="fa fa-facebook"></i>
@@ -85,7 +85,7 @@
                             <i class="fa fa-linkedin"></i>
                             </a>
                          </li>
-                      </ul>
+                      </ul> --}}
                    </div>
                 </div>
              </div>

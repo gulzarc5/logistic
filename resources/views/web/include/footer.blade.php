@@ -11,7 +11,7 @@
                             <h4>Ulubari-781007</h4></div> -->
                         <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-phone-call "></i>
                             <p>Phone Number :</p>
-                            <h4>+91-987654321</h4></div>
+                            <h4><a href="tel:7002932778" style="color:white;">  7002932778 </a> </h4></div>
                         <div class="contact col-md-3 col-xs-12 col-sm-12"><i class="flaticon-clock-1"></i>
                             <p>Opening Hours :</p>
                             <h4>MON – FRI: 8AM – 5PM</h4></div>
